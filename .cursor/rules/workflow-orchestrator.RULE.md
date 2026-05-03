@@ -7,6 +7,7 @@ alwaysApply: true
 
 - For project setup and governance requests, default to `commands/init-layout-project.md`.
 - For day-to-day layout implementation requests, default to `commands/develop-layout-task.md`.
+- Enforce `rules/directive-compliance.RULE.md` as mandatory baseline for all task flows.
 - Do not expect the user to explicitly name all supporting commands.
 - Automatically choose and chain sub-commands based on intent:
   - page creation
@@ -15,5 +16,11 @@ alwaysApply: true
   - UI-kit documentation update
 - Include `a11y-checklist` for interactive changes by default.
 - Include `performance-checklist` for new pages, section delivery, and media-heavy updates.
+- Include `validate-all-directives` as mandatory final post-check for every implementation task before completion.
+- For mockup-driven implementation, require manual clarification of breakpoint baseline and typography contract before coding.
 - Include `register-new-page-in-index` whenever a new page is created.
+- For new-page/build-section flows, validate that global shell (`header`/`sidebar`) remains in root layout/shared partials and page templates keep only page content.
+- For Figma-driven implementation, enforce `rules/figma-asset-integrity.RULE.md` checks (inline SVG for vectors, local `app/img/` paths for raster, no broken/empty image sources).
+- For Figma-driven page/section work, run `commands/validate-figma-assets.md` as explicit post-check before completion.
+- For mockup-driven page/section work, run `commands/validate-pixel-perfect.md` as explicit post-check before completion.
 - Include `sync-cursor-bilingual-structure` whenever `.cursor/` structure/content changes.

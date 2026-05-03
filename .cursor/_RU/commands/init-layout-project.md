@@ -24,6 +24,14 @@
 7. Подтверди политику двуязычной поддержки `.cursor/` (`sync-cursor-bilingual-structure`).
 8. Подтверди обязательный объем документации (UI-kit и design tokens, если есть).
 9. Подтверди performance-baseline и применение `performance-checklist` в задачах реализации.
+10. Подтверди baseline неукоснительного соблюдения директив:
+   - все директивы `.cursor` обязательны к исполнению
+   - исключения недопустимы без явной эскалации blocker
+   - завершение задачи запрещено при невыполнении обязательных директив
+11. Подтверди baseline policy для pixel-perfect в mockup-driven задачах:
+   - ручное уточнение breakpoint baseline обязательно
+   - ручное уточнение typography contract обязательно
+   - перед `validate-all-directives` обязательно выполнять `validate-pixel-perfect`
 
 ## Результат
 

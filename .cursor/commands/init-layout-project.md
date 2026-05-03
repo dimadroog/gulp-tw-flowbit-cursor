@@ -24,6 +24,14 @@ Use this command for project initialization and governance setup before active l
 7. Confirm bilingual `.cursor/` maintenance policy (`sync-cursor-bilingual-structure`).
 8. Confirm required documentation scope (UI-kit and design tokens if present).
 9. Confirm performance baseline and usage of `performance-checklist` for delivery tasks.
+10. Confirm strict directive compliance baseline:
+   - all `.cursor` directives are mandatory
+   - no exceptions without explicit blocker escalation
+   - completion is forbidden if required directives are not met
+11. Confirm pixel-perfect baseline policy for mockup-driven work:
+   - manual clarification of breakpoint baseline is mandatory
+   - manual clarification of typography contract is mandatory
+   - final delivery requires `validate-pixel-perfect` before `validate-all-directives`
 
 ## Output
 

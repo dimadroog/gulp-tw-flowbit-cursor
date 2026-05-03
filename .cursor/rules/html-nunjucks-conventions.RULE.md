@@ -14,6 +14,9 @@ alwaysApply: true
 - For utility-heavy markup, keep atomic classes in the canonical `prettier-plugin-tailwindcss` order.
 - Keep heading hierarchy valid (`h1` -> `h2` -> `h3`) without skipping levels in document structure.
 - Treat `section` and `article` as titled regions: include a meaningful heading inside each.
+- Treat site shell as layout-level responsibility: keep global `header`/`sidebar` in root layout + shared partials, not page templates.
+- Keep page templates focused on page content: default to `{% extends "njk-layouts/_main.njk" %}` and render only `{% block content %}`.
+- Introduce an additional layout only when a confirmed structural divergence exists (not for one-off page tweaks).
 - Default page language is Russian: use `<html lang="ru">` unless the task explicitly requires another locale.
 - Use only this viewport declaration: `<meta name="viewport" content="width=device-width, initial-scale=1">`.
 - Keep meta placeholders for new pages when final SEO content is not provided:
