@@ -1,0 +1,20 @@
+const js = require("@eslint/js");
+const globals = require("globals");
+
+module.exports = [
+  {
+    ignores: ["dist/**", "node_modules/**"],
+  },
+  js.configs.recommended,
+  {
+    files: ["gulpfile.js", "postcss.config.js", "tailwind.config.js", "app/js/**/*.js"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "script",
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
+  },
+];

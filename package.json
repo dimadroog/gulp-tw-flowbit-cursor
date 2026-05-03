@@ -1,0 +1,47 @@
+{
+  "name": "gulp-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "gulp": "gulp",
+    "build": "gulp build",
+    "dev": "gulp",
+    "lint": "npm run lint:js && npm run lint:styles && npm run format:check",
+    "lint:js": "eslint gulpfile.js postcss.config.js tailwind.config.js app/js/**/*.js",
+    "lint:styles": "stylelint \"app/scss/**/*.scss\"",
+    "format": "prettier \"app/**/*.{js,scss}\" \"*.{js,json,md,cjs}\" --write",
+    "format:check": "prettier \"app/**/*.{js,scss}\" \"*.{js,json,md,cjs}\" --check",
+    "qa": "npm run build && npm run lint"
+  },
+  "author": "droog",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.26.0",
+    "autoprefixer": "^10.4.21",
+    "browser-sync": "^3.0.3",
+    "del": "^6.0.0",
+    "eslint": "^9.26.0",
+    "eslint-config-prettier": "^10.1.5",
+    "globals": "^16.0.0",
+    "gulp": "^5.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-cli": "^3.0.0",
+    "gulp-nunjucks-render": "^2.2.3",
+    "gulp-postcss": "^10.0.0",
+    "gulp-pretty-html": "^2.0.10",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^6.0.0",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "postcss-scss": "^4.0.9",
+    "prettier": "^3.5.3",
+    "sass": "^1.83.4",
+    "stylelint": "^16.19.1",
+    "stylelint-config-standard-scss": "^14.0.0",
+    "tailwindcss": "^3.3.3"
+  },
+  "dependencies": {
+    "flowbite": "^4.0.1"
+  }
+}
