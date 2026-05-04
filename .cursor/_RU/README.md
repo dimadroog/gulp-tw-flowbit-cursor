@@ -1,17 +1,11 @@
 # Инфраструктура только для Cursor IDE
 
-Эта директория хранит общие инструкции Cursor для автоматизации верстки.
+**Каноническая процедура:** [`WORKFLOW.md`](WORKFLOW.md) — жизненный цикл, матрица гейтов, `npm run qa`, стек реализации (**§1.1**), точность макета (**§1.2**).
 
 ## Структура
 
-- `rules/` - постоянные проектные политики по архитектуре, доступности, стилям и JS-решениям.
-- `skills/` - переиспользуемые workflow-инструкции для каркаса страниц, шаблонизации, композиции Tailwind и аудитов доступности.
-- `commands/` - повторяемые шаблоны промптов для ежедневных задач реализации и ревью.
+- `rules/` — обязательные политики (многие `alwaysApply`).
+- `commands/` — процедуры и slash-команды.
+- `skills/` — углубление по необходимости; открывать явно.
 
-## Рекомендуемый workflow
-
-1. Начинай с `commands/new-page.md` для создания каркаса страницы.
-2. Используй `skills/scaffold-page-from-layout/SKILL.md` и `skills/nunjucks-loop-and-partials/SKILL.md` во время сборки разметки.
-3. Используй `commands/build-section.md` для реализации секций с framework-first развилками решений.
-4. Перед финализацией запускай `commands/a11y-checklist.md`.
-5. Проверяй результат по `done-criteria-first-iteration.md` перед закрытием инфраструктурных задач.
+Краткий список сессии: [`quick-start.md`](quick-start.md). Наследие: [`done-criteria-first-iteration.md`](done-criteria-first-iteration.md), [`agent-topology.md`](agent-topology.md).

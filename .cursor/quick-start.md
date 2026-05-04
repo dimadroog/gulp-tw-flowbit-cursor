@@ -1,33 +1,10 @@
 # Quick Start
 
-Use this minimal flow at the start of a session.
+Canonical detail: [`WORKFLOW.md`](WORKFLOW.md) (**§1.1–1.2** = stack + mockup fidelity).
 
-## 1) Initialize once
+1. **New project / policy change** → `init-layout-project`.
+2. **Implementation** → **`run-layout-task`**; step detail → `develop-layout-task`.
+3. **After HTML-related repo edits** → run **`npm run qa`** (agent executes; evidence in report).
+4. **Any `.cursor/` edit** → mirror `.cursor/_RU/` per `sync-cursor-bilingual-structure`.
 
-Run: `init-layout-project`
-
-Use when starting a new project or when governance decisions changed.
-
-Default interaction stack:
-- Tailwind CSS + Flowbite (MIT) for modal, collapse, accordion, offcanvas, dropdown, tabs, tooltip.
-- Keep custom JS minimal and framework-first.
-
-## 2) Build daily tasks
-
-Run: `develop-layout-task: <task description>`
-
-Examples:
-- `develop-layout-task: create a new catalog page`
-- `develop-layout-task: build product hero section`
-- `develop-layout-task: refactor tabs to framework component`
-
-Interaction defaults during implementation:
-- Prefer Flowbite data-attribute API before writing custom behavior.
-- Use project scrollspy helper (`data-scrollspy-nav`) for section tracking.
-- Add searchable/custom select plugin only for pages that explicitly need searchable selects.
-
-## 3) Keep index and bilingual sync
-
-Handled automatically by workflow:
-- new page -> `register-new-page-in-index`
-- `.cursor/` edits -> `sync-cursor-bilingual-structure`
+Do not restate stack or design rules here — only [`WORKFLOW.md`](WORKFLOW.md).

@@ -1,17 +1,11 @@
 # Cursor IDE-Only Infrastructure
 
-This directory stores shared Cursor guidance for layout automation.
+**Canonical procedure:** [`WORKFLOW.md`](WORKFLOW.md) — lifecycle, gate matrix, `npm run qa`, implementation stack (**§1.1**), mockup fidelity (**§1.2**).
 
-## Structure
+## Layout
 
-- `rules/` - persistent project policies for architecture, accessibility, styling, and JS decisions.
-- `skills/` - reusable workflow instructions for page scaffolding, templating, Tailwind composition, and accessibility audits.
-- `commands/` - repeatable prompt templates for everyday implementation and review tasks.
+- `rules/` — binding policies (many `alwaysApply`).
+- `commands/` — procedures and slash commands.
+- `skills/` — optional depth; open when needed.
 
-## Recommended Workflow
-
-1. Start with `commands/new-page.md` for page scaffolding.
-2. Use `skills/scaffold-page-from-layout/SKILL.md` and `skills/nunjucks-loop-and-partials/SKILL.md` while implementing markup.
-3. Use `commands/build-section.md` for section delivery with framework-first decision gates.
-4. Run `commands/a11y-checklist.md` before finalizing.
-5. Validate against `done-criteria-first-iteration.md` before closing infrastructure tasks.
+Thin session list: [`quick-start.md`](quick-start.md). Legacy: [`done-criteria-first-iteration.md`](done-criteria-first-iteration.md), [`agent-topology.md`](agent-topology.md).

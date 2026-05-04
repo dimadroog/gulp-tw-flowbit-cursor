@@ -6,12 +6,12 @@ Run a mandatory, final compliance gate against all relevant project directives b
 
 - Prevent partial compliance.
 - Block completion when any mandatory directive is violated.
-- Ensure consistent quality across performance, accessibility, semantics, styling, JS architecture, assets, and workflow policies.
-- Ensure consistent quality across performance, accessibility, semantics, styling, JS architecture, assets, pixel-perfect fidelity, and workflow policies.
+- Ensure consistent quality across performance, accessibility, semantics, styling, JS architecture, assets, pixel-perfect fidelity, and workflow policies (including gate order in [`WORKFLOW.md`](../WORKFLOW.md)).
 
 ## Required checks
 
 1. Determine the directive scope for the current task:
+   - [`WORKFLOW.md`](../WORKFLOW.md) (**canonical** procedure, stack §1.1, mockup fidelity §1.2, gate matrix §3)
    - all `alwaysApply: true` rules
    - all command-level mandatory checks tied to task type
 2. Validate implementation against each scoped directive category:
@@ -26,8 +26,11 @@ Run a mandatory, final compliance gate against all relevant project directives b
 3. Run concrete verification artifacts:
    - build output check
    - lint/diagnostic check
+   - HTML validation checks (`npm run validate:html` **and** `npm run validate:w3c` on built `dist/**/*.html`; see `commands/validate-html.md`)
    - markup/source path integrity checks
    - manual-clarification check for required visual inputs (`breakpoints`, `typography`) on mockup-driven tasks
+   - `pre-final-self-check` result
+   - `finalize-layout-task` result
 4. Record each directive as:
    - `pass`
    - `fail`
@@ -39,8 +42,10 @@ Run a mandatory, final compliance gate against all relevant project directives b
   - `overall_status: pass|fail`
   - per-directive status table/list
   - blocking failures and exact file paths
+  - evidence references (which command/check produced each status)
   - remediation TODOs
 
 ## Blocking rule
 
 - `overall_status = fail` means task cannot be marked complete.
+- Any missing evidence for an applicable directive means `fail`.

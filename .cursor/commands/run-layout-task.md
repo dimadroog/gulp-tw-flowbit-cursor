@@ -1,6 +1,8 @@
 # run-layout-task
 
-Use this command as the main orchestrator for layout tasks so users do not have to invoke each command manually.
+Use this command as the single orchestrator for layout tasks. Treat it as a hard-mode flow with fail-fast completion control.
+
+Canonical procedure, stack defaults, and mockup fidelity: [`WORKFLOW.md`](../WORKFLOW.md) (**§1.1–1.2**).
 
 ## Trigger examples
 
@@ -9,29 +11,37 @@ Use this command as the main orchestrator for layout tasks so users do not have 
 - "Refactor interaction to a framework component"
 - "Update UI-kit documentation"
 
+## Hard-mode defaults (always on)
+
+- Do not close implementation tasks without explicit blocking-gate evidence.
+- Do not defer blocking work to "next step/later".
+- Do not silently assume missing required inputs.
+- Do not report done while any applicable gate is `fail` or `not_run`.
+
 ## Pre / In / Post Matrix
 
 - **Pre-process (blocking):**
-  - Confirm lifecycle state (`init-layout-project` is complete or explicitly being resolved).
+  - Confirm lifecycle state (`init-layout-project` complete or explicitly being resolved).
   - Identify task type (`new-page`, `build-section`, `refactor`, `documentation`).
   - Confirm required inputs (content, interactions, SEO/meta, media/font constraints).
-  - For mockup-driven tasks, manually confirm breakpoint baseline and typography contract before implementation starts.
-  - Confirm layout-shell strategy: page extends root layout by default; global `header`/`sidebar` stay in layout-level partials.
+  - For mockup-driven tasks, manually confirm breakpoint baseline and typography contract before coding.
+  - Confirm layout-shell strategy: pages extend root layout; global `header`/`sidebar` stay in layout-level partials.
 - **In-process (delegatable):**
-  - Layout/markup implementation.
-  - Template reuse validation (Nunjucks loops/includes/macros).
-  - Styling/performance validation (Tailwind policy, media/font delivery, content resilience).
-  - Figma asset integrity validation (inline SVG for vectors, local structured paths for raster, no emoji/text substitution of graphics).
+  - Implement markup/layout.
+  - Enforce template reuse (Nunjucks loops/includes/macros) instead of duplicated blocks.
+  - Validate styling/performance direction (Tailwind-first, media/font delivery, content resilience).
+  - Enforce Figma asset integrity (inline SVG for vectors when applicable; structured local paths for raster; no emoji/text substitution of graphics).
 - **Post-process (blocking before done):**
   - `a11y-checklist` for interactive changes.
   - `performance-checklist` for page/section/media-impacting changes.
-  - `validate-all-directives` for every implementation task.
   - `validate-figma-assets` for Figma-driven pages/sections.
   - `validate-pixel-perfect` for mockup-driven pages/sections.
   - `register-new-page-in-index` for new pages.
+  - `pre-final-self-check` for every implementation task.
+  - `finalize-layout-task` for every implementation task.
+  - `validate-all-directives` for every implementation task.
+  - `validate-html` + `validate:w3c` (`npm run validate:html` and `npm run validate:w3c` after build, or `npm run qa`) for every implementation task that produces HTML.
   - `sync-cursor-bilingual-structure` when `.cursor/` content/structure changes.
-- **Background (non-blocking):**
-  - Extended notes, optional documentation tails, and non-critical TODO elaboration.
 
 ## Orchestration Flow
 
@@ -41,25 +51,28 @@ Use this command as the main orchestrator for layout tasks so users do not have 
    - `refactor`
    - `documentation`
 2. Run required command chains:
-  - `new-page` -> `new-page` -> `performance-checklist` -> `a11y-checklist` -> `validate-figma-assets` (if Figma-driven) -> `validate-pixel-perfect` (if mockup-driven) -> `register-new-page-in-index` -> `validate-all-directives`
-  - `build-section` -> `build-section` -> `performance-checklist` -> `a11y-checklist` -> `validate-figma-assets` (if Figma-driven) -> `validate-pixel-perfect` (if mockup-driven) -> `validate-all-directives`
-   - `refactor` -> `refactor-to-framework-component` -> `performance-checklist` -> `a11y-checklist` -> `validate-all-directives`
-   - `documentation` -> `fill-ui-kit-documentation` -> `validate-all-directives`
-3. If `.cursor/` files were changed during execution, run `sync-cursor-bilingual-structure`.
+   - `new-page` -> `new-page` -> `performance-checklist` -> `a11y-checklist` -> `validate-figma-assets` (if Figma-driven) -> `validate-pixel-perfect` (if mockup-driven) -> `register-new-page-in-index` -> `validate-html` -> `validate:w3c` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
+   - `build-section` -> `build-section` -> `performance-checklist` -> `a11y-checklist` -> `validate-figma-assets` (if Figma-driven) -> `validate-pixel-perfect` (if mockup-driven) -> `validate-html` -> `validate:w3c` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
+   - `refactor` -> `refactor-to-framework-component` -> `performance-checklist` -> `a11y-checklist` -> `validate-html` -> `validate:w3c` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
+   - `documentation` -> `fill-ui-kit-documentation` -> `validate-html` -> `validate:w3c` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
+3. If `.cursor/` files changed during execution, run `sync-cursor-bilingual-structure`.
 4. Return one compact report:
    - completed work
    - skipped items with reasons
    - TODO items
+   - explicit gate matrix (`pass|fail|not_applicable`)
 
 ## Blocking Gates
 
+- HTML validation failures from `validate-html` or **`validate:w3c`** (W3C Nu).
 - Accessibility failures from `a11y-checklist`.
 - Performance regressions flagged as blocking in `performance-checklist`.
 - Missing page registration for newly created pages.
 - Layout-shell violations (global `header`/`sidebar` implemented in page template instead of root layout/partials).
-- Asset integrity violations (vector distortion/substitution, remote temporary asset URLs left in templates, empty/broken image sources).
-- Pixel-perfect failures (orientation, spacing, typography, casing) or missing manual clarification of breakpoint/typography baseline.
-- Any failed check from `validate-all-directives`.
+- Asset integrity violations (vector distortion/substitution, temporary remote asset URLs left in templates, empty/broken image sources).
+- Pixel-perfect failures (orientation, spacing, typography, casing) or missing manual breakpoint/typography clarification.
+- Attempted completion with unresolved visual placeholders or deferred fidelity TODOs in mockup-driven tasks.
+- Any failed check from `finalize-layout-task` or `validate-all-directives`.
 - Missing bilingual sync after `.cursor/` changes.
 
 ## Conflict Escalation Protocol
@@ -79,3 +92,4 @@ Use this command as the main orchestrator for layout tasks so users do not have 
 - Do not skip accessibility checks for interactive changes.
 - Keep names and structure aligned between `.cursor/` and `.cursor/_RU/`.
 - Treat all established directives as mandatory constraints; do not mark tasks complete when any required directive is violated.
+- Do not declare completion with "next step/later" wording for unresolved blocking work.

@@ -2,6 +2,8 @@
 
 Используй эту команду для инициации проекта и настройки governance до старта активной верстки.
 
+Каноника стека и макета: [`WORKFLOW.md`](../WORKFLOW.md) §1.1–1.2.
+
 ## Назначение
 
 - Зафиксировать проектные конвенции, ограничения и quality gates.
@@ -11,31 +13,31 @@
 ## Чеклист инициации
 
 1. Подтверди архитектурные ограничения и delivery-политику текущего инструментария.
-2. Подтверди baseline доступности (`a11y-checklist`) и framework-first политику интерактива.
-3. Подтверди `Flowbite` как основной слой интерактива для Tailwind-компонентов.
-4. Подтверди политику для зон gap:
-   - внутренний helper для `scrollspy`
-   - точечный lightweight plugin для searchable/custom select только при явной необходимости
-5. Подтверди baseline JavaScript-архитектуры для custom логики:
+2. Подтверди baseline доступности (`a11y-checklist`) и **умолчания реализации** ([`WORKFLOW.md`](../WORKFLOW.md) §1.1 — сначала Flowbite, helper `scrollspy`, searchable/custom select только при явной необходимости).
+3. Подтверди baseline JavaScript-архитектуры для custom логики:
    - progressive enhancement и unobtrusive JS
    - functional core (pure helpers) + imperative shell (DOM/events)
    - idempotent lifecycle инициализации (`init` можно безопасно вызывать повторно)
-6. Подтверди политику регистрации страниц (`register-new-page-in-index`).
-7. Подтверди политику двуязычной поддержки `.cursor/` (`sync-cursor-bilingual-structure`).
-8. Подтверди обязательный объем документации (UI-kit и design tokens, если есть).
-9. Подтверди performance-baseline и применение `performance-checklist` в задачах реализации.
-10. Подтверди baseline неукоснительного соблюдения директив:
+4. Подтверди политику регистрации страниц (`register-new-page-in-index`).
+5. Подтверди политику двуязычной поддержки `.cursor/` (`sync-cursor-bilingual-structure`).
+6. Подтверди обязательный объем документации (UI-kit и design tokens, если есть).
+7. Подтверди performance-baseline и применение `performance-checklist` в задачах реализации.
+8. Подтверди baseline неукоснительного соблюдения директив:
    - все директивы `.cursor` обязательны к исполнению
    - исключения недопустимы без явной эскалации blocker
    - завершение задачи запрещено при невыполнении обязательных директив
-11. Подтверди baseline policy для pixel-perfect в mockup-driven задачах:
-   - ручное уточнение breakpoint baseline обязательно
-   - ручное уточнение typography contract обязательно
-   - перед `validate-all-directives` обязательно выполнять `validate-pixel-perfect`
+9. Подтверди baseline **точности дизайна** для mockup-driven задач по [`WORKFLOW.md`](../WORKFLOW.md) §1.2; где применимо — `validate-pixel-perfect` перед `validate-all-directives`.
+10. Подтверди hard-mode baseline завершения:
+   - перед финальным ответом обязателен `pre-final-self-check`
+   - перед завершением обязателен `finalize-layout-task`
+   - завершение с отложенными блокирующими работами ("потом/следующим шагом") запрещено
+11. Подтверди baseline HTML-валидации:
+   - после любых изменений, влияющих на сборку, гоняются `npm run validate:html` (html-validate) и `npm run validate:w3c` (W3C Nu) на `dist/**/*.html`
+   - `npm run qa` включает сборку, линт и **оба** HTML-валидатора (Nu + html-validate)
 
 ## Результат
 
 - Единый initialization-отчет:
-  - подтвержденные политики
-  - неразрешенные решения
-  - статус готовности к фазе разработки
+   - подтвержденные политики
+   - неразрешенные решения
+   - статус готовности к фазе разработки

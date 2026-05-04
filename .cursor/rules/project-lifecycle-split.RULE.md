@@ -6,6 +6,6 @@ alwaysApply: true
 # Project Lifecycle Split Policy
 
 - Use `commands/init-layout-project.md` for setup and governance decisions.
-- Use `commands/develop-layout-task.md` for daily implementation tasks.
+- For daily implementation, follow `commands/run-layout-task.md` as the **primary orchestrator**, with `commands/develop-layout-task.md` as the supporting execution checklist.
 - Do not mix unresolved initialization decisions into development execution.
 - If initialization is incomplete, complete or clarify it before implementation.

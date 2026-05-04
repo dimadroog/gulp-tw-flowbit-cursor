@@ -2,6 +2,8 @@
 
 Use these checks to validate the IDE-only infrastructure rollout.
 
+> **Note:** This file is a **historical / smoke-test** list for the first `.cursor/` rollout. **Production completion** for layout work is governed by `commands/run-layout-task.md`, `finalize-layout-task.md`, `validate-all-directives.md`, and **`npm run qa`** (see `commands/validate-html.md`). Do not treat passing only this list as equivalent to passing Nu or project QA.
+
 ## Required Outcomes
 
 - Shared rules are present and consistently enforce stack, accessibility, styling, and JS policies.

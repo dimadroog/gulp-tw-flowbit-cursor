@@ -12,3 +12,6 @@ alwaysApply: true
 - If any required directive cannot be satisfied, stop completion and return a blocker with concrete remediation steps.
 - Before declaring a task complete, verify adherence to all relevant directives for the current task type.
 - Treat `commands/validate-all-directives.md` as required blocking gate for task completion.
+- Treat `commands/pre-final-self-check.md` and `commands/finalize-layout-task.md` as mandatory pre-completion blockers.
+- Treat `commands/validate-html.md` as mandatory for any task that outputs HTML (`npm run validate:html` **and** `npm run validate:w3c` after build, or `npm run qa`).
+- Missing evidence for applicable directive checks must be treated as non-compliance.

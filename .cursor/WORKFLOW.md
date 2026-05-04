@@ -1,0 +1,80 @@
+# Workflow map (single entry)
+
+Use this file as the **canonical route** through `.cursor/`. Other docs add detail; this file defines **order, gates, and repo commands**.
+
+## 1) Lifecycle in one pass
+
+| Phase | What to follow | Notes |
+|--------|----------------|--------|
+| **Governance** | [`commands/init-layout-project.md`](commands/init-layout-project.md) | Once per project or when policy changes. |
+| **Orchestration** | [`commands/run-layout-task.md`](commands/run-layout-task.md) | **Primary** driver for day-to-day work (hard-mode gates). |
+| **Execution detail** | [`commands/develop-layout-task.md`](commands/develop-layout-task.md) | Checklist under `run-layout-task`; not a substitute for the orchestrator. |
+| **Policy routing** | [`rules/workflow-orchestrator.RULE.md`](rules/workflow-orchestrator.RULE.md), [`rules/project-lifecycle-split.RULE.md`](rules/project-lifecycle-split.RULE.md) | Cursor alwaysApply. |
+
+### 1.1 Implementation defaults (code stack)
+
+Single source for stack choices; do not duplicate this list in `quick-start` or README.
+
+- **Tailwind CSS + Flowbite (MIT)** for modal, collapse, accordion, offcanvas, dropdown, tabs, tooltip.
+- Prefer **Flowbite data-attribute API** before custom JS; keep bespoke behavior minimal.
+- **Scrollspy:** use project helper `data-scrollspy-nav` for in-page section tracking.
+- **Searchable / custom select** plugins only on pages that explicitly require them.
+
+### 1.2 Design fidelity (mockup-driven, blocking)
+
+Applies when the task is driven by Figma or another **approved static mockup** (not “inspired by”).
+
+- **Precondition:** breakpoint baseline and typography contract are fixed **before** implementation (same bar as [`commands/validate-pixel-perfect.md`](commands/validate-pixel-perfect.md)); otherwise stop and clarify.
+- **Critical zones** (non-exhaustive): global chrome (header, sidebar, footer), hero and primary CTAs, flagship cards/tiles, checkout-like flows when in scope. In these zones, **visual drift is not acceptable** unless the task brief records an explicit designer/product waiver (one line in the report is enough).
+- **Tokens and geometry:** use colors, radii, shadows, and borders from the design export/spec or project token map. Do **not** swap in arbitrary Tailwind utilities that change hue, weight, or shape versus the mockup.
+- **No placeholder completion** for fidelity-critical graphics, badges, or states; see [`rules/mockup-driven-no-placeholder-completion.RULE.md`](rules/mockup-driven-no-placeholder-completion.RULE.md).
+- **Gates:** `validate-figma-assets` when the source is Figma; `validate-pixel-perfect` when delivery is mockup-driven — must be **`pass`** where applicable, with evidence.
+
+## 2) Repo automation (mandatory for HTML output)
+
+Run in the project root after changes that affect templates or assets:
+
+```bash
+npm run qa
+```
+
+This runs `gulp build`, JS/SCSS lint + Prettier check, **`npm run validate:html`** (`html-validate`), and **`npm run validate:w3c`** (W3C Nu: local `java -jar` when available, else HTTPS to `validator.w3.org`). Details: [`commands/validate-html.md`](commands/validate-html.md).
+
+Other tooling:
+
+- `npm run normalize:svg-layout` — after bulk Figma SVG imports under `app/img/layout-shell/` (see [`commands/validate-figma-assets.md`](commands/validate-figma-assets.md)).
+
+**`.cursor` instructions alone do not run checks** — the agent must execute `npm run qa` (or equivalent steps) and record evidence.
+
+## 3) Gate matrix (before “done”)
+
+Apply in order; **do not skip** with “later” unless marked N/A with reason.
+
+1. Task-type work: `new-page` | `build-section` | `refactor-to-framework-component` | `fill-ui-kit-documentation` (see chains in [`run-layout-task.md`](commands/run-layout-task.md)).
+2. `performance-checklist` — when pages, sections, or heavy media change.
+3. `a11y-checklist` — when interactivity or landmarks change.
+4. `validate-figma-assets` — if Figma-driven.
+5. `validate-pixel-perfect` — if mockup-driven (requires clarified breakpoints + typography first).
+6. `register-new-page-in-index` — if a new page was added.
+7. `validate-html` + `validate:w3c` — covered by **`npm run qa`** after build.
+8. [`pre-final-self-check.md`](commands/pre-final-self-check.md) → [`finalize-layout-task.md`](commands/finalize-layout-task.md) → [`validate-all-directives.md`](commands/validate-all-directives.md).
+9. If any file under `.cursor/` changed: [`sync-cursor-bilingual-structure.md`](commands/sync-cursor-bilingual-structure.md) and mirror updates in [`_RU/`](_RU/).
+
+Output: explicit **`pass|fail|not_applicable`** for each applicable gate, with command/file evidence.
+
+## 4) Rules vs skills vs hooks
+
+- **Rules** (`rules/*.RULE.md`, many `alwaysApply`): binding policies.
+- **Commands** (`commands/*.md`): procedural gates and slash-command text.
+- **Skills** (`skills/**/SKILL.md`): optional depth — **open explicitly** when relevant; not loaded by default.
+- **Hooks** ([`hooks.json`](hooks.json)): currently empty; no automatic enforcement at edit time.
+
+## 5) Supplementary / historical
+
+- [`quick-start.md`](quick-start.md) — thin entry list only (stack + fidelity: §1.1–1.2 here).
+- [`agent-topology.md`](agent-topology.md) — role model; enforcement is rules + commands above.
+- [`done-criteria-first-iteration.md`](done-criteria-first-iteration.md) — legacy smoke-test for first `.cursor` rollout; **not** full project QA.
+
+## 6) Russian mirror
+
+Keep in lockstep: **[`_RU/WORKFLOW.md`](_RU/WORKFLOW.md)** whenever this file changes.

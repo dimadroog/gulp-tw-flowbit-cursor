@@ -1,24 +1,10 @@
 # Быстрый старт
 
-Используй этот минимальный сценарий в начале сессии.
+Детали: [`WORKFLOW.md`](WORKFLOW.md) (**§1.1–1.2** — стек и точность макета).
 
-## 1) Инициализация один раз
+1. **Новый проект / смена политик** → `init-layout-project`.
+2. **Реализация** → **`run-layout-task`**; пошагово → `develop-layout-task`.
+3. **После правок, влияющих на HTML в репо** → **`npm run qa`** (агент запускает; evidence в отчёте).
+4. **Любая правка `.cursor/`** → зеркало `.cursor/_RU/` по `sync-cursor-bilingual-structure`.
 
-Запусти: `init-layout-project`
-
-Используй при старте нового проекта или когда изменились governance-решения.
-
-## 2) Ежедневные задачи реализации
-
-Запусти: `develop-layout-task: <описание задачи>`
-
-Примеры:
-- `develop-layout-task: create a new catalog page`
-- `develop-layout-task: build product hero section`
-- `develop-layout-task: refactor tabs to framework component`
-
-## 3) Поддержка индекса и двуязычной структуры
-
-В рамках workflow выполняется автоматически:
-- новая страница -> `register-new-page-in-index`
-- изменения в `.cursor/` -> `sync-cursor-bilingual-structure`
+Стек и правила дизайна не дублировать — только [`WORKFLOW.md`](WORKFLOW.md).
