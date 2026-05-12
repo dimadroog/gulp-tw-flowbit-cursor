@@ -2,7 +2,7 @@
 
 Canonical detail: [`WORKFLOW.md`](WORKFLOW.md) (**§1.1–1.2** = stack + mockup fidelity).
 
-1. **New project / policy change** → `init-layout-project`.
+1. **New project / policy change** → `init-layout-project`; **new convention for agents** → `add-rule`.
 2. **Implementation** → **`run-layout-task`**; step detail → `develop-layout-task`.
 3. **After HTML-related repo edits** → run **`npm run qa`** (agent executes; evidence in report).
 4. **Any `.cursor/` edit** → mirror `.cursor/_RU/` per `sync-cursor-bilingual-structure`.

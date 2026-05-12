@@ -6,7 +6,7 @@ Use this file as the **canonical route** through `.cursor/`. Other docs add deta
 
 | Phase | What to follow | Notes |
 |--------|----------------|--------|
-| **Governance** | [`commands/init-layout-project.md`](commands/init-layout-project.md) | Once per project or when policy changes. |
+| **Governance** | [`commands/init-layout-project.md`](commands/init-layout-project.md), [`commands/add-rule.md`](commands/add-rule.md) | Init once per project or when baseline policy shifts; use `add-rule` when capturing or merging new governed conventions without full re-init. |
 | **Orchestration** | [`commands/run-layout-task.md`](commands/run-layout-task.md) | **Primary** driver for day-to-day work (hard-mode gates). |
 | **Execution detail** | [`commands/develop-layout-task.md`](commands/develop-layout-task.md) | Checklist under `run-layout-task`; not a substitute for the orchestrator. |
 | **Policy routing** | [`rules/workflow-orchestrator.RULE.md`](rules/workflow-orchestrator.RULE.md), [`rules/project-lifecycle-split.RULE.md`](rules/project-lifecycle-split.RULE.md) | Cursor alwaysApply. |
@@ -64,7 +64,7 @@ Output: explicit **`pass|fail|not_applicable`** for each applicable gate, with c
 
 ## 4) Rules vs skills vs hooks
 
-- **Rules** (`rules/*.RULE.md`, many `alwaysApply`): binding policies.
+- **Rules** (`rules/*.RULE.md`, many `alwaysApply`): binding policies. To add or extend them with correct placement, follow [`commands/add-rule.md`](commands/add-rule.md).
 - **Commands** (`commands/*.md`): procedural gates and slash-command text.
 - **Skills** (`skills/**/SKILL.md`): optional depth — **open explicitly** when relevant; not loaded by default.
 - **Hooks** ([`hooks.json`](hooks.json)): currently empty; no automatic enforcement at edit time.

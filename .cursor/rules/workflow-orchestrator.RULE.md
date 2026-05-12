@@ -6,6 +6,7 @@ alwaysApply: true
 # Workflow Orchestrator Policy
 
 - For project setup and governance requests, default to `commands/init-layout-project.md`.
+- When the user adds or evolves governed conventions under `.cursor/` (new rules, policy text, or orchestration alignment), follow `commands/add-rule.md` instead of scattering ad-hoc bullets across unrelated files.
 - For day-to-day layout implementation requests, default to `commands/run-layout-task.md` as the primary orchestrator.
 - Use `commands/develop-layout-task.md` as supporting execution guidance under `run-layout-task`.
 - Enforce `rules/directive-compliance.RULE.md` as mandatory baseline for all task flows.

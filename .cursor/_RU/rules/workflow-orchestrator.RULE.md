@@ -6,6 +6,7 @@ alwaysApply: true
 # Политика workflow-оркестрации
 
 - Для setup и governance задач по умолчанию использовать `commands/init-layout-project.md`.
+- Если пользователь добавляет или развивает регламенты внутри `.cursor/` (новые правила, формулировки политик или согласование оркестрации), выполнять `commands/add-rule.md` вместо разброса произвольных пунктов по нерелевантным файлам.
 - Для ежедневных задач реализации по умолчанию использовать `commands/run-layout-task.md` как основной orchestrator.
 - `commands/develop-layout-task.md` использовать как поддерживающее руководство внутри `run-layout-task`.
 - Обязательно применять `rules/directive-compliance.RULE.md` как базовое требование для всех task-flow.

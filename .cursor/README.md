@@ -8,4 +8,4 @@
 - `commands/` — procedures and slash commands.
 - `skills/` — optional depth; open when needed.
 
-Thin session list: [`quick-start.md`](quick-start.md). Legacy: [`done-criteria-first-iteration.md`](done-criteria-first-iteration.md), [`agent-topology.md`](agent-topology.md).
+Thin session list: [`quick-start.md`](quick-start.md). Evolving policy text: [`commands/add-rule.md`](commands/add-rule.md). Legacy: [`done-criteria-first-iteration.md`](done-criteria-first-iteration.md), [`agent-topology.md`](agent-topology.md).

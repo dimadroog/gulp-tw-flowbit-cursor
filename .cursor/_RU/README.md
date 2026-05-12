@@ -8,4 +8,4 @@
 - `commands/` — процедуры и slash-команды.
 - `skills/` — углубление по необходимости; открывать явно.
 
-Краткий список сессии: [`quick-start.md`](quick-start.md). Наследие: [`done-criteria-first-iteration.md`](done-criteria-first-iteration.md), [`agent-topology.md`](agent-topology.md).
+Краткий список сессии: [`quick-start.md`](quick-start.md). Развитие политики: [`commands/add-rule.md`](../commands/add-rule.md). Наследие: [`done-criteria-first-iteration.md`](done-criteria-first-iteration.md), [`agent-topology.md`](agent-topology.md).

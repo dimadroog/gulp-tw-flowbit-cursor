@@ -6,7 +6,7 @@
 
 | Фаза | Что читать | Заметки |
 |------|------------|---------|
-| **Governance** | [`commands/init-layout-project.md`](../commands/init-layout-project.md) | Один раз на проект или при смене политик. |
+| **Governance** | [`commands/init-layout-project.md`](../commands/init-layout-project.md), [`commands/add-rule.md`](../commands/add-rule.md) | Init при старте или смене baseline; `add-rule` — для фиксации и слияния новых регламентов без полного re-init. |
 | **Оркестрация** | [`commands/run-layout-task.md`](../commands/run-layout-task.md) | **Главный** драйвер ежедневной работы (hard-mode гейты). |
 | **Детали исполнения** | [`commands/develop-layout-task.md`](../commands/develop-layout-task.md) | Чеклист под `run-layout-task`; не заменяет orchestrator. |
 | **Маршрутизация** | [`rules/workflow-orchestrator.RULE.md`](../rules/workflow-orchestrator.RULE.md), [`rules/project-lifecycle-split.RULE.md`](../rules/project-lifecycle-split.RULE.md) | alwaysApply в Cursor. |
@@ -64,7 +64,7 @@ npm run qa
 
 ## 4) Rules vs skills vs hooks
 
-- **Rules** (`rules/*.RULE.md`, часто `alwaysApply`): обязательные политики.
+- **Rules** (`rules/*.RULE.md`, часто `alwaysApply`): обязательные политики. Чтобы добавить или расширить правила с правильным размещением, следуй [`commands/add-rule.md`](../commands/add-rule.md).
 - **Commands** (`commands/*.md`): процедуры и slash-команды.
 - **Skills** (`skills/**/SKILL.md`): углубление по необходимости — **открывать явно**; сами не подтягиваются.
 - **Hooks** ([`hooks.json`](../hooks.json)): сейчас пусто; автопри редактировании не срабатывает.
