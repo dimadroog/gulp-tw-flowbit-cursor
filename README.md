@@ -15,5 +15,3 @@
 ## Interaction policy
 
 - Use Flowbite data attributes/API first.
-- Use the project scrollspy helper (`data-scrollspy-nav`) for in-page active section tracking.
-- Add searchable/custom select plugin only for pages where searchable select is required.

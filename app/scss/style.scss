@@ -1,6 +1,7 @@
-@use "_variables" as *;
-// @use "_fonts";
-@use "_header";
+@use "variables" as *;
+@use "fonts";
+@use "motion";
+@use "header";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

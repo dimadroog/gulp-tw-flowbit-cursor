@@ -1,2 +1,4 @@
 dist
 node_modules
+# auto-generated files
+app/scss/_fonts.scss
