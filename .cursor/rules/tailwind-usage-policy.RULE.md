@@ -1,5 +1,5 @@
 ---
-description: Tailwind-first styling policy with controlled exceptions.
+description: Tailwind utility-first policy, @apply extraction criteria, and required semantic components (.btn, .form-*, .container).
 alwaysApply: true
 ---
 
@@ -8,11 +8,89 @@ alwaysApply: true
 - Use utility-first Tailwind classes as the default styling approach.
 - Prefer tokenized spacing, typography, radius, and color utilities over ad-hoc values.
 - Compose sections with reusable utility patterns before introducing custom CSS.
+- For typography and color inside component trees, follow [`css-inheritance-layout.RULE.md`](css-inheritance-layout.RULE.md): set inheritable properties on ancestors, override only deltas.
 
-## BEM Exception Policy
+## When To Use `@apply` Vs Atomic Utilities
 
-- **Required semantic wrappers** — **`app/scss/_components.scss`**: project-authored **buttons** (**`.btn` + `.btn-*`**), **`.form-label`** / **`.form-check-label`**, textual **`.form-control`**, **`checkbox`/`radio`** **`.form-check-input`**, and page **`.container`** belt are composed with **`@apply`**; see [`rules/semantic-component-apply.RULE.md`](semantic-component-apply.RULE.md). Those are **not** ad-hoc BEM escapes.
-- Other BEM/custom classes are allowed only when utility composition cannot satisfy the requirement.
+**Empirical rule:** repeats + semantic role + needs centralized updates → extract; unique, highly variable, or context-bound → keep atomic.
+
+### Use `@apply` (named component class)
+
+- **Repeatability:** the same utility stack appears in **≥2–3** places — extract to a class.
+- **Semantics:** give the set a meaningful name (`.btn`, `.card`, `.form-field`) for clarity and consistency; avoid visual names (`.blue-button`).
+- **Maintainability:** colors, spacing, and states should change in one place (`app/scss/_components.scss`).
+- **Stable variations:** base stack is stable; variants via modifiers (`.btn-primary`, `.btn--outline`) or scoped utilities in markup.
+- **Coherent blocks:** utilities form a logical unit (layout shell, control chrome, visual token).
+- **Markup length:** long class lists hurt readability — extract the base set.
+
+### Do not use `@apply` (keep atomic utilities)
+
+- **One-off styling:** unique to a single place and unlikely to repeat.
+- **Many small variations:** each instance differs strongly — atomic utilities stay flexible.
+- **Context-dependent combos:** classes change dynamically in templates (conditional Nunjucks utilities).
+- **Cascade debugging:** seeing exact utilities in markup helps trace specificity issues.
+- **Tailwind variant caveats:** responsive/state utilities need careful `@screen` / `@variants` in SCSS or stay in markup.
+
+### Practical recipe
+
+- Track repeats: at **2–3** occurrences, create a class; when unsure, extract.
+- Name semantically (`.btn`, `.card`, `.kbd`, `.form-input`), not by color.
+- Extract **only the base** stack; edge states stay as markup utilities or BEM-style modifiers.
+- Prefer **Tailwind theme tokens** (`theme.extend`, project CSS variables) over hard-coded values inside `@apply`.
+- Group new classes in **`@layer components`** in `_components.scss` with short section comments.
+- For responsive/state: use `@screen` / `@variants` in SCSS, or combine a semantic base with utilities in markup.
+
+### Example
+
+```scss
+/* app/scss/_components.scss — illustrative */
+.btn {
+  @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-base font-medium;
+}
+.btn-primary {
+  @apply btn bg-primary text-primary-foreground hover:opacity-90;
+}
+```
+
+In markup: `class="btn btn-primary"` instead of repeating the full utility string.
+
+### Verification (`@apply` extractions)
+
+- New `@apply` classes use **semantic** names, not visual ones (`rg '\.(blue|red)-' app/scss/_components.scss` — no new matches).
+- Templates do not duplicate long utility stacks where `_components.scss` already defines the semantic class.
+- `npm run build` (or `gulp build`) completes without PostCSS/Tailwind `@apply` errors.
+
+## Required Semantic Components (`@apply`)
+
+Aligned with **`_typography.scss`**: project tokens as Tailwind utilities, grouped in SCSS **`@layer components`** via **`@apply`** (`app/scss/_components.scss`). Markup prefers **semantic classes** instead of repeating long utility strings on every control. These are **mandatory** project contracts — not ad-hoc BEM escapes.
+
+### Buttons
+
+- **`button`** (and `a`/`input` acting as buttons) use base **`.btn`** plus a variant: **`.btn-primary`**, **`.btn-outline`**, **`.btn-muted`**, or future **`.btn-*`** modifiers defined next to the base in `_components.scss`.
+- **Label presentation:** text inside **`.btn` / `.btn-*`** must **not** be underlined (including when the control is an **`a`** inheriting global link styles). Enforce in the **`.btn`** base **`@apply`** in **`_components.scss`** with **`no-underline`** (do not re-enable **`underline`** / **`decoration-*`** on button classes in templates unless the task brief documents an explicit “link-styled” exception outside the button system).
+- **Verification:** **`_components.scss`** `.btn` includes **`no-underline`**; new **`a class="btn`** markup carries no extra underline utilities; grep for **`btn` + `underline`** in **`app/`** should be empty aside from documented exceptions.
+
+### Form controls (native inputs)
+
+- **Native form input elements** include **`input`** with **any** `type` (therefore also **`checkbox`** and **`radio`**), plus **`select`** and **`textarea`**. Use **`fieldset` / `legend`** when grouping makes sense and wire **`aria-invalid` / `aria-describedby`** consistently.
+- **`label`** for stacked **`.form-control`** fields (**`input`/`select`/`textarea`**) must use **`.form-label`** (**`@apply`** next to controls in **`_components.scss`**). **`label`** paired with **`.form-check-input`** rows must use **`.form-check-label`**. Do not paste replicated Tailwind typography/spacing bundles on **`label`** elements in authored templates unless the brief documents an exception.
+- **`.form-control`** (the **`@apply`** shell in **`_components.scss`**) is **only** for **text-like `input`**, **`select`**, and **`textarea`**. **`checkbox`** and **`radio`** must use **`.form-check-input`** (**`@apply`** in the same file). Add **`mt-1`** next to `.form-check-input` on checkbox rows when the label wrapper uses **`items-start`** alignment.
+- **Error state:** **`.form-control[aria-invalid="true"]`** and **`.form-check-input[aria-invalid="true"]`** — derive invalid chrome from **`aria-invalid="true"`** only; do not duplicate red-border utility strings per template.
+- **Verification:** labels use **`form-label`** / **`form-check-label`** as above; text/select/textarea use **`form-control`** + **`aria-invalid`** when invalid; **`checkbox`** / **`radio`** use **`form-check-input`** + **`aria-invalid`** when invalid (never `form-control`).
+
+### Content belt
+
+- Main page content that should share the standard content width is wrapped in **`.container`** (`app/scss/_components.scss`: **`max-w-content`**, **`px-6`**, **`mx-auto`**). The built-in Tailwind **`container`** utility is **disabled** (`corePlugins.container: false`) so only this semantic class emits.
+- Root layout wraps **`{% block content %}`** in **`.container`** (`app/njk-layouts/_main.njk`); inner pages should not nest a second full-width container unless the design requires it.
+
+### Authoring flow
+
+- When adjusting **`.btn-*`**, **`.form-label`**, **`.form-check-label`**, **`.form-control`**, or **`.form-check-input`**, change **`_components.scss`** only — do not fork divergent utility stacks in templates.
+- **Third-party caveat:** if Flowbite or external markup requires raw utilities, document a one-line exception in the task report and keep the default pattern for project-authored controls.
+
+## BEM And Custom CSS Exceptions
+
+- Other BEM/custom classes are allowed only when utility composition cannot satisfy the requirement (see **When To Use `@apply`** above for new extractions).
 - When using BEM/custom CSS, add a short reason in code comments or PR notes.
 - Keep exception scope minimal and local to the problematic component.
 
@@ -35,12 +113,11 @@ alwaysApply: true
 - Keep `js-*` classes as behavior hooks and place them after utility classes when this does not conflict with automatic formatting.
 - **Hover/focus and expand motion durations** for project-authored surfaces follow [`rules/interactive-transition-timing.RULE.md`](interactive-transition-timing.RULE.md).
 
-## Form controls (entered text)
+## Form Controls — Entered Text (1rem)
 
-- **Form input family:** `input` (including **`checkbox`** and **`radio`**), `select`, and `textarea` are all **native form inputs**; pair them with **`label`**, use **`fieldset`/`legend`** when grouping related choices, and wire **`aria-invalid` / `aria-describedby`** consistently. Styling split: **`.form-control`** applies only to textual `input` / `select` / **`textarea`** — see [`semantic-component-apply.RULE.md`](semantic-component-apply.RULE.md) § Form controls.
-- Prefer the **`.form-control`** class (**`@apply`** stack in **`_components.scss`**) on text-like `input` / `select` / `textarea` rather than repeating the full utility string in templates; it already enforces **`text-base` (~1rem)** for the **typed/selected text or placeholder**.
+- Prefer **`.form-control`** on text-like `input` / `select` / `textarea` (see **Form controls** above) rather than repeating the full utility string; it enforces **`text-base` (~1rem)** for typed/selected text or placeholder.
 - Otherwise, for native controls where **the user-visible value or placeholder typography** applies (text-like `input` types*, `select`, `textarea`), set **`font-size: 1rem`** (blocking for layout work unless the brief documents an intentional exception).
 - If not using `.form-control`, use **`text-base`** while this repo keeps the default `theme.fontSize` scale where `base === 1rem`; do **not** use smaller/larger typography utilities (`text-sm`, `text-lg`, etc.) solely to resize typed text in those controls.
 - If `tailwind.config.js` ever changes `fontSize.base` away from `1rem`, reconcile by restoring `base` to `1rem` for typed controls or applying an explicit **`text-[1rem]`** on those controls so this policy stays satisfied.
 
-*`type` values where the policy targets **glyph-sized** user text, not the intrinsic control chrome: e.g. **`range`**, **`file`**, **`checkbox`**, **`radio`**, **`button`**, **`submit`** follow layout/a11y grouping above but do **not** use `.form-control`; size their hit targets and labels per component rules, not the **1rem typed-text** requirement.
+*`type` values where the policy targets **glyph-sized** user text, not the intrinsic control chrome: e.g. **`range`**, **`file`**, **`checkbox`**, **`radio`**, **`button`**, **`submit`** follow layout/a11y grouping in **Form controls** above but do **not** use `.form-control`; size their hit targets and labels per component rules, not the **1rem typed-text** requirement.

@@ -1,5 +1,5 @@
 ---
-description: Framework-first JavaScript policy and custom JS minimization.
+description: Framework-first JS; js-* hooks for classes and ids in custom JS; Flowbite data-API id exceptions.
 alwaysApply: true
 ---
 
@@ -22,11 +22,33 @@ alwaysApply: true
 - Add a lightweight select plugin only for pages/features where searchable select is a hard requirement.
 - When introducing such plugin, scope initialization by selector and document the reason.
 
-## JS Hook Class Convention
+## JS Hook Naming (classes and ids)
 
-- Classes used as JavaScript selectors must use the `js-` prefix.
-- Treat `js-*` classes as behavior hooks only, not visual styling hooks.
-- Do not define CSS selectors for `js-*` classes in stylesheet files.
+Applies to **custom JavaScript** in `app/js/**` and inline init scripts. Visual styling stays on semantic/BEM/Tailwind classes.
+
+### Selectors in custom JS
+
+- **Prefer `js-*` classes** — `querySelector('.js-…')`, delegation from a `js-*` root, or `closest('.js-…')` when this does not overcomplicate the code.
+- **`id` with `js-` prefix** — use `getElementById('js-…')` / `#js-…` only when a class hook is awkward (e.g. no stable wrapper, strict pairing with `for`/`aria-*` on the same node).
+- Do not use the same element as both a `js-*` class hook and a redundant parallel hook without reason.
+- **`js-*` is for behavior only** — never style `js-*` or `#js-*` in SCSS/CSS.
+
+### When `id` without `js-` is allowed
+
+| Case | Example | Condition |
+|------|---------|-----------|
+| Library / data-API contract | `id="site-search-modal"`, `data-modal-target="site-search-modal"` | The id string appears in **framework `data-*` attributes**; **custom JS must not** select that node via `#site-search-modal` or `getElementById('site-search-modal')` |
+| Accessibility / labels | `id="site-search-modal-title"`, `for="…"` | Not a JS behavior hook |
+| Anchors / content | `id="…"` in `href` on the same page | Not referenced in `app/js`; stub cross-page links use `href="#"` per [`html-nunjucks-conventions.RULE.md`](html-nunjucks-conventions.RULE.md) § Link href |
+| JS-only `<a>` (no navigation) | `href="javascript:;"` | Not `href="#"`; see html-nunjucks § Link href |
+
+**Flowbite pattern in this repo:** keep a stable **non-`js-` `id`** for `data-modal-*` / `data-drawer-*` contracts; wire **custom** behavior via `js-*` classes and/or `data-modal-hide` / `data-modal-toggle` triggers — not `getElementById` on the library id.
+
+### Verification
+
+- Grep `app/js/**`: no `getElementById`, `querySelector('#…')`, or `` querySelector(`#${…}`) `` on ids **without** the `js-` prefix unless the task report documents an approved exception.
+- Grep `app/scss/**`: no selectors targeting `.js-` or `#js-`.
+- Markup: custom JS hooks use `js-*` classes; ids without `js-` are not used as custom JS selectors.
 
 ## Decision Gate
 

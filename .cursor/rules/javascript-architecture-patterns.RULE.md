@@ -6,7 +6,7 @@ alwaysApply: true
 # JavaScript Architecture Patterns
 
 - Use progressive enhancement by default: baseline content/controls should remain usable without custom JS when possible.
-- Use unobtrusive JavaScript: behavior is wired through `data-*` attributes and `js-*` hooks, not styling classes.
+- Use unobtrusive JavaScript: behavior is wired through `data-*` attributes and `js-*` hooks (classes preferred; `js-` ids when needed) — see [`javascript-minimalism.RULE.md`](javascript-minimalism.RULE.md) § JS Hook Naming.
 - Prefer Flowbite-first implementation for standard interactions before writing custom logic.
 
 ## Functional Core / Imperative Shell

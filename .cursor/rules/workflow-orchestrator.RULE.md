@@ -10,6 +10,7 @@ alwaysApply: true
 - For day-to-day layout implementation requests, default to `commands/run-layout-task.md` as the primary orchestrator.
 - Use `commands/develop-layout-task.md` as supporting execution guidance under `run-layout-task`.
 - Enforce `rules/directive-compliance.RULE.md` as mandatory baseline for all task flows.
+- Enforce `rules/task-scope-and-approval.RULE.md`: no out-of-scope implementation without an explicit user-approved proposal.
 - Do not expect the user to explicitly name all supporting commands.
 - Automatically choose and chain sub-commands based on intent:
   - page creation
