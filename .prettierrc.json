@@ -3,13 +3,5 @@
   "singleQuote": false,
   "trailingComma": "es5",
   "printWidth": 100,
-  "plugins": ["prettier-plugin-tailwindcss"],
-  "overrides": [
-    {
-      "files": ["*.njk"],
-      "options": {
-        "parser": "html"
-      }
-    }
-  ]
+  "plugins": ["prettier-plugin-tailwindcss"]
 }
