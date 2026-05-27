@@ -38,7 +38,7 @@
 npm run qa
 ```
 
-Выполняются `gulp build`, линт JS/SCSS + Prettier, **`npm run validate:html`** (`html-validate`) и **`npm run validate:w3c`** (W3C Nu: локально `java -jar`, иначе HTTPS на `validator.w3.org`). Подробности: [`commands/validate-html.md`](../commands/validate-html.md).
+Выполняются `gulp build`, линт JS/SCSS + Prettier и **`npm run validate:html`** (`html-validate`, только npm, офлайн). Подробности: [`commands/validate-html.md`](../commands/validate-html.md).
 
 Дополнительно:
 
@@ -50,13 +50,13 @@ npm run qa
 
 По порядку; **не пропускать** формулировкой «потом», кроме явного `not_applicable` с причиной.
 
-1. Работа по типу задачи: `new-page` | `build-section` | `refactor-to-framework-component` | `fill-ui-kit-documentation` (цепочки в [`run-layout-task.md`](../commands/run-layout-task.md)).
+1. Работа по типу задачи: `new-page` | `build-section` | `refactor-to-framework-component` | `fill-design-system-documentation` (цепочки в [`run-layout-task.md`](../commands/run-layout-task.md)).
 2. `performance-checklist` — при новых страницах, секциях, тяжёлом медиа.
 3. `a11y-checklist` — при интерактиве или лендмарках.
 4. `validate-figma-assets` — если задача из Figma.
 5. `validate-pixel-perfect` — если mockup-driven (сначала зафиксированы breakpoints + typography).
 6. `register-new-page-in-index` — если добавлена страница.
-7. `validate-html` + `validate:w3c` — покрывается **`npm run qa`** после сборки.
+7. `validate-html` — покрывается **`npm run qa`** после сборки.
 8. [`pre-final-self-check.md`](../commands/pre-final-self-check.md) → [`finalize-layout-task.md`](../commands/finalize-layout-task.md) → [`validate-all-directives.md`](../commands/validate-all-directives.md).
 9. Если менялся `.cursor/`: [`sync-cursor-bilingual-structure.md`](../commands/sync-cursor-bilingual-structure.md) и зеркало здесь, в `_RU/`.
 

@@ -30,7 +30,7 @@
 9. Для mockup-driven страниц/секций запусти `validate-pixel-perfect`.
 10. При создании новой страницы запусти `register-new-page-in-index`.
 11. При изменениях `.cursor/` запусти `sync-cursor-bilingual-structure`.
-12. После успешной сборки при HTML-выводе запусти **`npm run validate:html`** и **`npm run validate:w3c`** (или `npm run qa`, что включает оба валидатора и линт).
+12. После успешной сборки при HTML-выводе запусти **`npm run validate:html`** (или `npm run qa`, что включает его, линт и a11y).
 13. Перед завершением обязательно запусти `pre-final-self-check` как блокирующий gate.
 14. Перед завершением обязательно запусти `finalize-layout-task` как блокирующий gate.
 15. Перед завершением обязательно запусти `validate-all-directives` как финальный gate.

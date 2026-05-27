@@ -20,7 +20,7 @@ Authoritative stack and mockup rules: [`WORKFLOW.md`](../WORKFLOW.md) §1.1–1.
    - Idempotent initialization lifecycle (`init` can be safely called multiple times)
 4. Confirm page registry policy (`register-new-page-in-index`).
 5. Confirm bilingual `.cursor/` maintenance policy (`sync-cursor-bilingual-structure`).
-6. Confirm required documentation scope (UI-kit and design tokens if present).
+6. Confirm required documentation scope (design-system and design tokens if present).
 7. Confirm performance baseline and usage of `performance-checklist` for delivery tasks.
 8. Confirm strict directive compliance baseline:
    - all `.cursor` directives are mandatory
@@ -32,8 +32,8 @@ Authoritative stack and mockup rules: [`WORKFLOW.md`](../WORKFLOW.md) §1.1–1.
    - `finalize-layout-task` is mandatory before completion
    - completion with deferred blocking work ("next step/later") is forbidden
 11. Confirm HTML validation baseline:
-   - `npm run validate:html` (html-validate) and `npm run validate:w3c` (W3C Nu) run on `dist/**/*.html` after every build-affecting change
-   - `npm run qa` includes build, lint, both HTML validators (Nu + html-validate)
+   - `npm run validate:html` (html-validate, npm-only) runs on `dist/**/*.html` after every build-affecting change
+   - `npm run qa` includes build, lint, HTML validation, and a11y
 
 ## Output
 

@@ -20,8 +20,7 @@
 6. Проверка build output
 7. Проверка lint/format
 8. `validate-html` (`dist/**/*.html` через `npm run validate:html`)
-9. `validate:w3c` (W3C Nu через `npm run validate:w3c`; тот же движок, что validator.w3.org)
-10. Проверка ручного подтверждения входов для mockup-driven задач (`breakpoints`, `typography`)
+9. Проверка ручного подтверждения входов для mockup-driven задач (`breakpoints`, `typography`)
 
 ## Правило завершения
 

@@ -1,11 +1,11 @@
-# fill-ui-kit-documentation
+# fill-design-system-documentation
 
-Review `app/ui-kit.html` and progressively populate project documentation for the sections below.
+Review and progressively populate **`app/design-system.njk`** — the live design-system showcase page — for the sections below.
 
 ## Source of truth
 
-- Primary source: `app/ui-kit.html`
-- Optional build check: `dist/ui-kit.html`
+- Primary source: `app/design-system.njk`
+- Optional build check: `dist/design-system.html`
 
 ## Task
 
@@ -42,19 +42,19 @@ Produce structured documentation for each section with:
 
 ## Writing rules
 
-- Document only what is confirmed in `ui-kit.html`.
+- Document only what is confirmed in `design-system.njk` (or `design-system.html` after build).
 - If a section is only partially represented, add `TODO` entries and list missing data.
-- For tables, explicitly state that the example is commented out in current `ui-kit.html`, and add a `TODO` for an active example.
-- For font settings, do not invent values; if `ui-kit.html` has no explicit token/family data, add `TODO` and point to required source (`scss` or design tokens).
+- For tables, explicitly state that the example is commented out in current `design-system.njk`, and add a `TODO` for an active example.
+- For font settings, do not invent values; if `design-system.njk` has no explicit token/family data, add `TODO` and point to required source (`scss` or design tokens).
 - Add concise a11y notes for each interactive element (label, focus, `aria`, state behavior).
 
 ## Expected output
 
-- One markdown document with a table of contents covering all sections.
-- Each section must include a status:
-  - `complete` - fully documented from `ui-kit.html`
+- Updated **`app/design-system.njk`** with live HTML examples and section headings for all areas below (build → `dist/design-system.html`).
+- In the task report, each section includes a status:
+  - `complete` - fully documented from `design-system.njk`
   - `partial` - partly documented, with explicit `TODO`
-  - `missing` - no source data in `ui-kit.html`
+  - `missing` - no source data in `design-system.njk`
 
 ## Acceptance criteria
 

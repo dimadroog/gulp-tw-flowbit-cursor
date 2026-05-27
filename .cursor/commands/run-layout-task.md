@@ -9,7 +9,7 @@ Canonical procedure, stack defaults, and mockup fidelity: [`WORKFLOW.md`](../WOR
 - "Create a new page"
 - "Build a new section"
 - "Refactor interaction to a framework component"
-- "Update UI-kit documentation"
+- "Update design-system documentation"
 
 ## Hard-mode defaults (always on)
 
@@ -40,7 +40,7 @@ Canonical procedure, stack defaults, and mockup fidelity: [`WORKFLOW.md`](../WOR
   - `pre-final-self-check` for every implementation task.
   - `finalize-layout-task` for every implementation task.
   - `validate-all-directives` for every implementation task.
-  - `validate-html` + `validate:w3c` (`npm run validate:html` and `npm run validate:w3c` after build, or `npm run qa`) for every implementation task that produces HTML.
+  - `validate-html` (`npm run validate:html` after build, or `npm run qa`) for every implementation task that produces HTML.
   - `sync-cursor-bilingual-structure` when `.cursor/` content/structure changes.
 
 ## Orchestration Flow
@@ -51,10 +51,10 @@ Canonical procedure, stack defaults, and mockup fidelity: [`WORKFLOW.md`](../WOR
    - `refactor`
    - `documentation`
 2. Run required command chains:
-   - `new-page` -> `new-page` -> `performance-checklist` -> `a11y-checklist` -> `validate-figma-assets` (if Figma-driven) -> `validate-pixel-perfect` (if mockup-driven) -> `register-new-page-in-index` -> `validate-html` -> `validate:w3c` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
-   - `build-section` -> `build-section` -> `performance-checklist` -> `a11y-checklist` -> `validate-figma-assets` (if Figma-driven) -> `validate-pixel-perfect` (if mockup-driven) -> `validate-html` -> `validate:w3c` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
-   - `refactor` -> `refactor-to-framework-component` -> `performance-checklist` -> `a11y-checklist` -> `validate-html` -> `validate:w3c` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
-   - `documentation` -> `fill-ui-kit-documentation` -> `validate-html` -> `validate:w3c` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
+   - `new-page` -> `new-page` -> `performance-checklist` -> `a11y-checklist` -> `validate-figma-assets` (if Figma-driven) -> `validate-pixel-perfect` (if mockup-driven) -> `register-new-page-in-index` -> `validate-html` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
+   - `build-section` -> `build-section` -> `performance-checklist` -> `a11y-checklist` -> `validate-figma-assets` (if Figma-driven) -> `validate-pixel-perfect` (if mockup-driven) -> `validate-html` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
+   - `refactor` -> `refactor-to-framework-component` -> `performance-checklist` -> `a11y-checklist` -> `validate-html` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
+   - `documentation` -> `fill-design-system-documentation` -> `validate-html` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
 3. If `.cursor/` files changed during execution, run `sync-cursor-bilingual-structure`.
 4. Return one compact report:
    - completed work
@@ -64,7 +64,7 @@ Canonical procedure, stack defaults, and mockup fidelity: [`WORKFLOW.md`](../WOR
 
 ## Blocking Gates
 
-- HTML validation failures from `validate-html` or **`validate:w3c`** (W3C Nu).
+- HTML validation failures from `validate-html`.
 - Accessibility failures from `a11y-checklist`.
 - Performance regressions flagged as blocking in `performance-checklist`.
 - Missing page registration for newly created pages.

@@ -16,10 +16,10 @@ alwaysApply: true
   - page creation
   - section implementation
   - framework refactor
-  - UI-kit documentation update
+  - design-system documentation update
 - Include `a11y-checklist` for interactive changes by default.
 - Include `performance-checklist` for new pages, section delivery, and media-heavy updates.
-- Include `commands/validate-html.md`: after build, run **`npm run validate:html`** and **`npm run validate:w3c`** (or `npm run qa`) for every task that outputs HTML.
+- Include `commands/validate-html.md`: after build, run **`npm run validate:html`** (or `npm run qa`) for every task that outputs HTML.
 - Include `validate-all-directives` as mandatory final post-check for every implementation task before completion.
 - Include `pre-final-self-check` and `finalize-layout-task` as mandatory blockers before `validate-all-directives`.
 - For mockup-driven implementation, require manual clarification of breakpoint baseline and typography contract before coding.

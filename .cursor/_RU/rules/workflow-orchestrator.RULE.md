@@ -16,10 +16,10 @@ alwaysApply: true
   - создание страницы
   - сборка секции
   - рефакторинг к framework component
-  - обновление UI-kit документации
+  - обновление design-system документации
 - Для интерактивных изменений по умолчанию включать `a11y-checklist`.
 - Для новых страниц, сборки секций и media-heavy изменений по умолчанию включать `performance-checklist`.
-- Включай `commands/validate-html.md`: после сборки **`npm run validate:html`** и **`npm run validate:w3c`** (или `npm run qa`) для любой задачи с HTML-выводом.
+- Включай `commands/validate-html.md`: после сборки **`npm run validate:html`** (или `npm run qa`) для любой задачи с HTML-выводом.
 - Для любой задачи реализации обязательно запускать `validate-all-directives` как финальный post-check перед завершением.
 - Перед `validate-all-directives` обязательно запускать `pre-final-self-check` и `finalize-layout-task`.
 - Для mockup-driven реализации до начала кодинга обязательно вручную уточнять breakpoint baseline и typography contract.

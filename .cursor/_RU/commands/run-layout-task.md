@@ -9,7 +9,7 @@
 - "Создай новую страницу"
 - "Собери новую секцию"
 - "Переведи интерактив на framework component"
-- "Обнови документацию UI-kit"
+- "Обнови документацию design-system"
 
 ## Hard-mode baseline (всегда включен)
 
@@ -40,7 +40,7 @@
   - `pre-final-self-check` для любой задачи реализации.
   - `finalize-layout-task` для любой задачи реализации.
   - `validate-all-directives` для любой задачи реализации.
-  - `validate-html` + `validate:w3c` (`npm run validate:html` и `npm run validate:w3c` после сборки, либо `npm run qa`) для любой задачи с HTML-выводом.
+  - `validate-html` (`npm run validate:html` после сборки, либо `npm run qa`) для любой задачи с HTML-выводом.
   - `sync-cursor-bilingual-structure` при изменениях контента/структуры `.cursor/`.
 
 ## Orchestration flow
@@ -51,10 +51,10 @@
    - `refactor`
    - `documentation`
 2. Запусти нужные цепочки команд:
-   - `new-page` -> `new-page` -> `performance-checklist` -> `a11y-checklist` -> `validate-figma-assets` (если Figma-driven) -> `validate-pixel-perfect` (если mockup-driven) -> `register-new-page-in-index` -> `validate-html` -> `validate:w3c` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
-   - `build-section` -> `build-section` -> `performance-checklist` -> `a11y-checklist` -> `validate-figma-assets` (если Figma-driven) -> `validate-pixel-perfect` (если mockup-driven) -> `validate-html` -> `validate:w3c` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
-   - `refactor` -> `refactor-to-framework-component` -> `performance-checklist` -> `a11y-checklist` -> `validate-html` -> `validate:w3c` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
-   - `documentation` -> `fill-ui-kit-documentation` -> `validate-html` -> `validate:w3c` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
+   - `new-page` -> `new-page` -> `performance-checklist` -> `a11y-checklist` -> `validate-figma-assets` (если Figma-driven) -> `validate-pixel-perfect` (если mockup-driven) -> `register-new-page-in-index` -> `validate-html` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
+   - `build-section` -> `build-section` -> `performance-checklist` -> `a11y-checklist` -> `validate-figma-assets` (если Figma-driven) -> `validate-pixel-perfect` (если mockup-driven) -> `validate-html` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
+   - `refactor` -> `refactor-to-framework-component` -> `performance-checklist` -> `a11y-checklist` -> `validate-html` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
+   - `documentation` -> `fill-design-system-documentation` -> `validate-html` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
 3. Если во время выполнения менялись файлы в `.cursor/`, запусти `sync-cursor-bilingual-structure`.
 4. Верни один компактный отчет:
    - что сделано
@@ -64,7 +64,7 @@
 
 ## Blocking gates
 
-- Провал HTML-валидации из `validate-html` или **`validate:w3c`** (W3C Nu).
+- Провал HTML-валидации из `validate-html`.
 - Блокирующие проблемы доступности из `a11y-checklist`.
 - Блокирующие performance-регрессии из `performance-checklist`.
 - Отсутствие регистрации новой страницы в индексе.

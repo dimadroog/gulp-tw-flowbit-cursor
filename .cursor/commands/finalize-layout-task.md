@@ -20,8 +20,7 @@ Record one of: `pass | fail | not_applicable` for each item:
 6. Build output check
 7. Lint/format check
 8. `validate-html` (on `dist/**/*.html` via `npm run validate:html`)
-9. `validate:w3c` (W3C Nu HTML Checker via `npm run validate:w3c`; same engine as validator.w3.org)
-10. Manual input confirmation check for mockup-driven tasks (`breakpoints`, `typography`)
+9. Manual input confirmation check for mockup-driven tasks (`breakpoints`, `typography`)
 
 ## Completion rule
 

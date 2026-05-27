@@ -10,7 +10,7 @@ Use this quick self-check immediately before final response in implementation ta
 4. For Figma-driven work, is asset integrity validated (`validate-figma-assets`)? (`no` blocks completion)
 5. Is there a clear `pass|fail` status for pixel-perfect where applicable? (`no` blocks completion)
 6. Is there command/check evidence attached for each applicable gate? (`no` blocks completion)
-7. For HTML-delivering tasks, are **both** `validate-html` and `validate:w3c` explicitly `pass` (or does full `npm run qa` after build show `pass` for HTML gates)? (`no` blocks completion)
+7. For HTML-delivering tasks, is `validate-html` explicitly `pass` (or does full `npm run qa` after build pass without HTML validation failures)? (`no` blocks completion)
 
 ## Decision rule
 

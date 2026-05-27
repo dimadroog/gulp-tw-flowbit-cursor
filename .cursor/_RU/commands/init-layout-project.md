@@ -20,7 +20,7 @@
    - idempotent lifecycle инициализации (`init` можно безопасно вызывать повторно)
 4. Подтверди политику регистрации страниц (`register-new-page-in-index`).
 5. Подтверди политику двуязычной поддержки `.cursor/` (`sync-cursor-bilingual-structure`).
-6. Подтверди обязательный объем документации (UI-kit и design tokens, если есть).
+6. Подтверди обязательный объем документации (design-system и design tokens, если есть).
 7. Подтверди performance-baseline и применение `performance-checklist` в задачах реализации.
 8. Подтверди baseline неукоснительного соблюдения директив:
    - все директивы `.cursor` обязательны к исполнению
@@ -32,8 +32,8 @@
    - перед завершением обязателен `finalize-layout-task`
    - завершение с отложенными блокирующими работами ("потом/следующим шагом") запрещено
 11. Подтверди baseline HTML-валидации:
-   - после любых изменений, влияющих на сборку, гоняются `npm run validate:html` (html-validate) и `npm run validate:w3c` (W3C Nu) на `dist/**/*.html`
-   - `npm run qa` включает сборку, линт и **оба** HTML-валидатора (Nu + html-validate)
+   - после любых изменений, влияющих на сборку, гоняется `npm run validate:html` (html-validate, только npm) на `dist/**/*.html`
+   - `npm run qa` включает сборку, линт, HTML-валидацию и a11y
 
 ## Результат
 

@@ -1,28 +1,21 @@
 # validate-html
 
-Формальная проверка HTML по собранному `dist/**/*.html` перед закрытием задач по вёрстке. В проекте обязательны **два** gate (оба входят в `npm run qa` после сборки).
+Формальная HTML-валидация **собранных** `dist/**/*.html` перед закрытием layout-задач. В проекте один обязательный гейт через npm-пакет **`html-validate`** (входит в `npm run qa` после сборки).
 
 ## Когда запускать
 
-- После `npm run build` всегда **`npm run qa`** (включает оба валидатора и линт) или по отдельности:
+- После `npm run build` всегда запускай **`npm run qa`** (HTML-валидация + линт + a11y) или валидатор напрямую:
   - `npm run validate:html`
-  - `npm run validate:w3c`
 
 ## Команды
 
-Быстрый офлайн-чекер (дополнительно):
+HTML-валидация (локально, офлайн, только npm):
 
 ```bash
 npm run validate:html
 ```
 
-**W3C Nu HTML Checker** (эталон Nu: весь документ + вложенный SVG):
-
-```bash
-npm run validate:w3c
-```
-
-Полный QA (сборка + линт + оба HTML-gate):
+Полный QA (сборка + линт + HTML-валидация + a11y):
 
 ```bash
 npm run qa
@@ -30,16 +23,15 @@ npm run qa
 
 ## Инструменты
 
-1. **`html-validate`** (`.htmlvalidate.json`) — локально, без сети; **не заменяет Nu** для части SVG/`id`/предупреждений.
-2. **`validate:w3c`** — движок **Nu**: при `java` в `PATH` — `vnu.jar` из `vnu-jar`; без Java — **POST на `https://validator.w3.org/nu/`** (HTML отправляется сервису W3C; для строго конфиденциальных страниц нужен свой Nu/локальная Java).
+- **`html-validate`** ([`.htmlvalidate.json`](../../.htmlvalidate.json)) — локальная проверка по WHATWG HTML Living Standard; без Java, без сети, без внешних сервисов.
+- Это не побайтовый Nu Html Checker — часть Nu-специфичных кейсов (некоторые вложенные SVG / дубли `id`) может отличаться.
 
-После массового импорта Figma-SVG в `app/img/layout-shell/` перед проверкой: **`npm run normalize:svg-layout`**, затем сборка.
+После массового импорта Figma-SVG в `app/img/layout-shell/` перед проверкой выполняй **`npm run normalize:svg-layout`**, затем сборку.
 
 ## Блокирующее правило
 
-- Любая ошибка или предупреждение уровня Nu (error / warning в JSON), которое ловит `validate:w3c`, блокирует сдачу.
-- Любая ошибка `html-validate` блокирует сдачу.
+- Любая **error** от `html-validate` блокирует сдачу.
 
 ## Отчётность
 
-- Фиксируй `pass|fail`, команды (`validate:html`, `validate:w3c` или `qa`), пути и текст сообщений Nu при провале.
+- Фиксируй `pass|fail`, команду (`validate:html` или `qa`), пути файлов и текст ошибок при провале.

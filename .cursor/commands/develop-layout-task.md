@@ -30,7 +30,7 @@ Prefer driving work through [`run-layout-task`](run-layout-task.md). Canonical g
 9. Run `validate-pixel-perfect` for mockup-driven pages/sections.
 10. Run `register-new-page-in-index` when a new page is created.
 11. Run `sync-cursor-bilingual-structure` when `.cursor/` files are changed.
-12. After a successful build for any HTML output, run **`npm run validate:html`** and **`npm run validate:w3c`** (or `npm run qa`, which includes both plus lint).
+12. After a successful build for any HTML output, run **`npm run validate:html`** (or `npm run qa`, which includes it plus lint and a11y).
 13. Run `pre-final-self-check` as mandatory blocker before finalization.
 14. Run `finalize-layout-task` as mandatory blocker before completion.
 15. Run `validate-all-directives` as mandatory final gate before completion.

@@ -38,7 +38,7 @@ Run in the project root after changes that affect templates or assets:
 npm run qa
 ```
 
-This runs `gulp build`, JS/SCSS lint + Prettier check, **`npm run validate:html`** (`html-validate`), and **`npm run validate:w3c`** (W3C Nu: local `java -jar` when available, else HTTPS to `validator.w3.org`). Details: [`commands/validate-html.md`](commands/validate-html.md).
+This runs `gulp build`, JS/SCSS lint + Prettier check, and **`npm run validate:html`** (`html-validate`, npm-only, offline). Details: [`commands/validate-html.md`](commands/validate-html.md).
 
 Other tooling:
 
@@ -50,13 +50,13 @@ Other tooling:
 
 Apply in order; **do not skip** with “later” unless marked N/A with reason.
 
-1. Task-type work: `new-page` | `build-section` | `refactor-to-framework-component` | `fill-ui-kit-documentation` (see chains in [`run-layout-task.md`](commands/run-layout-task.md)).
+1. Task-type work: `new-page` | `build-section` | `refactor-to-framework-component` | `fill-design-system-documentation` (see chains in [`run-layout-task.md`](commands/run-layout-task.md)).
 2. `performance-checklist` — when pages, sections, or heavy media change.
 3. `a11y-checklist` — when interactivity or landmarks change.
 4. `validate-figma-assets` — if Figma-driven.
 5. `validate-pixel-perfect` — if mockup-driven (requires clarified breakpoints + typography first).
 6. `register-new-page-in-index` — if a new page was added.
-7. `validate-html` + `validate:w3c` — covered by **`npm run qa`** after build.
+7. `validate-html` — covered by **`npm run qa`** after build.
 8. [`pre-final-self-check.md`](commands/pre-final-self-check.md) → [`finalize-layout-task.md`](commands/finalize-layout-task.md) → [`validate-all-directives.md`](commands/validate-all-directives.md).
 9. If any file under `.cursor/` changed: [`sync-cursor-bilingual-structure.md`](commands/sync-cursor-bilingual-structure.md) and mirror updates in [`_RU/`](_RU/).
 

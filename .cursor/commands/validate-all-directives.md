@@ -26,7 +26,7 @@ Run a mandatory, final compliance gate against all relevant project directives b
 3. Run concrete verification artifacts:
    - build output check
    - lint/diagnostic check
-   - HTML validation checks (`npm run validate:html` **and** `npm run validate:w3c` on built `dist/**/*.html`; see `commands/validate-html.md`)
+   - HTML validation check (`npm run validate:html` on built `dist/**/*.html`; see `commands/validate-html.md`)
    - markup/source path integrity checks
    - manual-clarification check for required visual inputs (`breakpoints`, `typography`) on mockup-driven tasks
    - `pre-final-self-check` result

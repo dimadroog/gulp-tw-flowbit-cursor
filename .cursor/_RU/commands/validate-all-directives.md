@@ -26,7 +26,7 @@
 3. Запусти проверочные артефакты:
    - проверка build output
    - проверка lint/diagnostics
-   - проверки HTML (`npm run validate:html` **и** `npm run validate:w3c` для собранного `dist/**/*.html`; см. `commands/validate-html.md`)
+   - проверка HTML (`npm run validate:html` для собранного `dist/**/*.html`; см. `commands/validate-html.md`)
    - проверка целостности разметки и путей к ресурсам
    - проверка ручного уточнения обязательных visual-входов (`breakpoints`, `typography`) для mockup-driven задач
    - результат `pre-final-self-check`
