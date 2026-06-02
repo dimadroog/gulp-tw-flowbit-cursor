@@ -3,39 +3,39 @@
 <!DOCTYPE html>
 <html lang="{{ lang | default('ru') }}">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{{ title | default('Unnamed Page') }}</title>
-    <meta name="description" content="{{ description | default('description') }}" />
-    <meta name="keywords" content="{{ keywords | default('keywords') }}" />
-    <meta name="robots" content="{{ robots | default('index, follow') }}" />
+    <meta name="description" content="{{ description | default('description') }}">
+    <meta name="keywords" content="{{ keywords | default('keywords') }}">
+    <meta name="robots" content="{{ robots | default('index, follow') }}">
     {% if canonical %}
-    <link rel="canonical" href="{{ canonical }}" />
+    <link rel="canonical" href="{{ canonical }}">
     {% endif %}
 
-    <meta property="og:type" content="{{ ogType | default('website') }}" />
-    <meta property="og:title" content="{{ title | default('Unnamed Page') }}" />
-    <meta property="og:description" content="{{ description | default('') }}" />
+    <meta property="og:type" content="{{ ogType | default('website') }}">
+    <meta property="og:title" content="{{ title | default('Unnamed Page') }}">
+    <meta property="og:description" content="{{ description | default('') }}">
     {% if canonical %}
-    <meta property="og:url" content="{{ canonical }}" />
+    <meta property="og:url" content="{{ canonical }}">
     {% endif %} {% if siteName %}
-    <meta property="og:site_name" content="{{ siteName }}" />
+    <meta property="og:site_name" content="{{ siteName }}">
     {% endif %} {% if ogImage %}
-    <meta property="og:image" content="{{ ogImage }}" />
-    <meta property="og:image:alt" content="{{ ogImageAlt | default(title) }}" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="{{ ogImage }}" />
+    <meta property="og:image" content="{{ ogImage }}">
+    <meta property="og:image:alt" content="{{ ogImageAlt | default(title) }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="{{ ogImage }}">
     {% else %}
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary">
     {% endif %}
-    <meta name="twitter:title" content="{{ title | default('Unnamed Page') }}" />
-    <meta name="twitter:description" content="{{ description | default('') }}" />
+    <meta name="twitter:title" content="{{ title | default('Unnamed Page') }}">
+    <meta name="twitter:description" content="{{ description | default('') }}">
 
-    <link rel="icon" type="image/x-icon" sizes="16x16" href="favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png" />
-    <link rel="manifest" crossorigin="use-credentials" href="img/favicon/site.webmanifest" />
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+    <link rel="manifest" crossorigin="use-credentials" href="img/favicon/site.webmanifest">
 
     {%- block preload %}{% endblock -%}
 
@@ -46,9 +46,7 @@
 
     <main class="main">
       <h1 class="{{titleCssClass}}">{{title}}</h1>
-      <!-- START #WORKAREA# -->
       {% block content %}{% endblock %}
-      <!-- END #WORKAREA# -->
     </main>
 
     {% include "njk-parts/_footer.njk" %}

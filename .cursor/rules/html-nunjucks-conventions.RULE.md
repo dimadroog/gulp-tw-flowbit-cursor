@@ -1,5 +1,5 @@
 ---
-description: HTML/Nunjucks conventions — reuse via macros; link stubs use href="#", JS-only anchors use href="javascript:;"; Partial Extraction Threshold.
+description: HTML/Nunjucks conventions — reuse via macros; images per delivery rule; link stubs href="#"; JS anchors href="javascript:;"; partial extraction threshold.
 alwaysApply: true
 ---
 
@@ -54,6 +54,24 @@ alwaysApply: true
 - Implement via `@apply` in project SCSS (`_components.scss` `@layer base` for `body`, `.main` — see [`tailwind-usage-policy.RULE.md`](tailwind-usage-policy.RULE.md)), not repeated utility strings on `<body>` in Nunjucks.
 - **Do not** use `position: fixed` / `sticky` on the site footer solely to pin it to the viewport bottom; sticky header (`site-header`) remains independent.
 - **Verification:** on a short page (`index.html` / empty `home-page`), DevTools shows the footer adjacent to the bottom edge of the viewport with no large white gap below; on a long page, document scroll height exceeds the viewport and the footer appears after content. `npm run build` succeeds.
+
+## Images in templates (media)
+
+Sizing, formats, `picture`/`srcset`, and PageSpeed gates are defined in [`image-delivery-and-optimization.RULE.md`](image-delivery-and-optimization.RULE.md). `alt` and non-text accessibility: [`accessibility-and-w3c.RULE.md`](accessibility-and-w3c.RULE.md). Figma import paths and SVG integrity: [`figma-asset-integrity.RULE.md`](figma-asset-integrity.RULE.md).
+
+- Every `<img>` in `app/**/*.njk` must set `loading="lazy"` or `loading="eager"` explicitly.
+- When displayed size is known from layout, set `width` and `height` (or reserve space with equivalent CSS `aspect-ratio`) on `<img>` to limit CLS; values reflect **rendered** CSS pixels, not the full source file size.
+- Use `picture`/`srcset` in markup when the slot’s rendered width changes by breakpoint; keep each candidate within **intrinsic ≤ rendered × 2.0** for that breakpoint (see image-delivery rule).
+- Reference raster files only via project-local paths (for example `app/img/...`); do not leave Figma MCP or other temporary remote URLs in templates.
+- For repeated image slots (cards, galleries, avatars), prefer a macro or shared partial that centralizes `src`/`srcset`, `sizes`, `loading`, `width`/`height`, and `alt` — do not copy diverging `<img>` blocks across loops.
+- In data-driven loops, pass image fields (`src`, optional `srcset`/`sizes`, dimensions, `alt`, `loading`) in fixture `{% set %}` literals; avoid hard-coding oversized assets in markup when the macro can select the correct file.
+- Decorative images: `alt=""` and `role="presentation"` only when appropriate per accessibility rule; informative images need descriptive `alt` from data or copy.
+
+**Verification:**
+
+- `rg '<img' app/**/*.njk` — each tag has `loading=` and `alt`; LCP/hero candidates use `loading="eager"` where intended.
+- New or changed raster under `app/img/` meets image-delivery rule (≤ 2× rendered); run `performance-checklist` and confirm PSI **“Properly size images”** is green for touched pages.
+- `npm run build` succeeds; built `dist/**/*.html` has no empty `src` or broken image paths.
 
 ## Reuse Rules
 

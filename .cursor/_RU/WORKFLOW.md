@@ -19,6 +19,7 @@
 - Сначала **data-attribute API Flowbite**; кастомный JS — минимально.
 - **Scrollspy:** проектный хелпер `data-scrollspy-nav` для навигации по секциям.
 - **Поисковый / кастомный select** — только на страницах, где это явно требуется.
+- **Изображения:** доставка, intrinsic sizing и PageSpeed — [`rules/image-delivery-and-optimization.RULE.md`](../rules/image-delivery-and-optimization.RULE.md).
 
 ### 1.2 Точность дизайна (mockup-driven, blocking)
 

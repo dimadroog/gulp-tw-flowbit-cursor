@@ -26,6 +26,7 @@ alwaysApply: true
 - Include `register-new-page-in-index` whenever a new page is created.
 - For new-page/build-section flows, validate that global shell (`header`/`sidebar`) remains in root layout/shared partials and page templates keep only page content.
 - For Figma-driven implementation, enforce `rules/figma-asset-integrity.RULE.md` checks (inline SVG for vectors, local `app/img/` paths for raster, no broken/empty image sources).
+- For new pages, section delivery, and media-heavy updates, enforce `rules/image-delivery-and-optimization.RULE.md` (loading, responsive sources, intrinsic ≤ 2× rendered, PageSpeed image audits).
 - For Figma-driven page/section work, run `commands/validate-figma-assets.md` as explicit post-check before completion.
 - For mockup-driven page/section work, run `commands/validate-pixel-perfect.md` as explicit post-check before completion.
 - Treat unresolved blocking TODOs or deferred fidelity notes as completion blockers.

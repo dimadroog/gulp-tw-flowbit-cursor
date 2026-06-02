@@ -22,6 +22,7 @@ Run a focused post-check for asset integrity after Figma-driven implementation.
    - no empty `src`
    - no unresolved relative paths
    - no broken references in built output
+   - raster intrinsic dimensions comply with [`rules/image-delivery-and-optimization.RULE.md`](../rules/image-delivery-and-optimization.RULE.md) (≤ rendered × 2.0 per axis)
 
 ## Output
 

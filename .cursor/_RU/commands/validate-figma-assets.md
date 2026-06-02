@@ -22,6 +22,7 @@
    - нет пустых `src`
    - нет неразрешенных относительных путей
    - нет битых ссылок в собранном output
+   - intrinsic-размеры растра соответствуют [`rules/image-delivery-and-optimization.RULE.md`](../rules/image-delivery-and-optimization.RULE.md) (≤ rendered × 2.0 по каждой оси)
 
 ## Результат
 

@@ -22,10 +22,9 @@ Create a clean, reusable page baseline with SEO, semantic structure, and include
 5. Add one `h1` aligned with page intent; if needed, make it visually hidden but accessible.
 6. Use `section` and `article` only when each block has a meaningful heading (`h2`/`h3` as appropriate).
 7. Split large page chunks into section partials early.
-8. Define responsive image strategy per section using `picture`/`srcset` where appropriate.
-9. Set image loading strategy explicitly (`lazy` or `eager`) per section and keep source dimensions close to rendered dimensions.
-10. Ensure each `img` has valid `alt` usage (descriptive text or empty `alt=""` for decorative images).
-11. Run a quick resilience pass with longer text and alternative image aspect ratios.
+8. Plan image slots per [`rules/image-delivery-and-optimization.RULE.md`](../../rules/image-delivery-and-optimization.RULE.md) (`loading`, `picture`/`srcset`, intrinsic ≤ 2× rendered, formats).
+9. Ensure each `img` has valid `alt` per [`rules/accessibility-and-w3c.RULE.md`](../../rules/accessibility-and-w3c.RULE.md).
+10. Run a quick resilience pass (longer text, varied image aspect ratios) per the image-delivery rule.
 
 ## Interaction Baseline (when page has interactive blocks)
 
@@ -40,5 +39,5 @@ Create a clean, reusable page baseline with SEO, semantic structure, and include
 - Repeated blocks are prepared for loops/macros instead of copy-paste.
 - Focus and accessibility assumptions are noted for future interactive blocks.
 - Landmark usage and heading hierarchy are explicitly valid.
-- Baseline layout is resilient to content length and image ratio changes.
+- Baseline layout is resilient to content length and image ratio changes per image-delivery rule.
 - Document shell defaults and page title mapping are explicitly valid.

@@ -15,7 +15,7 @@ Run a mandatory, final compliance gate against all relevant project directives b
    - all `alwaysApply: true` rules
    - all command-level mandatory checks tied to task type
 2. Validate implementation against each scoped directive category:
-   - architecture/performance delivery
+   - architecture/performance delivery (including image delivery and sizing when raster or responsive images changed — [`rules/image-delivery-and-optimization.RULE.md`](../rules/image-delivery-and-optimization.RULE.md))
    - accessibility/W3C semantics
    - Tailwind/styling conventions
    - JavaScript minimalism/architecture

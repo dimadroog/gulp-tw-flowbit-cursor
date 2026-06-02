@@ -1,5 +1,5 @@
 ---
-description: Конвенции HTML/Nunjucks — macro при повторе; заглушки страниц href="#", JS-якоря href="javascript:;"; порог выноса partials.
+description: Конвенции HTML/Nunjucks — macro при повторе; изображения по delivery rule; заглушки href="#"; JS-якоря href="javascript:;"; порог partials.
 alwaysApply: true
 ---
 
@@ -54,6 +54,24 @@ alwaysApply: true
 - Реализуйте через `@apply` в SCSS проекта (`_components.scss`, `@layer base` для `body` и `.main` — см. [`tailwind-usage-policy.RULE.md`](tailwind-usage-policy.RULE.md)), без длинных utility-строк на `<body>` в Nunjucks.
 - **Не** используйте `position: fixed` / `sticky` на site footer только ради прижатия к низу viewport; sticky header (`site-header`) остаётся отдельно.
 - **Проверка:** на короткой странице (`index.html` / пустая `home-page`) в DevTools footer у нижнего края viewport без большой белой полосы снизу; на длинной — высота документа больше viewport, footer после контента. `npm run build` проходит.
+
+## Изображения в шаблонах (media)
+
+Sizing, форматы, `picture`/`srcset` и гейты PageSpeed — в [`image-delivery-and-optimization.RULE.md`](image-delivery-and-optimization.RULE.md). `alt` и non-text a11y — в [`accessibility-and-w3c.RULE.md`](accessibility-and-w3c.RULE.md). Импорт из Figma и целостность SVG — в [`figma-asset-integrity.RULE.md`](figma-asset-integrity.RULE.md).
+
+- У каждого `<img>` в `app/**/*.njk` явно задавайте `loading="lazy"` или `loading="eager"`.
+- Когда отображаемый размер известен из layout, задавайте `width` и `height` (или резервируйте место через CSS `aspect-ratio`) на `<img>` для снижения CLS; значения — **rendered** CSS-пиксели, не полный размер исходника.
+- Используйте `picture`/`srcset`, если ширина слота меняется по breakpoint; каждый кандидат — в пределах **intrinsic ≤ rendered × 2.0** для этого breakpoint (см. image-delivery rule).
+- Растр только через локальные пути проекта (например `app/img/...`); не оставляйте Figma MCP и другие временные remote URL в шаблонах.
+- Для повторяющихся слотов (карточки, галереи, аватары) предпочитайте macro или общий partial с единым `src`/`srcset`, `sizes`, `loading`, `width`/`height` и `alt` — не копируйте расходящиеся `<img>` по циклам.
+- В data-driven циклах передавайте поля изображения (`src`, при необходимости `srcset`/`sizes`, размеры, `alt`, `loading`) в литералах `{% set %}`; не зашивайте в разметку файлы больше нужного, если macro может выбрать корректный ассет.
+- Декоративные изображения: `alt=""` и при уместности `role="presentation"` по accessibility rule; информативные — осмысленный `alt` из данных или текста.
+
+**Проверка:**
+
+- `rg '<img' app/**/*.njk` — у каждого тега есть `loading=` и `alt`; LCP/hero при необходимости с `loading="eager"`.
+- Новый или изменённый растр в `app/img/` соответствует image-delivery rule (≤ 2× rendered); выполните `performance-checklist` и убедитесь, что PSI **«Properly size images»** зелёный для затронутых страниц.
+- `npm run build` проходит; в `dist/**/*.html` нет пустых `src` и битых путей к изображениям.
 
 ## Правила переиспользования
 

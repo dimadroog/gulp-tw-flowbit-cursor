@@ -16,8 +16,8 @@ Build one section from a layout with framework-first interaction policy.
 4. If no, add minimal custom JS and document why framework support is insufficient.
 5. Refactor repeated elements into Nunjucks loops/partials.
 6. Use `js-*` classes for JS selectors only, keep them after visual classes in `class` attributes, and do not style them in CSS.
-7. Optimize media and section structure for loading speed (right formats, source sizes close to rendered sizes, no redundant wrappers).
-8. Use `picture`/`srcset` for responsive images and set meaningful `alt` text (or `alt=""` for decorative images).
+7. Optimize media per [`rules/image-delivery-and-optimization.RULE.md`](../rules/image-delivery-and-optimization.RULE.md); keep section structure lean (no redundant wrappers).
+8. Set `alt` per [`rules/accessibility-and-w3c.RULE.md`](../rules/accessibility-and-w3c.RULE.md).
 9. Enforce Figma asset integrity when design assets are used:
    - vectors are inserted as inline SVG (do not replace with emoji/text placeholders)
    - raster assets are stored in structured local paths under `app/img/`
@@ -41,5 +41,5 @@ Build one section from a layout with framework-first interaction policy.
 - Decision gate result is explicit: framework component or justified custom JS.
 - Performance constraints are explicitly checked and reflected in delivery notes.
 - Layout remains stable with content replacements (longer text and image aspect-ratio changes).
-- Image delivery is responsive (`picture`/`srcset`) and all `img` elements have valid `alt` usage.
+- Image delivery complies with `image-delivery-and-optimization.RULE.md`; all `img` elements have valid `alt` per accessibility rule.
 - Font delivery follows policy (`WOFF/WOFF2`, self-hosted when applicable, only used variants, `font-display: swap`).

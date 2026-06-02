@@ -26,6 +26,7 @@ alwaysApply: true
 - При создании новой страницы обязательно включать `register-new-page-in-index`.
 - Для сценариев new-page/build-section валидировать, что глобальный shell (`header`/`sidebar`) остается в корневом layout/общих partials, а шаблоны страниц содержат только page-content.
 - Для Figma-driven реализации обязательно применять проверки из `rules/figma-asset-integrity.RULE.md` (inline SVG для вектора, локальные пути `app/img/` для растра, запрет пустых/битых image-ссылок).
+- Для new-page, секций и media-heavy изменений обязательно применять `rules/image-delivery-and-optimization.RULE.md` (`loading`, адаптивные источники, intrinsic ≤ 2× rendered, PageSpeed image audits).
 - Для Figma-driven задач по странице/секции обязательно запускать `commands/validate-figma-assets.md` как явный post-check перед завершением.
 - Для mockup-driven задач по странице/секции обязательно запускать `commands/validate-pixel-perfect.md` как явный post-check перед завершением.
 - Незакрытые блокирующие TODO и отложенные fidelity-работы считать блокерами завершения.

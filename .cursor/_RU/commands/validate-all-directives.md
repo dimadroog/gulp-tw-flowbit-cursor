@@ -15,7 +15,7 @@
    - все rules с `alwaysApply: true`
    - все command-level обязательные проверки по типу задачи
 2. Проверь реализацию по каждой категории директив:
-   - архитектура и performance delivery
+   - архитектура и performance delivery (включая доставку и sizing изображений при изменении растра или адаптивных источников — [`rules/image-delivery-and-optimization.RULE.md`](../rules/image-delivery-and-optimization.RULE.md))
    - accessibility/W3C семантика
    - Tailwind/styling конвенции
    - JavaScript minimalism/architecture

@@ -19,6 +19,7 @@ Single source for stack choices; do not duplicate this list in `quick-start` or 
 - Prefer **Flowbite data-attribute API** before custom JS; keep bespoke behavior minimal.
 - **Scrollspy:** use project helper `data-scrollspy-nav` for in-page section tracking.
 - **Searchable / custom select** plugins only on pages that explicitly require them.
+- **Images:** delivery, intrinsic sizing, and PageSpeed — [`rules/image-delivery-and-optimization.RULE.md`](rules/image-delivery-and-optimization.RULE.md).
 
 ### 1.2 Design fidelity (mockup-driven, blocking)
 

@@ -66,7 +66,7 @@ Aligned with **`_typography.scss`**: project tokens as Tailwind utilities, group
 
 ### Buttons
 
-- **`button`** (and `a`/`input` acting as buttons) use base **`.btn`** plus a variant: **`.btn-primary`**, **`.btn-outline`**, **`.btn-muted`**, or future **`.btn-*`** modifiers defined next to the base in `_components.scss`.
+- **`button`** (and `a`/`input` acting as buttons) use base **`.btn`** plus a variant: **`.btn-primary`**, **`.btn-outline`**, **`.btn-dark`**, or future **`.btn-*`** modifiers defined next to the base in `_components.scss`.
 - **Label presentation:** text inside **`.btn` / `.btn-*`** must **not** be underlined (including when the control is an **`a`** inheriting global link styles). Enforce in the **`.btn`** base **`@apply`** in **`_components.scss`** with **`no-underline`** (do not re-enable **`underline`** / **`decoration-*`** on button classes in templates unless the task brief documents an explicit “link-styled” exception outside the button system).
 - **Verification:** **`_components.scss`** `.btn` includes **`no-underline`**; new **`a class="btn`** markup carries no extra underline utilities; grep for **`btn` + `underline`** in **`app/`** should be empty aside from documented exceptions.
 

@@ -20,8 +20,7 @@ let patch = {
       "!" + source_folder + "/lib/**/**/node_modules/**",
     ],
     img: source_folder + "/img/**/*.{jpg,png,svg,gif,ico,webp,mp4,webm,webmanifest}",
-    fonts: source_folder + "/fonts/*.woff2",
-    fontsSrc: source_folder + "/fonts/src/*.ttf",
+    fonts: source_folder + "/fonts/**/*",
     favicon: source_folder + "/favicon.ico",
   },
   watch: {
@@ -187,28 +186,6 @@ async function images() {
   if (browsersync.active) browsersync.reload();
 }
 
-async function convertTtf() {
-  let files;
-  try {
-    files = await fsp.readdir(path.resolve(source_folder + "/fonts/src"));
-  } catch {
-    return;
-  }
-  const ttfFiles = files.filter((f) => f.toLowerCase().endsWith(".ttf"));
-  if (!ttfFiles.length) return;
-
-  const { default: ttf2woff2 } = await import("ttf2woff2");
-  await Promise.all(
-    ttfFiles.map(async (file) => {
-      const input = await fsp.readFile(path.join(source_folder + "/fonts/src", file));
-      const output = ttf2woff2(input);
-      const outName = file.replace(/\.ttf$/i, ".woff2");
-      await fsp.writeFile(path.join(source_folder + "/fonts", outName), output);
-      console.log(`  ✔ ${file} → ${outName}`);
-    })
-  );
-}
-
 function fonts() {
   return src(patch.src.fonts, { encoding: false }).pipe(dest(patch.build.fonts));
 }
@@ -252,7 +229,6 @@ function clean() {
 let build = gulp.series(
   clean,
   syncVendorLibs,
-  convertTtf,
   gulp.parallel(images, js, css, html, fonts, favicon, lib)
 );
 let watch = gulp.parallel(build, watchFiles, browserSync);
@@ -261,7 +237,6 @@ exports.images = images;
 exports.js = js;
 exports.css = css;
 exports.html = html;
-exports.convertTtf = convertTtf;
 exports.fonts = fonts;
 exports.build = build;
 exports.watch = watch;
