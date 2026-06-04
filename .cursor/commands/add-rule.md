@@ -4,7 +4,7 @@ Use this slash command **when requesting a new or updated governed convention** 
 
 This is **not** for one-off notes about the current repository instance (client brief, page content, sprint waivers). The working repo is a copy of the shared `.cursor` pack; rules you add here should remain valid when that pack is copied into another layout project.
 
-Canonical map: [`WORKFLOW.md`](../WORKFLOW.md) (**§4** rules vs commands vs skills). Per-project decisions belong in [`init-layout-project.md`](init-layout-project.md) output or project docs, not in durable rules unless generalized.
+Canonical map: [`WORKFLOW.md`](../WORKFLOW.md) (**§4** rules vs commands vs skills). Per-project decisions belong in project docs or the task brief, not in durable rules unless generalized.
 
 ---
 
@@ -20,7 +20,7 @@ Canonical map: [`WORKFLOW.md`](../WORKFLOW.md) (**§4** rules vs commands vs ski
 4. **Portable governance scope** — before writing, confirm the policy belongs in `rules/*.RULE.md`:
    - **In scope:** recurring layout-dev practices (HTML/Nunjucks, Tailwind, Flowbite, gulp/`npm run qa` per `WORKFLOW` §1.1–2), durable paths as **class conventions** (`app/`, `dist/`, `njk-layouts`, layout-shell partials), abstract UI zones (header, hero, flagship card).
    - **Out of scope for rules:** client/brand names, domains, page-specific URLs, one Figma file or one page filename as the norm, sprint/ticket IDs, iteration waivers (“for now on this repo…”).
-   - **If the ask is instance-specific:** document in project files (`PROJECT_PROGRESS.md`, design-system, task brief) or capture in `init-layout-project` checklist output; **do not** add a `.RULE.md`. If the user insists on a rule, generalize the wording and note `redirected` / `generalized` in the report.
+   - **If the ask is instance-specific:** document in project files (`PROJECT_PROGRESS.md`, design-system, task brief); **do not** add a `.RULE.md`. If the user insists on a rule, generalize the wording and note `redirected` / `generalized` in the report.
 5. **Ambiguity barrier** — if scope, applicability, severity (blocking vs recommended), target files, or **portable vs repo-only** intent are unclear, ask **minimal** clarifying questions (e.g. “portable policy for all layout projects, or a one-off note for this repo only?”) and **pause writes** until resolved.
 6. **Placement**
    - **Prefer merge** — if an existing `.RULE.md` already owns the topic, add a concise bullet or subsection there; shorten duplicates elsewhere if this clarifies hierarchy.
@@ -30,7 +30,7 @@ Canonical map: [`WORKFLOW.md`](../WORKFLOW.md) (**§4** rules vs commands vs ski
    - Rule files stay `*.RULE.md` in `rules/`.
    - File name = durable topic slug (kebab-case), not a sprint or ticket ID.
    - One-line `description:` in frontmatter must read like search hits for future sessions.
-9. **Bilingual lockstep** — any change under `.cursor/` requires **`sync-cursor-bilingual-structure`**: mirror to [`.cursor/_RU/`](../_RU/) immediately (English source, Russian mirror; §6 of `WORKFLOW`).
+9. **Bilingual lockstep** — any change under `.cursor/` requires **`sync-cursor-bilingual-structure`**: update [`docs/cursor-ru/`](../docs/cursor-ru/) immediately (English source in `.cursor/`, Russian human mirror; §6 of `WORKFLOW`).
 
 **Anti-pattern (rewrite before merge):**
 

@@ -1,18 +1,24 @@
 ---
-description: Enforce English source in .cursor and synchronized Russian mirror in .cursor/_RU for every structure change.
+description: English source in .cursor; Russian human mirror in docs/cursor-ru (not agent rules).
 alwaysApply: true
 ---
 
 # Cursor Bilingual Sync Policy
 
-- Keep all source guidance files in `.cursor/` in English.
-- Maintain a Russian mirror for the same files in `.cursor/_RU/`.
-- When adding new files/folders/content under `.cursor/`, always add translated counterparts under `.cursor/_RU/`.
-- Keep updates and removals mirrored manually between `.cursor/` and `.cursor/_RU/`.
-- Do not recursively mirror `.cursor/_RU/` into `.cursor/_RU/_RU/`.
-- Preserve metadata keys and commonly accepted technical terms in English when translation is not appropriate.
+- Keep all source guidance for agents in `.cursor/` in English only.
+- Maintain a Russian **human-readable** mirror in `docs/cursor-ru/` with the same relative paths where applicable.
+- When adding or changing files under `.cursor/`, update the translated counterpart under `docs/cursor-ru/` (manual sync).
+- Mirror files must **not** use `*.RULE.md` or `alwaysApply` — they are not Cursor project rules.
+- Do not place Russian mirrors inside `.cursor/` (no `.cursor/_RU/`).
+- Preserve metadata keys and widely accepted technical terms in English in `.cursor/` rule frontmatter.
 
-## Required action
+## Agent scope
 
-- Always duplicate new `.cursor/` data into `.cursor/_RU/` with Russian translation.
-- Never create or update nested `_RU` mirrors inside `.cursor/_RU/`.
+- Apply orchestration and policies from `.cursor/` only.
+- Treat `docs/cursor-ru/` as human documentation unless the user explicitly `@`-mentions a file there.
+
+## Required action on `.cursor/` changes
+
+- After editing `.cursor/`, update the matching path under `docs/cursor-ru/` with Russian content.
+- On rename/delete in `.cursor/`, mirror the same under `docs/cursor-ru/`.
+- Run `commands/sync-cursor-bilingual-structure.md` when `.cursor/` structure changes.

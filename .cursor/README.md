@@ -4,8 +4,21 @@
 
 ## Layout
 
-- `rules/` — binding policies (many `alwaysApply`).
+- `rules/` — binding policies (all rules use `alwaysApply`).
 - `commands/` — procedures and slash commands.
 - `skills/` — optional depth; open when needed.
 
-Thin session list: [`quick-start.md`](quick-start.md). Evolving policy text: [`commands/add-rule.md`](commands/add-rule.md). Legacy: [`done-criteria-first-iteration.md`](done-criteria-first-iteration.md), [`agent-topology.md`](agent-topology.md).
+## Session flow
+
+Do not restate stack or design rules here — only [`WORKFLOW.md`](WORKFLOW.md).
+
+1. **Agent policy / orchestration change** → [`commands/add-rule.md`](commands/add-rule.md); **project baseline** → [`WORKFLOW.md`](WORKFLOW.md) §1.1–1.2.
+2. **Implementation** → [`commands/run-layout-task.md`](commands/run-layout-task.md) (gates and task-type chains in [`WORKFLOW.md`](WORKFLOW.md) §3).
+3. **After HTML-related repo edits** → **`npm run qa`** (agent executes; evidence in report).
+4. **Any `.cursor/` edit** → update Russian human mirror in [`docs/cursor-ru/`](../docs/cursor-ru/) per [`commands/sync-cursor-bilingual-structure.md`](commands/sync-cursor-bilingual-structure.md).
+
+## See also
+
+- [`commands/add-rule.md`](commands/add-rule.md) — evolving governed conventions.
+- [`agent-topology.md`](agent-topology.md) — optional mental model for roles (enforcement is rules + commands).
+- [`docs/cursor-ru/`](../docs/cursor-ru/) — Russian translations for reading (not agent rules).

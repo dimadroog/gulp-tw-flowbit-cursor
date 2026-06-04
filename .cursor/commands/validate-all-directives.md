@@ -29,8 +29,8 @@ Run a mandatory, final compliance gate against all relevant project directives b
    - HTML validation check (`npm run validate:html` on built `dist/**/*.html`; see `commands/validate-html.md`)
    - markup/source path integrity checks
    - manual-clarification check for required visual inputs (`breakpoints`, `typography`) on mockup-driven tasks
-   - `pre-final-self-check` result
-   - `finalize-layout-task` result
+   - `pre-final-self-check` result (`ready_for_finalize`)
+   - `finalize-layout-task` result already completed with `overall_status: pass` on its summary matrix (this command does not appear inside that matrix; run `validate-all-directives` only after finalize passes)
 4. Record each directive as:
    - `pass`
    - `fail`

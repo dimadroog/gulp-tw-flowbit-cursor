@@ -6,14 +6,13 @@ Use this file as the **canonical route** through `.cursor/`. Other docs add deta
 
 | Phase | What to follow | Notes |
 |--------|----------------|--------|
-| **Governance** | [`commands/init-layout-project.md`](commands/init-layout-project.md), [`commands/add-rule.md`](commands/add-rule.md) | Init once per project or when baseline policy shifts; use `add-rule` when capturing or merging new governed conventions without full re-init. |
-| **Orchestration** | [`commands/run-layout-task.md`](commands/run-layout-task.md) | **Primary** driver for day-to-day work (hard-mode gates). |
-| **Execution detail** | [`commands/develop-layout-task.md`](commands/develop-layout-task.md) | Checklist under `run-layout-task`; not a substitute for the orchestrator. |
-| **Policy routing** | [`rules/workflow-orchestrator.RULE.md`](rules/workflow-orchestrator.RULE.md), [`rules/project-lifecycle-split.RULE.md`](rules/project-lifecycle-split.RULE.md) | Cursor alwaysApply. |
+| **Governance** | [`commands/add-rule.md`](commands/add-rule.md), [`WORKFLOW.md`](WORKFLOW.md) §1.1–1.2 | Baseline stack and mockup fidelity live in §1.1–1.2; use `add-rule` to capture or merge new governed conventions. |
+| **Orchestration** | [`commands/run-layout-task.md`](commands/run-layout-task.md) | **Primary** driver for day-to-day work (hard-mode gates); task-type recipes (`new-page`, `build-section`, `refactor-to-framework-component`, …) per Orchestration flow in that file. |
+| **Policy routing** | [`rules/workflow-orchestrator.RULE.md`](rules/workflow-orchestrator.RULE.md), [`rules/directive-compliance.RULE.md`](rules/directive-compliance.RULE.md) | Cursor alwaysApply. |
 
 ### 1.1 Implementation defaults (code stack)
 
-Single source for stack choices; do not duplicate this list in `quick-start` or README.
+Single source for stack choices; do not duplicate this list in [`README.md`](README.md).
 
 - **Tailwind CSS + Flowbite (MIT)** for modal, collapse, accordion, offcanvas, dropdown, tabs, tooltip.
 - Prefer **Flowbite data-attribute API** before custom JS; keep bespoke behavior minimal.
@@ -59,7 +58,7 @@ Apply in order; **do not skip** with “later” unless marked N/A with reason.
 6. `register-new-page-in-index` — if a new page was added.
 7. `validate-html` — covered by **`npm run qa`** after build.
 8. [`pre-final-self-check.md`](commands/pre-final-self-check.md) → [`finalize-layout-task.md`](commands/finalize-layout-task.md) → [`validate-all-directives.md`](commands/validate-all-directives.md).
-9. If any file under `.cursor/` changed: [`sync-cursor-bilingual-structure.md`](commands/sync-cursor-bilingual-structure.md) and mirror updates in [`_RU/`](_RU/).
+9. If any file under `.cursor/` changed: [`sync-cursor-bilingual-structure.md`](commands/sync-cursor-bilingual-structure.md) and mirror updates in [`docs/cursor-ru/`](../docs/cursor-ru/).
 
 Output: explicit **`pass|fail|not_applicable`** for each applicable gate, with command/file evidence.
 
@@ -72,10 +71,9 @@ Output: explicit **`pass|fail|not_applicable`** for each applicable gate, with c
 
 ## 5) Supplementary / historical
 
-- [`quick-start.md`](quick-start.md) — thin entry list only (stack + fidelity: §1.1–1.2 here).
-- [`agent-topology.md`](agent-topology.md) — role model; enforcement is rules + commands above.
-- [`done-criteria-first-iteration.md`](done-criteria-first-iteration.md) — legacy smoke-test for first `.cursor` rollout; **not** full project QA.
+- [`README.md`](README.md) — entry point and session flow (stack + fidelity: §1.1–1.2 here only).
+- [`agent-topology.md`](agent-topology.md) — optional role mental model; enforcement is rules + commands above.
 
-## 6) Russian mirror
+## 6) Russian mirror (human only)
 
-Keep in lockstep: **[`_RU/WORKFLOW.md`](_RU/WORKFLOW.md)** whenever this file changes.
+Keep in lockstep: **[`docs/cursor-ru/WORKFLOW.md`](../docs/cursor-ru/WORKFLOW.md)** whenever this file changes. Not loaded as Cursor rules; no `alwaysApply` in `docs/cursor-ru/`.

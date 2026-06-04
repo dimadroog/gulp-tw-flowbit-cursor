@@ -7,20 +7,23 @@ Use this command as the mandatory final blocker gate before reporting a layout t
 - Prevent premature completion.
 - Ensure all mandatory checks are explicitly passed.
 - Reject completion when any applicable gate is missing or failed.
+- Runs after all task gates and `validate-html`; `validate-all-directives` is the next mandatory step and is not part of this matrix (see [`WORKFLOW.md`](../WORKFLOW.md) §3).
 
 ## Required status matrix (must be explicit)
 
-Record one of: `pass | fail | not_applicable` for each item:
+Full gate list reference: [`WORKFLOW.md`](../WORKFLOW.md) §3. Record one of: `pass | fail | not_applicable` for each item:
 
-1. `a11y-checklist`
-2. `performance-checklist`
-3. `validate-pixel-perfect` (for mockup-driven tasks)
-4. `validate-figma-assets` (for Figma-driven tasks)
-5. `validate-all-directives`
-6. Build output check
-7. Lint/format check
-8. `validate-html` (on `dist/**/*.html` via `npm run validate:html`)
-9. Manual input confirmation check for mockup-driven tasks (`breakpoints`, `typography`)
+1. `performance-checklist`
+2. `a11y-checklist`
+3. `validate-figma-assets` (for Figma-driven tasks)
+4. `validate-pixel-perfect` (for mockup-driven tasks)
+5. `register-new-page-in-index` (when a new page was added)
+6. `validate-html` (on `dist/**/*.html` via `npm run validate:html`, or full `npm run qa`)
+7. `pre-final-self-check` (`ready_for_finalize`)
+8. Build output check
+9. Lint/format check
+10. Manual input confirmation check for mockup-driven tasks (`breakpoints`, `typography`)
+11. `sync-cursor-bilingual-structure` (when `.cursor/` changed)
 
 ## Completion rule
 

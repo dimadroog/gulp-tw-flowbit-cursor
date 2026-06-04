@@ -21,7 +21,7 @@ Canonical procedure, stack defaults, and mockup fidelity: [`WORKFLOW.md`](../WOR
 ## Pre / In / Post Matrix
 
 - **Pre-process (blocking):**
-  - Confirm lifecycle state (`init-layout-project` complete or explicitly being resolved).
+  - Confirm project baseline: repo builds with `npm run qa` (or equivalent), layout-shell strategy is clear, and open project-specific decisions are in project docs or the task brief—not assumed silently.
   - Identify task type (`new-page`, `build-section`, `refactor`, `documentation`).
   - Confirm required inputs (content, interactions, SEO/meta, media/font constraints).
   - For mockup-driven tasks, manually confirm breakpoint baseline and typography contract before coding.
@@ -31,16 +31,16 @@ Canonical procedure, stack defaults, and mockup fidelity: [`WORKFLOW.md`](../WOR
   - Enforce template reuse (Nunjucks loops/includes/macros) instead of duplicated blocks.
   - Validate styling/performance direction (Tailwind-first, media/font delivery, content resilience).
   - Enforce Figma asset integrity (inline SVG for vectors when applicable; structured local paths for raster; no emoji/text substitution of graphics).
-- **Post-process (blocking before done):**
-  - `a11y-checklist` for interactive changes.
+- **Post-process (blocking before done):** order matches [`WORKFLOW.md`](../WORKFLOW.md) §3 and Orchestration Flow below.
   - `performance-checklist` for page/section/media-impacting changes.
+  - `a11y-checklist` for interactive changes.
   - `validate-figma-assets` for Figma-driven pages/sections.
   - `validate-pixel-perfect` for mockup-driven pages/sections.
   - `register-new-page-in-index` for new pages.
+  - `validate-html` (`npm run validate:html` after build, or `npm run qa`) for every implementation task that produces HTML.
   - `pre-final-self-check` for every implementation task.
   - `finalize-layout-task` for every implementation task.
   - `validate-all-directives` for every implementation task.
-  - `validate-html` (`npm run validate:html` after build, or `npm run qa`) for every implementation task that produces HTML.
   - `sync-cursor-bilingual-structure` when `.cursor/` content/structure changes.
 
 ## Orchestration Flow
@@ -53,7 +53,7 @@ Canonical procedure, stack defaults, and mockup fidelity: [`WORKFLOW.md`](../WOR
 2. Run required command chains:
    - `new-page` -> `new-page` -> `performance-checklist` -> `a11y-checklist` -> `validate-figma-assets` (if Figma-driven) -> `validate-pixel-perfect` (if mockup-driven) -> `register-new-page-in-index` -> `validate-html` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
    - `build-section` -> `build-section` -> `performance-checklist` -> `a11y-checklist` -> `validate-figma-assets` (if Figma-driven) -> `validate-pixel-perfect` (if mockup-driven) -> `validate-html` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
-   - `refactor` -> `refactor-to-framework-component` -> `performance-checklist` -> `a11y-checklist` -> `validate-html` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
+   - `refactor` -> `refactor-to-framework-component` -> `performance-checklist` -> `a11y-checklist` -> `validate-figma-assets` (if Figma-driven) -> `validate-pixel-perfect` (if mockup-driven) -> `validate-html` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
    - `documentation` -> `fill-design-system-documentation` -> `validate-html` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
 3. If `.cursor/` files changed during execution, run `sync-cursor-bilingual-structure`.
 4. Return one compact report:
@@ -90,6 +90,6 @@ Canonical procedure, stack defaults, and mockup fidelity: [`WORKFLOW.md`](../WOR
 - Ask only for mandatory missing input.
 - Prefer framework-native behavior over custom JS for interactions.
 - Do not skip accessibility checks for interactive changes.
-- Keep names and structure aligned between `.cursor/` and `.cursor/_RU/`.
+- When `.cursor/` changes, update the human mirror under `docs/cursor-ru/` per `sync-cursor-bilingual-structure` (no Russian files under `.cursor/`).
 - Treat all established directives as mandatory constraints; do not mark tasks complete when any required directive is violated.
 - Do not declare completion with "next step/later" wording for unresolved blocking work.
