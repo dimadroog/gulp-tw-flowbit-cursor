@@ -10,21 +10,18 @@ disable-model-invocation: true
 
 Реализовывать секции в utility-first подходе с контролем дизайн-консистентности и производительности загрузки.
 
+Канон policy: [`rules/tailwind-usage-policy.md`](../../rules/tailwind-usage-policy.md); delivery и шрифты — [`rules/architecture-and-delivery-policy.md`](../../rules/architecture-and-delivery-policy.md).
+
 ## Workflow
 
 1. Разбей макет на переиспользуемые примитивы (container, grid, card, media, CTA).
-2. Сначала применяй Tailwind utilities для spacing, typography, color и responsive-поведения.
+2. Tailwind utilities для spacing, typography, color и responsive — по tailwind-usage policy.
 3. Переиспользуй сформированные utility-паттерны между секциями.
-4. Добавляй custom/BEM class только если utility-композиция не покрывает требование.
-5. Кратко документируй каждое исключение.
-6. Предпочитай более легкие utility-комбинации и избегай паттернов, которые увеличивают CSS/DOM-стоимость без явной UX-пользы.
-7. Если без custom CSS не обойтись, сортируй свойства от более влияющих на layout к более локальным стилевым деталям.
-8. В разметке держи atomic utility-классы в каноническом порядке сортировки `prettier-plugin-tailwindcss`.
-9. Если затрагиваются кастомные шрифты, держи объявления минимальными: только нужные начертания, `WOFF/WOFF2` и `font-display: swap`.
+4. Custom/BEM class только если utilities не покрывают требование; кратко документируй исключения.
+5. Сортировка классов (`prettier-plugin-tailwindcss`), порядок CSS-свойств, шрифты (`WOFF`/`WOFF2`, `font-display: swap`) — по связанным rules выше.
+6. Интерактив: сначала framework component APIs — [`rules/javascript-minimalism.md`](../../rules/javascript-minimalism.md).
 
 ## Decision guardrails
 
-- Для интерактивного поведения предпочитай framework component APIs.
-- Сохраняй читаемость классов и избегай разовых arbitrary values без необходимости.
+- Избегай разовых arbitrary values без необходимости.
 - Предпочитай решения, которые уменьшают render-cost, раздувание CSS и размер media payload.
-- По возможности предпочитай локальную доставку шрифтов/скриптов с сервера проекта вместо внешних CDN.

@@ -79,6 +79,13 @@ npm run qa
 - **Inline оставлять** только task-specific (framework decision gate, memo по классам, формат отчёта, repo-команды вроде `npm run normalize:svg-layout`).
 - **В этом зеркале:** те же шаги; ссылки на [`rules/*.md`](rules/) (без `.RULE`, без путей в `.cursor/` для чтения policy).
 
+### Skills vs rules — перелинковка
+
+- **Skills** (`skills/**/SKILL.md`) — опциональная глубина, открываются явно; **дополняют** commands и rules, не заменяют.
+- **Формат skill:** шаги workflow + **ссылка + якорь** на rule (`../../rules/<тема>.md` из `skills/<имя>/`); ссылка на **command**, если skill повторяет gated-процедуру (например scaffold → `commands/new-page.md`).
+- **Не дублировать** полные policy-списки в skills; `alwaysApply` rules остаются каноном даже при открытом skill.
+- **В этом зеркале:** та же структура; ссылки на `../../rules/<тема>.md` из `docs/cursor-ru/skills/<имя>/`.
+
 ## 5) Дополнительно / историческое
 
 - [`README.md`](README.md) — вход и ход сессии (стек и fidelity — только §1.1–1.2 здесь).

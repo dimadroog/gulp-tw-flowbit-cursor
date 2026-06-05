@@ -1,43 +1,35 @@
 ---
 name: scaffold-page-from-layout
-description: Создает каркас новой страницы из layout-брифа по шаблону проекта и styling-конвенциям. Используй при создании page shell, page-level шаблона, head/meta структуры и начальных section includes.
+description: Creates a new page scaffold from a layout brief using project template and styling conventions. Use when creating a new page shell, page-level template, head/meta structure, and initial section includes.
 disable-model-invocation: true
 ---
 
-# Scaffold Page From Layout
+# Scaffold page from layout
 
 ## Цель
 
-Создать чистую переиспользуемую базу страницы с SEO, семантической структурой и секциями, готовыми к include-композиции.
+Чистый переиспользуемый каркас страницы: SEO, семантика, секции через includes.
+
+Процедура гейта: [`commands/new-page.md`](../../commands/new-page.md).
 
 ## Workflow
 
-1. Подтверди целевой маршрут/назначение страницы и ключевые зоны контента.
-2. Создай Nunjucks page shell с обязательными семантическими landmarks (`header`, `nav`, `main`, `aside`, `footer`) и дефолтным `<html lang="ru">`, если явно не нужен другой язык.
-3. Добавь обязательные metadata с фиксированным viewport и SEO-заглушками, если финальный контент не предоставлен:
-   - `<meta name="viewport" content="width=device-width, initial-scale=1">`
-   - `<meta name="description" content="description">`
-   - `<meta name="keywords" content="keywords">`
-4. Установи `<title>`, согласованный с названием страницы в `app/index.html`.
-5. Добавь один `h1`, соответствующий цели страницы; при необходимости делай его visually-hidden, но доступным.
-6. Используй `section` и `article` только когда каждый блок имеет содержательный заголовок (`h2`/`h3` по контексту).
-7. Рано разделяй крупные блоки страницы на section partials.
-8. Запланируй слоты изображений по [`rules/image-delivery-and-optimization.md`](../../rules/image-delivery-and-optimization.md) (enforce: [`.cursor/rules/image-delivery-and-optimization.RULE.md`](../../../../.cursor/rules/image-delivery-and-optimization.RULE.md)).
-9. Для каждого `img` обеспечь корректный `alt` по [`rules/accessibility-and-w3c.md`](../../rules/accessibility-and-w3c.md).
-10. Проведи быструю проверку устойчивости (длинный текст, разные пропорции изображений) по image-delivery rule.
+1. Уточни маршрут, цель страницы и ключевые зоны контента.
+2. Landmarks, заголовки, структура Nunjucks — [`rules/html-nunjucks-conventions.md`](../../rules/html-nunjucks-conventions.md); accessibility — [`rules/accessibility-and-w3c.md`](../../rules/accessibility-and-w3c.md).
+3. Document shell: `<html lang="ru">` (если не задана другая локаль), viewport meta, SEO-заглушки (`description`, `keywords`).
+4. `<title>` совпадает с именем страницы в `app/index.html`.
+5. Крупные блоки вынеси в section partials заранее.
+6. Слоты изображений — [`rules/image-delivery-and-optimization.md`](../../rules/image-delivery-and-optimization.md).
+7. Корректный `alt` у каждого `img` — [`rules/accessibility-and-w3c.md`](../../rules/accessibility-and-w3c.md).
+8. Устойчивость контента (длинный текст, разные пропорции изображений) — [`rules/image-delivery-and-optimization.md`](../../rules/image-delivery-and-optimization.md).
 
-## Interaction Baseline (если на странице есть интерактивные блоки)
+## Interaction baseline (если на странице есть интерактив)
 
-1. Для modal, accordion, collapse, drawer/offcanvas, tabs, dropdown, tooltip сначала используй Flowbite/data-attribute паттерны.
-2. Если нужен custom JS, изолируй pure-логику от DOM side effects.
-3. Делай инициализацию idempotent и безопасной для повторных запусков.
-4. Используй `js-*` классы и/или `data-*` атрибуты как behavioral hooks, но не как styling hooks.
+Framework-first и JS hooks — [`rules/javascript-minimalism.md`](../../rules/javascript-minimalism.md); baseline стека — [`WORKFLOW.md`](../../WORKFLOW.md) §1.1.
 
-## Требования к результату
+## Output requirements
 
-- Каркас страницы готов к итерациям на уровне секций.
-- Повторяющиеся блоки подготовлены для loops/macros вместо copy-paste.
-- Допущения по focus и accessibility зафиксированы для будущих интерактивных блоков.
-- Использование landmarks и иерархия заголовков явно валидны.
-- Базовая верстка устойчива к изменению длины контента и пропорций изображений по image-delivery rule.
-- Базовые параметры документа и соответствие заголовка страницы реестру явно валидны.
+- Каркас готов к итерации по секциям.
+- Повторяющиеся блоки подготовлены к loops/macros.
+- Допущения по focus/a11y зафиксированы для будущих интерактивов.
+- Landmarks, заголовки, изображения и document shell проверены по связанным rules и команде `new-page`.

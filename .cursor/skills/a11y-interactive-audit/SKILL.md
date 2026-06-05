@@ -10,15 +10,16 @@ disable-model-invocation: true
 
 Validate interaction quality before final delivery.
 
+Canonical policy: [`rules/accessibility-and-w3c.RULE.md`](../../rules/accessibility-and-w3c.RULE.md). Gate checklist: [`commands/a11y-checklist.md`](../../commands/a11y-checklist.md).
+
 ## Audit Checklist
 
 1. Verify keyboard access and logical tab sequence.
 2. Validate ARIA wiring for toggles, expanded states, labels, and controls.
 3. Check visible `:focus-visible` states across interactive elements.
-4. Confirm semantic landmarks and heading hierarchy.
-5. Ensure contrast and non-text alternatives are sufficient.
-6. Confirm framework-first usage (Flowbite or approved component API) before custom JS.
-7. If custom JS exists, verify idempotent init and no duplicate event listeners after re-initialization.
+4. Semantic landmarks, heading hierarchy, dialog roles, `img` `alt`, contrast — per accessibility rule above.
+5. Framework-first usage before custom JS — [`rules/javascript-minimalism.RULE.md`](../../rules/javascript-minimalism.RULE.md).
+6. If custom JS exists, verify idempotent init and no duplicate event listeners after re-initialization.
 
 ## Output Format
 

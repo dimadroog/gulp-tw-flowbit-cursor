@@ -10,15 +10,16 @@ disable-model-invocation: true
 
 Проверить качество взаимодействия перед финальной сдачей.
 
+Канон policy: [`rules/accessibility-and-w3c.md`](../../rules/accessibility-and-w3c.md). Чеклист гейта: [`commands/a11y-checklist.md`](../../commands/a11y-checklist.md).
+
 ## Audit checklist
 
 1. Проверь keyboard access и логичную tab-sequence.
 2. Проверь ARIA-связки для toggles, expanded states, labels и controls.
 3. Проверь видимые `:focus-visible` состояния для интерактивных элементов.
-4. Подтверди корректные semantic landmarks и heading hierarchy.
-5. Проверь контраст и наличие достаточных non-text alternatives.
-6. Подтверди framework-first подход (Flowbite или согласованный component API) до custom JS.
-7. Если есть custom JS, проверь idempotent init и отсутствие дублирующихся listeners после повторной инициализации.
+4. Landmarks, иерархия заголовков, роли dialog, `img` `alt`, контраст — по accessibility rule выше.
+5. Framework-first до custom JS — [`rules/javascript-minimalism.md`](../../rules/javascript-minimalism.md).
+6. Если есть custom JS, проверь idempotent init и отсутствие дублирующихся listeners после повторной инициализации.
 
 ## Формат результата
 

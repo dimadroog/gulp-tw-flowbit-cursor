@@ -10,6 +10,8 @@ disable-model-invocation: true
 
 Turn repeated HTML patterns into data-driven Nunjucks structures.
 
+Canonical policy: [`rules/html-nunjucks-conventions.RULE.md`](../../rules/html-nunjucks-conventions.RULE.md) (partials, loops, fixture `{% set %}`, include modifiers).
+
 ## Workflow
 
 1. Locate repeated block patterns (cards, nav items, feature lists, links).
@@ -18,8 +20,7 @@ Turn repeated HTML patterns into data-driven Nunjucks structures.
 4. Keep naming conventions and data shape consistent.
 5. Verify resulting HTML semantics remain unchanged.
 
-## Rules
+## Guardrails
 
-- Prefer one source template for each repeated UI block.
-- Avoid parallel copies of near-identical snippets.
-- Keep macros focused and predictable (clear parameters, no hidden side effects).
+- One source template per repeated UI block; no parallel near-duplicate snippets.
+- Macros: clear parameters, no hidden side effects — per html-nunjucks rule above.

@@ -77,6 +77,13 @@ Output: explicit **`pass|fail|not_applicable`** for each applicable gate, with c
 - **Keep inline** only what is **task-specific** (framework decision gate, class-order memo, report/output format, repo commands such as `npm run normalize:svg-layout`).
 - **Russian mirror:** same steps; link to `docs/cursor-ru/rules/<topic>.md` (no `.RULE` suffix, no `.cursor/` paths for human reading).
 
+### Skills vs rules linking
+
+- **Skills** (`skills/**/SKILL.md`) are optional depth — opened explicitly; they **supplement** commands and rules, not replace them.
+- **Skill body format:** workflow steps + **link + anchor** to the owning rule (`../../rules/<topic>.RULE.md` from `skills/<name>/`); link to a **command** when the skill mirrors a gated procedure (e.g. page scaffold → `commands/new-page.md`).
+- **Do not** duplicate full policy lists in skills; `alwaysApply` rules remain canonical even when a skill is open.
+- **Russian mirror:** same structure; links to `../../rules/<topic>.md` from `docs/cursor-ru/skills/<name>/`.
+
 ## 5) Supplementary / historical
 
 - [`README.md`](README.md) — entry point and session flow (stack + fidelity: §1.1–1.2 here only).

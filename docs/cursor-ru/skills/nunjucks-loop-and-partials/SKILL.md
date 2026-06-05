@@ -10,6 +10,8 @@ disable-model-invocation: true
 
 Преобразовать повторяющиеся HTML-паттерны в data-driven Nunjucks-структуры.
 
+Канон policy: [`rules/html-nunjucks-conventions.md`](../../rules/html-nunjucks-conventions.md) (partials, loops, fixture `{% set %}`, include modifiers).
+
 ## Workflow
 
 1. Найди повторяющиеся блоки (cards, nav items, feature lists, links).
@@ -18,8 +20,7 @@ disable-model-invocation: true
 4. Сохраняй единые naming conventions и форму данных.
 5. Проверь, что итоговая HTML-семантика не изменилась.
 
-## Правила
+## Guardrails
 
-- Для каждого повторяющегося UI-блока должен быть один источник шаблона.
-- Избегай параллельных копий почти идентичных snippets.
-- Держи macros узкими и предсказуемыми (явные параметры, без скрытых side effects).
+- Один источник шаблона на повторяющийся UI-блок; без параллельных почти идентичных snippets.
+- Macros: явные параметры, без скрытых side effects — по html-nunjucks rule выше.

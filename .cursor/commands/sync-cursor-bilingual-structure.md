@@ -29,7 +29,8 @@ Keep `.cursor/` English-only for agents and maintain a Russian **human** mirror 
 - Do not copy `alwaysApply` or `.RULE.md` naming into `docs/cursor-ru/rules/`.
 - Keep acronyms and standard technical terms in English when clearer (`ARIA`, `W3C`, `Tailwind`, `Nunjucks`, `TODO`).
 - **Rule links in mirrored commands:** rewrite `../rules/<name>.RULE.md` → `../rules/<name>.md` (same relative depth from `docs/cursor-ru/commands/`).
-- **RU commands for human reading** must not link into `.cursor/` for policy (use `../rules/*.md`). Exception: short “agent enforce” pointers in reference-only files such as this command’s RU counterpart.
+- **Rule links in mirrored skills:** rewrite `../../rules/<name>.RULE.md` → `../../rules/<name>.md` from `docs/cursor-ru/skills/<name>/`.
+- **RU commands and skills for human reading** must not link into `.cursor/` for policy (use `../rules/*.md` or `../../rules/*.md`). Exception: short “agent enforce” pointers in reference-only files such as this command’s RU counterpart.
 
 ## Verification checklist
 
@@ -38,3 +39,4 @@ Keep `.cursor/` English-only for agents and maintain a Russian **human** mirror 
 - No Russian mirror files under `.cursor/`.
 - Structure drift between `.cursor/` and `docs/cursor-ru/` is resolved.
 - Mirrored command links resolve to `docs/cursor-ru/rules/*.md` or sibling commands — not broken `../../.cursor/` paths from `docs/cursor-ru/commands/`.
+- Mirrored skill links resolve to `docs/cursor-ru/rules/*.md` from `docs/cursor-ru/skills/<name>/` — not broken `../../../../.cursor/` paths.
