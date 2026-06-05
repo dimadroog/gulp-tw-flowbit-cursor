@@ -25,6 +25,7 @@ let patch = {
   },
   watch: {
     html: source_folder + "/**/*.njk",
+    json: [source_folder + "/shared/**/*.json", source_folder + "/*.json"],
     css: source_folder + "/scss/**/*.scss",
     js: source_folder + "/js/**/*.js",
     img: source_folder + "/img/**/*.{jpg,png,svg,gif,ico,webp,mp4,webm,webmanifest}",
@@ -37,7 +38,7 @@ let gulp = require("gulp");
 let postcss = require("gulp-postcss");
 let sharp = require("sharp");
 let path = require("path");
-let { promises: fsp } = require("fs");
+let { readFileSync, readdirSync, existsSync, promises: fsp } = require("fs");
 
 let browsersync = require("browser-sync").create();
 let del = require("del");
@@ -47,7 +48,33 @@ let clean_css = require("gulp-clean-css");
 let rename = require("gulp-rename");
 let prettyHtml = require("gulp-pretty-html");
 let nunjucksRender = require("gulp-nunjucks-render");
+let gulpData = require("gulp-data");
 // let babel = require('gulp-babel');
+
+function loadJson(filePath) {
+  return JSON.parse(readFileSync(filePath, "utf8"));
+}
+
+function getTemplateData(file) {
+  let ctx = {};
+  const sharedDir = path.join(source_folder, "shared");
+
+  if (existsSync(sharedDir)) {
+    for (const name of readdirSync(sharedDir)
+      .filter((n) => n.endsWith(".json"))
+      .sort()) {
+      ctx = { ...ctx, ...loadJson(path.join(sharedDir, name)) };
+    }
+  }
+
+  const sibling = path.join(path.dirname(file.path), path.basename(file.path, ".njk") + ".json");
+
+  if (existsSync(sibling)) {
+    ctx = { ...ctx, ...loadJson(sibling) };
+  }
+
+  return ctx;
+}
 
 const vendorLibs = [
   {
@@ -68,6 +95,7 @@ function browserSync() {
 
 function html() {
   return src(patch.src.html)
+    .pipe(gulpData(getTemplateData))
     .pipe(
       nunjucksRender({
         path: source_folder,
@@ -216,7 +244,7 @@ function lib() {
 }
 
 function watchFiles() {
-  gulp.watch([patch.watch.html], gulp.parallel(html, css));
+  gulp.watch([patch.watch.html].concat(patch.watch.json), gulp.parallel(html, css));
   gulp.watch([patch.watch.css], css);
   gulp.watch([patch.watch.js], js);
   gulp.watch([patch.watch.img], images);

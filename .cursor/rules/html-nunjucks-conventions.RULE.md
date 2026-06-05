@@ -80,16 +80,29 @@ Sizing, formats, `picture`/`srcset`, and PageSpeed gates are defined in [`image-
 
 ## Fixture and mock data
 
-- Declare layout prototype and demo data with `{% set %}` in Nunjucks templates. This is not production data storage; locality and readability outweigh a single global registry.
-- **Close to consumption (preferred):** declare data where it is rendered — in the partial or include file that contains the markup and loops.
+Hybrid policy: page-level mock may live in JSON; partials and mixins stay in `{% set %}`. This is not production data storage.
+
+### JSON (pages and shared defaults)
+
+- **Large page fixtures** (arrays, nested objects, long copy) → co-located `app/<page>.json` next to `app/<page>.njk` (same basename). Gulp merges automatically when the file exists.
+- **Cross-page defaults** (`lang`, `siteName`, etc.) → `app/shared/*.json`. Shallow merge: all `shared/*.json` in alphabetical order, then co-located page JSON (page wins on top-level key conflicts).
+- **Small page fields** (1–3 simple values such as `title`, flags) — `{% set %}` at the top of the page `.njk` is still allowed.
+- **`{% set %}` on a page overrides** the same key from JSON (intentional override; avoid duplicating without need).
+- **Shallow merge only:** do not expect nested objects to merge across `shared/` and page JSON — nested keys are replaced whole.
+- Do not duplicate the same top-level key across multiple `shared/*.json` files.
+- See [`app/shared/README.md`](../app/shared/README.md) for the layer order.
+
+### `{% set %}` (partials, mixins, small page fields)
+
+- **Partials (`njk-parts/_*.njk`):** mock data **only** via `{% set %}` — **no** JSON for partials (partials are not gulp HTML entry points; co-located partial JSON is not loaded).
+- **Mixins (`_mixins.njk`):** layout constants (sizes, class strings) **only** via `{% set %}` — **no** JSON.
+- **Close to consumption (preferred for partials):** declare data in the partial or include file that contains the markup and loops.
 - **Parent before include (allowed):** when the same markup is included multiple times with different content, you may `{% set %}` in the caller **immediately before** `{% include %}`. Use full literals, not picks from a shared list by index or indirect reference.
 - **Include modifier (preferred for minor differences):** when the same partial differs only in presentation (extra class, layout variant), pass an explicit parameter at include time — `{% set %}` immediately before `{% include %}`, or `{% include … with { … } %}` (string, flag, short enum). Keep one simple branch in the partial; no fake counters. Duplicate the whole partial only when markup structure meaningfully differs.
 - **Avoid for prototypes:** master catalog in root layout wired by index/key; data-only partials; index/modulo tricks for visual alternation instead of an explicit modifier.
 - **Scope:** `{% set %}` inside `{% include %}` does not leak to the parent.
-- **Site-wide regions:** keep their demo data in those region partials, not necessarily in the root layout.
-- Page-only data belongs at the top of that page template when it is not tied to a repeated include pattern.
-- **Do not** store mock data in separate files (`app/data/*.json`, `.js` fixtures) or wire it through [`gulpfile.js`](gulpfile.js) (`manageEnv`, `addGlobal`) — see [`gulpfile-universal-starter.RULE.md`](gulpfile-universal-starter.RULE.md).
 - **Do not** add partials whose sole purpose is `{% set %}`: `{% set %}` inside `{% include %}` does **not** export variables to the parent scope.
+- **Do not** use `manageEnv` / `addGlobal` in gulp for fixtures — see [`gulpfile-universal-starter.RULE.md`](gulpfile-universal-starter.RULE.md).
 - **Formatting `{% set %}` literals (required):** use expanded, readable structure — not one-line object blobs.
   - Opening `[` on the same line as `{% set name =`; each array element on its own line.
   - Each object literal `{ ... }` is **multiline**: one key–value pair per line, **2-space indent** per nesting level (array → object → nested array).
@@ -97,7 +110,7 @@ Sizing, formats, `picture`/`srcset`, and PageSpeed gates are defined in [`image-
   - Trailing comma after the last element is allowed; keep a blank line before `] %}` only when it aids readability in large fixtures.
   - **Do not** squeeze an entire record into a single line when it has more than two fields.
 - **Prettier:** the Nunjucks/HTML parser **must not** reformat multiline fixture `{% set %}` blocks (it collapses objects into unreadable wrapped lines). List those templates in [`.prettierignore`](../.prettierignore). Do **not** run `prettier --write` on ignored files; hand-format per the rules above.
-- **Verification:** no project JSON consumed by gulp for Nunjucks mock data; `rg "manageEnv|site\.json" gulpfile.js` is empty; fixture `{% set %}` blocks follow the multiline layout above; after `npm run build`, data-driven blocks in `dist/*.html` render non-empty content.
+- **Verification:** `gulpData(getTemplateData)` in [`gulpfile.js`](gulpfile.js); no domain-specific `require()` of fixture JSON and no `manageEnv`/`addGlobal`; fixture `{% set %}` blocks follow the multiline layout above; `app/shared/*.json` and co-located `app/*.json` pass `format:check`; after `npm run build`, data-driven blocks in `dist/*.html` render non-empty content.
 
 ## Partial Extraction Threshold (do not over-split)
 
