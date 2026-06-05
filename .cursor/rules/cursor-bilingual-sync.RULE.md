@@ -9,7 +9,7 @@ alwaysApply: true
 - Maintain a Russian **human-readable** mirror in `docs/cursor-ru/` with the same relative paths where applicable.
 - When adding or changing files under `.cursor/`, update the translated counterpart under `docs/cursor-ru/` (manual sync).
 - Mirror files must **not** use `*.RULE.md` or `alwaysApply` — they are not Cursor project rules.
-- Do not place Russian mirrors inside `.cursor/` (no `.cursor/_RU/`).
+- Do not place Russian content or human mirrors inside `.cursor/`.
 - Preserve metadata keys and widely accepted technical terms in English in `.cursor/` rule frontmatter.
 
 ## Agent scope

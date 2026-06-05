@@ -21,7 +21,7 @@ Keep `.cursor/` English-only for agents and maintain a Russian **human** mirror 
 2. Add or update the translated counterpart in `docs/cursor-ru/` using the same relative path.
 3. On rename/move in `.cursor/`, repeat under `docs/cursor-ru/`.
 4. On delete in `.cursor/`, delete the mirror file.
-5. Never add Russian mirrors back under `.cursor/` (no `_RU` subtree).
+5. Never add Russian content or human mirrors under `.cursor/`.
 
 ## Translation guidance
 
@@ -33,5 +33,5 @@ Keep `.cursor/` English-only for agents and maintain a Russian **human** mirror 
 
 - `.cursor/` contains only English agent guidance.
 - `docs/cursor-ru/` has no `*.RULE.md` and no `alwaysApply` in mirror files.
-- No `.cursor/_RU/` directory.
+- No Russian mirror files under `.cursor/`.
 - Structure drift between `.cursor/` and `docs/cursor-ru/` is resolved.
