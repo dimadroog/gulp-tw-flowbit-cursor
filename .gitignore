@@ -20,3 +20,6 @@ pnpm-debug.log*
 Thumbs.db
 *.swp
 *.swo
+
+# Local work log (not versioned)
+REPORT.md

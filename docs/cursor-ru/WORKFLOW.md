@@ -1,96 +1,56 @@
 # Карта workflow (русское зеркало для чтения)
 
-> **Не для агента Cursor.** Каноника (enforce): [`.cursor/WORKFLOW.md`](../../.cursor/WORKFLOW.md). Этот файл — перевод для человека; держи синхронно с английским оригиналом.
+> **Не для агента Cursor.** Каноника (enforce): [`.cursor/WORKFLOW.md`](../../.cursor/WORKFLOW.md). Держи синхронно с английским оригиналом.
 
-Русский пересказ маршрута по `.cursor/`: **порядок, гейты и команды репозитория**.
-
-## 1) Жизненный цикл одним проходом
+## 1) Жизненный цикл
 
 | Фаза | Что читать | Заметки |
 |------|------------|---------|
-| **Governance** | [`commands/add-rule.md`](../../.cursor/commands/add-rule.md), [`WORKFLOW.md`](../../.cursor/WORKFLOW.md) §1.1–1.2 | Baseline стека и mockup fidelity — в §1.1–1.2; `add-rule` — для фиксации и слияния новых регламентов. |
-| **Оркестрация** | [`commands/run-layout-task.md`](../../.cursor/commands/run-layout-task.md) | **Главный** драйвер ежедневной работы (hard-mode гейты); рецепты по типу задачи (`new-page`, `build-section`, `refactor-to-framework-component`, …) — в Orchestration flow этого файла. |
-| **Маршрутизация** | [`rules/workflow-orchestrator.RULE.md`](../../.cursor/rules/workflow-orchestrator.RULE.md), [`rules/directive-compliance.RULE.md`](../../.cursor/rules/directive-compliance.RULE.md) | alwaysApply в Cursor. |
+| **Governance** | [`commands/add-rule.md`](commands/add-rule.md), [`WORKFLOW.md`](../../.cursor/WORKFLOW.md) §1.1–1.2 | Baseline стека и mockup fidelity — в §1.1–1.2. |
+| **Оркестрация** | [`commands/run-layout-task.md`](commands/run-layout-task.md) | Главный драйвер; рецепты и light path — в orchestration flow. |
+| **Маршрутизация** | [`rules/workflow-orchestrator.md`](rules/workflow-orchestrator.md), [`rules/directive-compliance.md`](rules/directive-compliance.md) | Orchestration core (`alwaysApply`). |
 
-### 1.1 Стек и умолчания реализации (код)
+### 1.2 Точность дизайна и Figma ⊂ mockup-driven
 
-Единственный источник для выбора стека; не дублируй этот список в [`README.md`](README.md).
+**Figma — источник mockup.** Задачи из Figma — mockup-driven; нужны оба гейта, где применимо.
 
-- **Tailwind CSS + Flowbite (MIT)** — modal, collapse, accordion, offcanvas, dropdown, tabs, tooltip.
-- Сначала **data-attribute API Flowbite**; кастомный JS — минимально.
-- **Scrollspy:** проектный хелпер `data-scrollspy-nav` для навигации по секциям.
-- **Поисковый / кастомный select** — только на страницах, где это явно требуется.
-- **Изображения:** доставка, intrinsic sizing и PageSpeed — [`rules/image-delivery-and-optimization.RULE.md`](../../.cursor/rules/image-delivery-and-optimization.RULE.md).
+| Источник дизайна | Mockup-driven? | `validate-figma-assets` | `validate-pixel-perfect` |
+|------------------|----------------|-------------------------|--------------------------|
+| Утверждённый Figma / экспорт | да | **обязателен** | **обязателен** |
+| PNG/PDF/статический макет (без Figma) | да | `not_applicable` | **обязателен** |
+| Ссылка/скрин без явного approval | нет — уточнить | `not_applicable` | `not_applicable` |
+| Нет макета (только контент/тулинг) | нет | `not_applicable` | `not_applicable` |
 
-### 1.2 Точность дизайна (mockup-driven, blocking)
+SEO-плейсхолдеры и скрытый `h1` — **не** fidelity-плейсхолдеры (см. `new-page`).
 
-Для задач из Figma или другого **утверждённого статического макета** (не «в духе макета»).
-
-- **Предусловие:** до вёрстки зафиксированы baseline брейкпоинтов и контракт типографики (как в [`commands/validate-pixel-perfect.md`](../../.cursor/commands/validate-pixel-perfect.md)); иначе стоп и запрос уточнений.
-- **Критические зоны** (не исчерпывающе): глобальный хром (шапка, сайдбар, подвал), hero и основные CTA, ключевые карточки/плитки, при необходимости — шаги «оформления». В этих зонах **визуальный дрейф недопустим**, если в брифе задачи нет явного waiver от дизайна/продукта (достаточно одной строки в отчёте).
-- **Токены и геометрия:** цвета, радиусы, тени, обводки — из экспорта/спеки или карты токенов проекта. **Не подменять** произвольными утилитами Tailwind, меняющими оттенок, начертание или форму относительно макета.
-- **Без «сырой» графики и плейсхолдеров** для критичных ассетов, бейджей и состояний — см. [`rules/mockup-driven-no-placeholder-completion.RULE.md`](../../.cursor/rules/mockup-driven-no-placeholder-completion.RULE.md).
-- **Гейты:** при источнике Figma — `validate-figma-assets`; при mockup-driven сдаче — `validate-pixel-perfect`; где применимо — статус **`pass`** и evidence.
-
-## 2) Автоматизация в репо (обязательно при HTML-выходе)
-
-В корне проекта после правок шаблонов или ассетов:
+## 2) Автоматизация в репо
 
 ```bash
 npm run qa
+npm run check:cursor-mirror   # после правок .cursor/
 ```
 
-Выполняются `gulp build`, линт JS/SCSS + Prettier и **`npm run validate:html`** (`html-validate`, только npm, офлайн). Подробности: [`commands/validate-html.md`](../../.cursor/commands/validate-html.md).
+## 3) Матрица гейтов
 
-Дополнительно:
+### Статусы
 
-- `npm run normalize:svg-layout` — после массового импорта Figma-SVG в `app/img/layout-shell/` (см. [`commands/validate-figma-assets.md`](../../.cursor/commands/validate-figma-assets.md)).
+Только **`pass | fail | not_applicable`**. **`not_run` запрещён** — отсутствие статуса = `fail`.
 
-**Только текст из `.cursor` проверки не запускает** — агент должен выполнить `npm run qa` (или эквивалент) и зафиксировать evidence.
+### Decision table
 
-## 3) Матрица гейтов (до статуса «готово»)
+См. полную таблицу в [`.cursor/WORKFLOW.md`](../../.cursor/WORKFLOW.md) §3. Кратко:
 
-По порядку; **не пропускать** формулировкой «потом», кроме явного `not_applicable` с причиной.
+- Новая страница / секция / refactor — цепочки в [`run-layout-task.md`](commands/run-layout-task.md).
+- **Light path** — один файл, без интерактива/медиа/mockup: `npm run qa` → `finalize-layout-task`.
+- **Финальный гейт:** [`finalize-layout-task.md`](commands/finalize-layout-task.md) (§A self-check → §B матрица → §C directive sweep). `pre-final-self-check` и `validate-all-directives` — редиректы на §A и §C.
 
-1. Работа по типу задачи: `new-page` | `build-section` | `refactor-to-framework-component` | `fill-design-system-documentation` (цепочки в [`run-layout-task.md`](../../.cursor/commands/run-layout-task.md)).
-2. `performance-checklist` — при новых страницах, секциях, тяжёлом медиа.
-3. `a11y-checklist` — при интерактиве или лендмарках.
-4. `validate-figma-assets` — если задача из Figma.
-5. `validate-pixel-perfect` — если mockup-driven (сначала зафиксированы breakpoints + typography).
-6. `register-new-page-in-index` — если добавлена страница.
-7. `validate-html` — покрывается **`npm run qa`** после сборки.
-8. [`pre-final-self-check.md`](../../.cursor/commands/pre-final-self-check.md) → [`finalize-layout-task.md`](../../.cursor/commands/finalize-layout-task.md) → [`validate-all-directives.md`](../../.cursor/commands/validate-all-directives.md).
-9. Если менялся `.cursor/`: [`sync-cursor-bilingual-structure.md`](../../.cursor/commands/sync-cursor-bilingual-structure.md) и обновление зеркала в [`docs/cursor-ru/`](.).
+## 4) Rules / skills / hooks
 
-Результат: явные **`pass|fail|not_applicable`** по каждому применимому гейту + evidence (команда/файлы).
-
-## 4) Rules vs skills vs hooks
-
-- **Rules (enforce):** только [`.cursor/rules/*.RULE.md`](../../.cursor/rules/) с `alwaysApply`. Здесь в `rules/*.md` — **справочные переводы**, без `alwaysApply`; канон policy — полнота и verification.
-- **Commands (enforce):** [`.cursor/commands/`](../../.cursor/commands/). Переводы процедур — в [`commands/`](commands/) этого зеркала (только для чтения); **не** длинные копии policy.
-- **Skills:** [`.cursor/skills/`](../../.cursor/skills/) и зеркало в [`skills/`](skills/).
-- **Hooks:** [`.cursor/hooks.json`](../../.cursor/hooks.json) (сейчас пусто).
-
-### Commands vs rules — перелинковка
-
-- **Policy в rules** — полные требования и способ проверки.
-- **Процедура в commands** — порядок шагов, decision gates, вызовы других commands; ссылки на rules вместо дублирования bullets.
-- **Формат шага в command:** одна **строка-якорь** (что проверить на этом шаге) + ссылка на rule.
-- **Inline оставлять** только task-specific (framework decision gate, memo по классам, формат отчёта, repo-команды вроде `npm run normalize:svg-layout`).
-- **В этом зеркале:** те же шаги; ссылки на [`rules/*.md`](rules/) (без `.RULE`, без путей в `.cursor/` для чтения policy).
-
-### Skills vs rules — перелинковка
-
-- **Skills** (`skills/**/SKILL.md`) — опциональная глубина, открываются явно; **дополняют** commands и rules, не заменяют.
-- **Формат skill:** шаги workflow + **ссылка + якорь** на rule (`../../rules/<тема>.md` из `skills/<имя>/`); ссылка на **command**, если skill повторяет gated-процедуру (например scaffold → `commands/new-page.md`).
-- **Не дублировать** полные policy-списки в skills; `alwaysApply` rules остаются каноном даже при открытом skill.
-- **В этом зеркале:** та же структура; ссылки на `../../rules/<тема>.md` из `docs/cursor-ru/skills/<имя>/`.
-
-## 5) Дополнительно / историческое
-
-- [`README.md`](README.md) — вход и ход сессии (стек и fidelity — только §1.1–1.2 здесь).
-- [`agent-topology.md`](agent-topology.md) — опциональная модель ролей; enforce — rules + commands выше.
+- **Orchestration core** (`alwaysApply`): 4 rules — orchestrator, directive-compliance, bilingual-sync, task-scope.
+- **Subject rules** — `globs` или on-demand через commands.
+- **Skills** — playbook для subagent; **commands** — обязательные гейты.
+- **Hooks** — напоминания после правок `app/` и `.cursor/` ([`hooks.json`](../../.cursor/hooks.json)).
 
 ## 6) Английский оригинал
 
-Держи синхронно с **[`../WORKFLOW.md`](../../.cursor/WORKFLOW.md)** при любых правках.
+[`../../.cursor/WORKFLOW.md`](../../.cursor/WORKFLOW.md)

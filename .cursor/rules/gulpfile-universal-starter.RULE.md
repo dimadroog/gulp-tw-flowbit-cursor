@@ -1,6 +1,8 @@
 ---
 description: Keep root gulpfile.js a universal layout starter — no per-project mock data or one-off task wiring without explicit brief.
-alwaysApply: true
+alwaysApply: false
+globs:
+  - gulpfile.js
 ---
 
 # Gulpfile Universal Starter

@@ -1,6 +1,9 @@
 ---
 description: Framework-first JS; js-* hooks for classes and ids in custom JS; Flowbite data-API id exceptions.
-alwaysApply: true
+alwaysApply: false
+globs:
+  - app/js/**
+  - app/**/*.njk
 ---
 
 # JavaScript Minimalism Policy

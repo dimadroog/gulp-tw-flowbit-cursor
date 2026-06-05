@@ -1,4 +1,13 @@
 {
   "version": 1,
-  "hooks": {}
+  "hooks": {
+    "afterFileEdit": [
+      {
+        "command": "node .cursor/hooks/remind-qa-after-layout-edit.mjs"
+      },
+      {
+        "command": "node .cursor/hooks/remind-cursor-mirror.mjs"
+      }
+    ]
+  }
 }

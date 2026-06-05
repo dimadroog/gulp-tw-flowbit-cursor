@@ -15,7 +15,8 @@
     "validate:html": "html-validate \"dist/**/*.html\"",
     "fonts:download": "node scripts/download-fonts.js",
     "a11y": "node scripts/a11y.js",
-    "qa": "npm run build && npm run lint && npm run validate:html && npm run a11y"
+    "qa": "npm run build && npm run lint && npm run validate:html && npm run a11y",
+    "check:cursor-mirror": "node scripts/check-cursor-mirror.js"
   },
   "author": "droog",
   "license": "ISC",

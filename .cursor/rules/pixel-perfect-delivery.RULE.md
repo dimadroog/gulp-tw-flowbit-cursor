@@ -1,6 +1,6 @@
 ---
 description: Pixel-perfect delivery policy for implementation from design mockups.
-alwaysApply: true
+alwaysApply: false
 ---
 
 # Pixel-Perfect Delivery Policy

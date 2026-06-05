@@ -1,6 +1,11 @@
 ---
 description: Web image delivery, intrinsic sizing for PageSpeed, responsive sources, and loading policy.
-alwaysApply: true
+alwaysApply: false
+globs:
+  - app/**/*.njk
+  - app/**/*.html
+  - app/img/**
+  - app/scss/**
 ---
 
 # Image Delivery And Optimization Policy

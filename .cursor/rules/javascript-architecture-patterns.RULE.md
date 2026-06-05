@@ -1,6 +1,8 @@
 ---
 description: JavaScript architecture baseline for Tailwind + Flowbite projects.
-alwaysApply: true
+alwaysApply: false
+globs:
+  - app/js/**
 ---
 
 # JavaScript Architecture Patterns

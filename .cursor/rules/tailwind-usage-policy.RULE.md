@@ -1,6 +1,9 @@
 ---
 description: Tailwind utility-first policy, @apply extraction criteria, and required semantic components (.btn, .form-*, .container).
-alwaysApply: true
+alwaysApply: false
+globs:
+  - app/**/*
+  - tailwind.config.js
 ---
 
 # Tailwind Usage Policy

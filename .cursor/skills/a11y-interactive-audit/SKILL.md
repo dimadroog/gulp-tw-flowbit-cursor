@@ -1,28 +1,29 @@
 ---
 name: a11y-interactive-audit
-description: Audits interactive UI blocks for accessibility and keyboard behavior against W3C/ARIA expectations. Use when finishing interactive sections or preparing review-ready output.
+description: Subagent playbook for deep interactive accessibility review. Use when delegating a11y pass before final gates. Mandatory checklist remains commands/a11y-checklist.md.
 disable-model-invocation: true
 ---
 
-# A11y Interactive Audit
+# A11y Interactive Audit (subagent playbook)
 
-## Goal
+## When to delegate
 
-Validate interaction quality before final delivery.
+Open when a **subagent** should perform a focused interactive a11y review (keyboard, ARIA, focus). Parent must still run [`commands/a11y-checklist.md`](../../commands/a11y-checklist.md) and record gate status.
 
-Canonical policy: [`rules/accessibility-and-w3c.RULE.md`](../../rules/accessibility-and-w3c.RULE.md). Gate checklist: [`commands/a11y-checklist.md`](../../commands/a11y-checklist.md).
+## Playbook
 
-## Audit Checklist
+- Tab through all controls in DOM order; note traps and missing focus targets.
+- Verify `aria-expanded` / `aria-controls` pairs on toggles.
+- Check `:focus-visible` on custom-styled controls.
+- For Flowbite widgets, confirm data-attribute init matches docs before adding custom JS.
 
-1. Verify keyboard access and logical tab sequence.
-2. Validate ARIA wiring for toggles, expanded states, labels, and controls.
-3. Check visible `:focus-visible` states across interactive elements.
-4. Semantic landmarks, heading hierarchy, dialog roles, `img` `alt`, contrast — per accessibility rule above.
-5. Framework-first usage before custom JS — [`rules/javascript-minimalism.RULE.md`](../../rules/javascript-minimalism.RULE.md).
-6. If custom JS exists, verify idempotent init and no duplicate event listeners after re-initialization.
+## Pitfalls
 
-## Output Format
+- Duplicate event listeners after re-init — idempotent hooks per [`rules/javascript-minimalism.RULE.md`](../../rules/javascript-minimalism.RULE.md).
+- Icon-only buttons without accessible names.
+- Dialogs without `aria-modal` and labelled title.
 
-- List blocking accessibility issues first.
-- Provide direct fix guidance for each issue.
-- Explicitly state if no critical a11y gaps remain.
+## Canonical references
+
+- Gate: [`commands/a11y-checklist.md`](../../commands/a11y-checklist.md)
+- Policy: [`rules/accessibility-and-w3c.RULE.md`](../../rules/accessibility-and-w3c.RULE.md)

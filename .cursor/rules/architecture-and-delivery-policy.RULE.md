@@ -1,6 +1,9 @@
 ---
 description: Architecture and delivery policy for layout work using current project tooling.
-alwaysApply: true
+alwaysApply: false
+globs:
+  - app/**
+  - gulpfile.js
 ---
 
 # Architecture And Delivery Policy

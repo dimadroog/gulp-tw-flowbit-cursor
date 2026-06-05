@@ -1,6 +1,10 @@
 ---
 description: Accessibility, W3C, and interaction safety baseline.
-alwaysApply: true
+alwaysApply: false
+globs:
+  - app/**/*.njk
+  - app/**/*.html
+  - app/js/**
 ---
 
 # Accessibility And W3C Policy

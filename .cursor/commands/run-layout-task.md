@@ -2,7 +2,7 @@
 
 Use this command as the single orchestrator for layout tasks. Treat it as a hard-mode flow with fail-fast completion control.
 
-Canonical procedure, stack defaults, and mockup fidelity: [`WORKFLOW.md`](../WORKFLOW.md) (**§1.1–1.2**).
+Canonical procedure, stack defaults, mockup fidelity, and gate decision table: [`WORKFLOW.md`](../WORKFLOW.md) (**§1.1–1.2, §3**).
 
 ## Trigger examples
 
@@ -10,19 +10,35 @@ Canonical procedure, stack defaults, and mockup fidelity: [`WORKFLOW.md`](../WOR
 - "Build a new section"
 - "Refactor interaction to a framework component"
 - "Update design-system documentation"
+- "Fix a typo in the footer" (may qualify for light path)
 
 ## Hard-mode defaults (always on)
 
 - Do not close implementation tasks without explicit blocking-gate evidence.
 - Do not defer blocking work to "next step/later".
 - Do not silently assume missing required inputs.
-- Do not report done while any applicable gate is `fail` or `not_run`.
+- Do not report done while any applicable gate is `fail`.
+- Gate statuses: **`pass | fail | not_applicable` only** — never `not_run`; missing applicable status = `fail`.
+
+## Light path (trivial fix)
+
+Use when **all** are true:
+
+- One source file (or one partial + its include) under `app/`.
+- No new pages, no new interactive controls, no new/changed raster or SVG assets.
+- No mockup-fidelity scope (not driven by approved design in this task).
+- Change is copy, class tweak, or minor markup fix.
+
+**Light chain:** implement → `npm run qa` → [`finalize-layout-task.md`](finalize-layout-task.md) (§A–C; many §B/§C items will be `not_applicable`).
+
+Do **not** use light path for new sections, Figma/mockup-driven work, or multi-file refactors.
 
 ## Pre / In / Post Matrix
 
 - **Pre-process (blocking):**
   - Confirm project baseline: repo builds with `npm run qa` (or equivalent), layout-shell strategy is clear, and open project-specific decisions are in project docs or the task brief—not assumed silently.
-  - Identify task type (`new-page`, `build-section`, `refactor`, `documentation`).
+  - Identify task type (`new-page`, `build-section`, `refactor-to-framework-component`, `documentation`) or **light path**.
+  - Classify design source per [`WORKFLOW.md`](../WORKFLOW.md) §1.2 table (Figma / static mockup / unapproved / none).
   - Confirm required inputs (content, interactions, SEO/meta, media/font constraints).
   - For mockup-driven tasks, manually confirm breakpoint baseline and typography contract before coding.
   - Confirm layout-shell strategy: pages extend root layout; global `header`/`sidebar` stay in layout-level partials.
@@ -30,35 +46,29 @@ Canonical procedure, stack defaults, and mockup fidelity: [`WORKFLOW.md`](../WOR
   - Implement markup/layout.
   - Enforce template reuse (Nunjucks loops/includes/macros) instead of duplicated blocks.
   - Validate styling/performance direction (Tailwind-first, media/font delivery, content resilience).
-  - Enforce Figma asset integrity (inline SVG for vectors when applicable; structured local paths for raster; no emoji/text substitution of graphics).
-- **Post-process (blocking before done):** order matches [`WORKFLOW.md`](../WORKFLOW.md) §3 and Orchestration Flow below.
-  - `performance-checklist` for page/section/media-impacting changes.
-  - `a11y-checklist` for interactive changes.
-  - `validate-figma-assets` for Figma-driven pages/sections.
-  - `validate-pixel-perfect` for mockup-driven pages/sections.
-  - `register-new-page-in-index` for new pages.
-  - `validate-html` (`npm run validate:html` after build, or `npm run qa`) for every implementation task that produces HTML.
-  - `pre-final-self-check` for every implementation task.
-  - `finalize-layout-task` for every implementation task.
-  - `validate-all-directives` for every implementation task.
-  - `sync-cursor-bilingual-structure` when `.cursor/` content/structure changes.
+  - Enforce Figma asset integrity when Figma-driven (inline SVG for vectors when applicable; structured local paths for raster; no emoji/text substitution of graphics).
+- **Post-process (blocking before done):** per [`WORKFLOW.md`](../WORKFLOW.md) §3 decision table and chains below.
 
 ## Orchestration Flow
 
-1. Identify task type:
+1. Identify path:
    - `new-page`
    - `build-section`
-   - `refactor`
+   - `refactor-to-framework-component`
    - `documentation`
+   - `light` (trivial fix — criteria above)
 2. Run required command chains:
-   - `new-page` -> `new-page` -> `performance-checklist` -> `a11y-checklist` -> `validate-figma-assets` (if Figma-driven) -> `validate-pixel-perfect` (if mockup-driven) -> `register-new-page-in-index` -> `validate-html` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
-   - `build-section` -> `build-section` -> `performance-checklist` -> `a11y-checklist` -> `validate-figma-assets` (if Figma-driven) -> `validate-pixel-perfect` (if mockup-driven) -> `validate-html` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
-   - `refactor` -> `refactor-to-framework-component` -> `performance-checklist` -> `a11y-checklist` -> `validate-figma-assets` (if Figma-driven) -> `validate-pixel-perfect` (if mockup-driven) -> `validate-html` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
-   - `documentation` -> `fill-design-system-documentation` -> `validate-html` -> `pre-final-self-check` -> `finalize-layout-task` -> `validate-all-directives`
-3. If `.cursor/` files changed during execution, run `sync-cursor-bilingual-structure`.
+   - `new-page` → `new-page` → `performance-checklist` → `a11y-checklist` → `validate-figma-assets` (if applicable) → `validate-pixel-perfect` (if applicable) → `register-new-page-in-index` → `validate-html` → `finalize-layout-task`
+   - `build-section` → `build-section` → `performance-checklist` → `a11y-checklist` → `validate-figma-assets` (if applicable) → `validate-pixel-perfect` (if applicable) → `validate-html` → `finalize-layout-task`
+   - `refactor-to-framework-component` → `refactor-to-framework-component` → `performance-checklist` → `a11y-checklist` → `validate-figma-assets` (if applicable) → `validate-pixel-perfect` (if applicable) → `validate-html` → `finalize-layout-task`
+   - `documentation` → `fill-design-system-documentation` → `validate-html` (if HTML) → `finalize-layout-task`
+   - `light` → `npm run qa` → `finalize-layout-task`
+3. If `.cursor/` files changed during execution, run `sync-cursor-bilingual-structure` and `npm run check:cursor-mirror`.
 4. Return one compact report:
    - completed work
-   - skipped items with reasons
+   - path used (`new-page` | `build-section` | `refactor-to-framework-component` | `documentation` | `light`)
+   - design-source classification (§1.2)
+   - skipped items with reasons (`not_applicable`)
    - TODO items
    - explicit gate matrix (`pass|fail|not_applicable`)
 
@@ -66,14 +76,14 @@ Canonical procedure, stack defaults, and mockup fidelity: [`WORKFLOW.md`](../WOR
 
 - HTML validation failures from `validate-html`.
 - Accessibility failures from `a11y-checklist`.
-- Performance regressions flagged as blocking in `performance-checklist`.
+- Performance items **flagged as blocking** in `performance-checklist` (see that command — PageSpeed/Lighthouse is recommended, not blocking without deploy URL).
 - Missing page registration for newly created pages.
-- Layout-shell violations (global `header`/`sidebar` implemented in page template instead of root layout/partials).
-- Asset integrity violations (vector distortion/substitution, temporary remote asset URLs left in templates, empty/broken image sources).
-- Pixel-perfect failures (orientation, spacing, typography, casing) or missing manual breakpoint/typography clarification.
-- Attempted completion with unresolved visual placeholders or deferred fidelity TODOs in mockup-driven tasks.
-- Any failed check from `finalize-layout-task` or `validate-all-directives`.
-- Missing bilingual sync after `.cursor/` changes.
+- Layout-shell violations (global `header`/`sidebar` in page template instead of root layout/partials).
+- Asset integrity violations when Figma-driven.
+- Pixel-perfect failures or missing breakpoint/typography clarification when mockup-driven.
+- Unresolved visual placeholders or deferred fidelity TODOs in mockup-driven tasks.
+- `finalize-layout-task` `overall_status: fail`.
+- Missing bilingual sync or mirror parity after `.cursor/` changes.
 
 ## Conflict Escalation Protocol
 

@@ -1,27 +1,29 @@
 ---
 name: tailwind-tokenized-components
-description: Builds layout sections with Tailwind utility composition and tokenized styling decisions. Use when implementing or refactoring sections from design layouts with utility-first policy.
+description: Subagent playbook for utility-first section implementation with token discipline. Use when delegating section build or refactor from a layout brief.
 disable-model-invocation: true
 ---
 
-# Tailwind Tokenized Components
+# Tailwind Tokenized Components (subagent playbook)
 
-## Goal
+## When to delegate
 
-Implement sections with utility-first patterns while controlling design consistency and loading performance.
+Open when a **subagent** implements or refactors a **section** from a design brief. Parent task must still run [`commands/build-section.md`](../../commands/build-section.md) and applicable gates.
 
-Canonical policy: [`rules/tailwind-usage-policy.RULE.md`](../../rules/tailwind-usage-policy.RULE.md); delivery and fonts — [`rules/architecture-and-delivery-policy.RULE.md`](../../rules/architecture-and-delivery-policy.RULE.md).
+## Playbook
 
-## Workflow
+- Decompose into primitives: container, grid, card, media, CTA.
+- Reuse utility patterns across sections before inventing one-off arbitrary values.
+- Custom/BEM only when utilities cannot express the requirement — document briefly.
+- Run Prettier (tailwind plugin) on touched files before handoff.
 
-1. Decompose layout into reusable section primitives (container, grid, card, media, CTA).
-2. Apply Tailwind utilities for spacing, typography, color, and responsive behavior — per tailwind-usage policy.
-3. Reuse established utility patterns between sections for consistency.
-4. Custom/BEM class only when utilities cannot represent the requirement; document exceptions briefly.
-5. Class sort (`prettier-plugin-tailwindcss`), custom CSS property order, fonts (`WOFF`/`WOFF2`, `font-display: swap`) — per linked rules above.
-6. Interactive behavior: framework component APIs first — [`rules/javascript-minimalism.RULE.md`](../../rules/javascript-minimalism.RULE.md).
+## Pitfalls
 
-## Decision Guardrails
+- Arbitrary Tailwind hues in **critical zones** on mockup-driven tasks — use tokens/spec.
+- Shipping extra CSS/JS when Flowbite data-API suffices.
+- Deep wrapper nesting for layout that `@apply` or grid could flatten.
 
-- Avoid one-off arbitrary values unless unavoidable.
-- Prefer choices that reduce render cost, CSS bloat, and media payload size.
+## Canonical references
+
+- Gate: [`commands/build-section.md`](../../commands/build-section.md)
+- Policies: [`rules/tailwind-usage-policy.RULE.md`](../../rules/tailwind-usage-policy.RULE.md), [`rules/architecture-and-delivery-policy.RULE.md`](../../rules/architecture-and-delivery-policy.RULE.md)

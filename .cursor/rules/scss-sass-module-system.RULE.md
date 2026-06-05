@@ -1,6 +1,8 @@
 ---
 description: Use Sass module system (@use / @forward) in SCSS — never deprecated @import.
-alwaysApply: true
+alwaysApply: false
+globs:
+  - app/scss/**
 ---
 
 # SCSS And Sass Modules

@@ -1,6 +1,8 @@
 ---
 description: CSS inheritance hierarchy for layout — set typography on ancestors, override only deltas, explicit box model on each element.
-alwaysApply: true
+alwaysApply: false
+globs:
+  - app/scss/**
 ---
 
 # CSS Inheritance for Layout
