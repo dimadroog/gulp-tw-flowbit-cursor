@@ -22,7 +22,7 @@ disable-model-invocation: true
 5. Добавь один `h1`, соответствующий цели страницы; при необходимости делай его visually-hidden, но доступным.
 6. Используй `section` и `article` только когда каждый блок имеет содержательный заголовок (`h2`/`h3` по контексту).
 7. Рано разделяй крупные блоки страницы на section partials.
-8. Запланируй слоты изображений по [`rules/image-delivery-and-optimization.md`](../../rules/image-delivery-and-optimization.md) (enforce: [`.cursor/rules/image-delivery-and-optimization.RULE.md`](../../../.cursor/rules/image-delivery-and-optimization.RULE.md)).
+8. Запланируй слоты изображений по [`rules/image-delivery-and-optimization.md`](../../rules/image-delivery-and-optimization.md) (enforce: [`.cursor/rules/image-delivery-and-optimization.RULE.md`](../../../../.cursor/rules/image-delivery-and-optimization.RULE.md)).
 9. Для каждого `img` обеспечь корректный `alt` по [`rules/accessibility-and-w3c.md`](../../rules/accessibility-and-w3c.md).
 10. Проведи быструю проверку устойчивости (длинный текст, разные пропорции изображений) по image-delivery rule.
 

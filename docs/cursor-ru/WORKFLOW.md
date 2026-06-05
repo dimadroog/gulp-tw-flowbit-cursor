@@ -66,10 +66,18 @@ npm run qa
 
 ## 4) Rules vs skills vs hooks
 
-- **Rules (enforce):** только [`.cursor/rules/*.RULE.md`](../../.cursor/rules/) с `alwaysApply`. Здесь в `rules/*.md` — **справочные переводы**, без `alwaysApply`.
-- **Commands (enforce):** [`.cursor/commands/`](../../.cursor/commands/). Переводы процедур — в [`commands/`](commands/) этого зеркала (только для чтения).
+- **Rules (enforce):** только [`.cursor/rules/*.RULE.md`](../../.cursor/rules/) с `alwaysApply`. Здесь в `rules/*.md` — **справочные переводы**, без `alwaysApply`; канон policy — полнота и verification.
+- **Commands (enforce):** [`.cursor/commands/`](../../.cursor/commands/). Переводы процедур — в [`commands/`](commands/) этого зеркала (только для чтения); **не** длинные копии policy.
 - **Skills:** [`.cursor/skills/`](../../.cursor/skills/) и зеркало в [`skills/`](skills/).
 - **Hooks:** [`.cursor/hooks.json`](../../.cursor/hooks.json) (сейчас пусто).
+
+### Commands vs rules — перелинковка
+
+- **Policy в rules** — полные требования и способ проверки.
+- **Процедура в commands** — порядок шагов, decision gates, вызовы других commands; ссылки на rules вместо дублирования bullets.
+- **Формат шага в command:** одна **строка-якорь** (что проверить на этом шаге) + ссылка на rule.
+- **Inline оставлять** только task-specific (framework decision gate, memo по классам, формат отчёта, repo-команды вроде `npm run normalize:svg-layout`).
+- **В этом зеркале:** те же шаги; ссылки на [`rules/*.md`](rules/) (без `.RULE`, без путей в `.cursor/` для чтения policy).
 
 ## 5) Дополнительно / историческое
 

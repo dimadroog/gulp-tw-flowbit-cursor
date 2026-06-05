@@ -34,7 +34,7 @@
 |--------|--------|---------|
 | Контракт библиотеки / data-API | `id="site-search-modal"`, `data-modal-target="site-search-modal"` | Строка id в **`data-*` атрибутах** framework; **свой JS не** выбирает узел через `#site-search-modal` / `getElementById('site-search-modal')` |
 | Доступность / подписи | `id="site-search-modal-title"`, `for="…"` | Не JS-hook |
-| Якоря / контент | `id="…"` в `href` на той же странице | Не используется в `app/js`; заглушки перехода — `href="#"` по [`html-nunjucks-conventions.RULE.md`](html-nunjucks-conventions.RULE.md) § Link href |
+| Якоря / контент | `id="…"` в `href` на той же странице | Не используется в `app/js`; заглушки перехода — `href="#"` по [`html-nunjucks-conventions.RULE.md`](./html-nunjucks-conventions.md) § Link href |
 | `<a>` только для JS | `href="javascript:;"` | Не `href="#"`; см. html-nunjucks § Link href |
 
 **Паттерн Flowbite в репозитории:** стабильный **`id` без `js-`** для `data-modal-*` / `data-drawer-*`; своё поведение — через классы **`js-*`** и/или триггеры `data-modal-hide` / `data-modal-toggle`, **не** `getElementById` по library-id.

@@ -23,7 +23,7 @@ npm run qa
 
 ## Инструменты
 
-- **`html-validate`** ([`.htmlvalidate.json`](../../.htmlvalidate.json)) — локальная проверка по WHATWG HTML Living Standard; без Java, без сети, без внешних сервисов.
+- **`html-validate`** ([`.htmlvalidate.json`](../../../.htmlvalidate.json)) — локальная проверка по WHATWG HTML Living Standard; без Java, без сети, без внешних сервисов.
 - Это не побайтовый Nu Html Checker — часть Nu-специфичных кейсов (некоторые вложенные SVG / дубли `id`) может отличаться.
 
 После массового импорта Figma-SVG в `app/img/layout-shell/` перед проверкой выполняй **`npm run normalize:svg-layout`**, затем сборку.

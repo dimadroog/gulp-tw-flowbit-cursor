@@ -16,19 +16,15 @@
 4. Если нет, добавь минимальный custom JS и зафиксируй причину.
 5. Повторяющиеся элементы вынеси в Nunjucks loops/partials.
 6. Для JS-селекторов используй только классы с `js-*`, размещай их после визуальных классов в `class`-атрибуте и не стилизуй в CSS.
-7. Оптимизируй медиа по [`rules/image-delivery-and-optimization.RULE.md`](../../.cursor/rules/image-delivery-and-optimization.RULE.md); держи структуру секции компактной (без лишних обёрток).
-8. Задавай `alt` по [`rules/accessibility-and-w3c.RULE.md`](../../.cursor/rules/accessibility-and-w3c.RULE.md).
-9. Для ассетов из Figma соблюдай целостность импорта:
-   - вектор вставляй inline SVG (не заменяй эмоджи/текстовыми заглушками)
-   - растровые ассеты храни в структурированных локальных путях внутри `app/img/`
-   - не оставляй временные удаленные URL ассетов во финальных шаблонах
-   - не допускай пустых/битых `img src` в собранном output
-10. Держи atomic-классы в разметке в каноническом порядке сортировки `prettier-plugin-tailwindcss`.
-11. Если добавлен custom CSS, соблюдай порядок свойств от layout-критичных к локально-декоративным.
-12. Для шрифтов в секции проверяй, что используются только нужные семейства/начертания и в кастомных объявлениях сохранен `font-display: swap`.
-13. Выполни контент-стресс-проверку: добавь более длинные текстовые варианты и замени изображения на файлы с другими размерами/пропорциями.
-14. Проверь focus и keyboard behavior для интерактивных контролов.
-15. Перед завершением секции запусти `performance-checklist`.
+7. Оптимизируй медиа и держи структуру компактной — [`rules/image-delivery-and-optimization.md`](../rules/image-delivery-and-optimization.md).
+8. Задавай `alt` у изображений — [`rules/accessibility-and-w3c.md`](../rules/accessibility-and-w3c.md).
+9. Ассеты из Figma — [`rules/figma-asset-integrity.md`](../rules/figma-asset-integrity.md).
+10. Сортировка atomic-классов (Prettier/Tailwind) — [`rules/tailwind-usage-policy.md`](../rules/tailwind-usage-policy.md).
+11. Порядок CSS-свойств при кастомном CSS — [`rules/architecture-and-delivery-policy.md`](../rules/architecture-and-delivery-policy.md).
+12. Шрифты секции (`WOFF`/`WOFF2`, используемые начертания, `font-display: swap`) — [`rules/architecture-and-delivery-policy.md`](../rules/architecture-and-delivery-policy.md).
+13. Контент-стресс-проверка (длинный текст, разные пропорции изображений) — [`rules/image-delivery-and-optimization.md`](../rules/image-delivery-and-optimization.md).
+14. Focus и keyboard для интерактивных контролов — [`rules/accessibility-and-w3c.md`](../rules/accessibility-and-w3c.md).
+15. Перед завершением секции выполни [`performance-checklist.md`](performance-checklist.md).
 
 ## Памятка по порядку классов (кратко)
 
@@ -41,5 +37,5 @@
 - Decision gate зафиксирован явно: framework component или обоснованный custom JS.
 - Performance-ограничения явно проверены и отражены в delivery-заметках.
 - Верстка остается стабильной при замене контента (длинный текст и изменения пропорций изображений).
-- Доставка изображений соответствует `image-delivery-and-optimization.RULE.md`; у всех `img` корректный `alt` по accessibility rule.
-- Доставка шрифтов соответствует политике (`WOFF/WOFF2`, self-hosted где применимо, только используемые начертания, `font-display: swap`).
+- Доставка изображений, `alt`, Figma-ассеты и шрифты проверены по связанным rules выше.
+- [`performance-checklist.md`](performance-checklist.md) выполнен, где применимо.

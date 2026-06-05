@@ -3,7 +3,7 @@
 - Во всех решениях по реализации приоритетом ставь скорость загрузки страниц и runtime-производительность.
 - Используй best practices и рекомендации Lighthouse/PageSpeed как базовый ориентир для performance-решений.
 - Работай в рамках текущей архитектуры проекта и используемого инструментария.
-- Доставка изображений, sizing и PageSpeed: [`image-delivery-and-optimization.RULE.md`](image-delivery-and-optimization.RULE.md).
+- Доставка изображений, sizing и PageSpeed: [`image-delivery-and-optimization.RULE.md`](./image-delivery-and-optimization.md).
 - Используй `WOFF`/`WOFF2` как базовые форматы webfont для поддержки современных браузеров.
 - Предпочитай self-hosted подключение шрифтов и скриптов с сервера проекта (кроме проектов только на системных шрифтах).
 - Подключай только реально используемые семейства и начертания шрифтов.

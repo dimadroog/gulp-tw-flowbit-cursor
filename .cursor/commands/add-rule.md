@@ -25,12 +25,13 @@ Canonical map: [`WORKFLOW.md`](../WORKFLOW.md) (**§4** rules vs commands vs ski
 6. **Placement**
    - **Prefer merge** — if an existing `.RULE.md` already owns the topic, add a concise bullet or subsection there; shorten duplicates elsewhere if this clarifies hierarchy.
    - **Prefer new rule** — if the topic is new, conflicts with another policy’s framing, or would push an existing rule over **~500 lines**, create `rules/<kebab-topic>.RULE.md` with YAML frontmatter matching siblings (`description`, `alwaysApply`, optional `globs` if Cursor supports it — follow patterns in neighboring rules).
+   - **Commands vs rules** — when editing **commands**, if a bullet already exists in a rule, use **link + short anchor** per [`WORKFLOW.md`](../WORKFLOW.md) §4 (Commands vs rules linking); extend the rule if policy is incomplete. When editing **rules**, do not duplicate gate chains from `WORKFLOW` or `run-layout-task`.
 7. **Orchestration deltas** — if the requirement changes **gate chains**, task taxonomy, or `npm`/QA steps, edit the **canonical** location first ([`WORKFLOW.md`](../WORKFLOW.md)), then propagate to [`commands/run-layout-task.md`](run-layout-task.md) or other referenced commands instead of burying lone bullets in unrelated rules.
 8. **Naming & discoverability**
    - Rule files stay `*.RULE.md` in `rules/`.
    - File name = durable topic slug (kebab-case), not a sprint or ticket ID.
    - One-line `description:` in frontmatter must read like search hits for future sessions.
-9. **Bilingual lockstep** — any change under `.cursor/` requires **`sync-cursor-bilingual-structure`**: update [`docs/cursor-ru/`](../docs/cursor-ru/) immediately (English source in `.cursor/`, Russian human mirror; §6 of `WORKFLOW`).
+9. **Bilingual lockstep** — any change under `.cursor/` requires **`sync-cursor-bilingual-structure`**: update [`docs/cursor-ru/`](../../docs/cursor-ru/) immediately (English source in `.cursor/`, Russian human mirror; §6 of `WORKFLOW`).
 
 **Anti-pattern (rewrite before merge):**
 

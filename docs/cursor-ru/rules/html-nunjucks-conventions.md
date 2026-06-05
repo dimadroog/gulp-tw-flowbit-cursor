@@ -6,7 +6,7 @@
 - Поддерживать единообразие именования атрибутов и структуры контента в циклах.
 - Добавлять краткие комментарии только для исключений и неочевидных ограничений.
 - Если у элемента есть и визуальные классы, и JS hook-классы, размещай `js-*` классы в `class`-атрибуте после всех визуальных классов.
-- Для `id` как JS-hook в своём коде — префикс `js-`; `id` без `js-` только для контрактов библиотек в `data-*` — см. [`javascript-minimalism.RULE.md`](javascript-minimalism.RULE.md) § «Именование JS-хуков».
+- Для `id` как JS-hook в своём коде — префикс `js-`; `id` без `js-` только для контрактов библиотек в `data-*` — см. [`javascript-minimalism.RULE.md`](./javascript-minimalism.md) § «Именование JS-хуков».
 - В utility-heavy разметке держи atomic-классы в каноническом порядке `prettier-plugin-tailwindcss`.
 - Соблюдай корректную иерархию заголовков (`h1` -> `h2` -> `h3`) без пропусков уровней в структуре документа.
 - Рассматривай `section` и `article` как именованные области: внутри каждого должен быть содержательный заголовок.
@@ -32,7 +32,7 @@
 
 - **Реальная навигация:** `href` ведёт на существующую собранную страницу (`*.html`), валидный `mailto:` / `tel:` или якорь `#id` на **той же** странице.
 - **Заглушка перехода (цель ещё не свёрстана):** `href="#"`. **Не** придумывайте кросс-страничные hash (`other-page.html#section`) и hash на главной, если в `dist/` нет соответствующего `id`.
-- **Якорь только для JS (без навигации):** `href="javascript:;"`. **Не** используйте `href="#"` для чисто поведенческих контролов. Для action-only добавляйте `role="button"` и поддержку клавиатуры (см. [`accessibility-and-w3c.RULE.md`](accessibility-and-w3c.RULE.md)).
+- **Якорь только для JS (без навигации):** `href="javascript:;"`. **Не** используйте `href="#"` для чисто поведенческих контролов. Для action-only добавляйте `role="button"` и поддержку клавиатуры (см. [`accessibility-and-w3c.RULE.md`](./accessibility-and-w3c.md)).
 - **Запрещено как заглушки:** `href="javascript:void(0)"` без необходимости стороннего сниппета; фиктивные `home-page.html#…`, если фрагмент или страница не реализованы.
 
 **Проверка:**
@@ -46,13 +46,13 @@
 - Корневой layout должен держать глобальный footer **у нижнего края окна**, если контента меньше высоты viewport; при длинной странице footer идёт **после** прокручиваемого контента.
 - **Порядок в DOM** в `_main.njk`: `header` (partial) → `main` → `footer` (partial). Не переносите footer внутрь `main`, если бриф не требует иной shell.
 - **CSS-контракт:** `body` — колоночный flex-контейнер с минимальной высотой viewport (`min-h-screen` или согласованный эквивалент); `main` — `flex-1` (`grow`), забирает оставшееся пространство между header и footer.
-- Реализуйте через `@apply` в SCSS проекта (`_components.scss`, `@layer base` для `body` и `.main` — см. [`tailwind-usage-policy.RULE.md`](tailwind-usage-policy.RULE.md)), без длинных utility-строк на `<body>` в Nunjucks.
+- Реализуйте через `@apply` в SCSS проекта (`_components.scss`, `@layer base` для `body` и `.main` — см. [`tailwind-usage-policy.RULE.md`](./tailwind-usage-policy.md)), без длинных utility-строк на `<body>` в Nunjucks.
 - **Не** используйте `position: fixed` / `sticky` на site footer только ради прижатия к низу viewport; sticky header (`site-header`) остаётся отдельно.
 - **Проверка:** на короткой странице (`index.html` / пустая `home-page`) в DevTools footer у нижнего края viewport без большой белой полосы снизу; на длинной — высота документа больше viewport, footer после контента. `npm run build` проходит.
 
 ## Изображения в шаблонах (media)
 
-Sizing, форматы, `picture`/`srcset` и гейты PageSpeed — в [`image-delivery-and-optimization.RULE.md`](image-delivery-and-optimization.RULE.md). `alt` и non-text a11y — в [`accessibility-and-w3c.RULE.md`](accessibility-and-w3c.RULE.md). Импорт из Figma и целостность SVG — в [`figma-asset-integrity.RULE.md`](figma-asset-integrity.RULE.md).
+Sizing, форматы, `picture`/`srcset` и гейты PageSpeed — в [`image-delivery-and-optimization.RULE.md`](./image-delivery-and-optimization.md). `alt` и non-text a11y — в [`accessibility-and-w3c.RULE.md`](./accessibility-and-w3c.md). Импорт из Figma и целостность SVG — в [`figma-asset-integrity.RULE.md`](./figma-asset-integrity.md).
 
 - У каждого `<img>` в `app/**/*.njk` явно задавайте `loading="lazy"` или `loading="eager"`.
 - Когда отображаемый размер известен из layout, задавайте `width` и `height` (или резервируйте место через CSS `aspect-ratio`) на `<img>` для снижения CLS; значения — **rendered** CSS-пиксели, не полный размер исходника.
@@ -85,7 +85,7 @@ Sizing, форматы, `picture`/`srcset` и гейты PageSpeed — в [`imag
 - **`{% set %}` на странице перекрывает** одноимённый ключ из JSON.
 - **Только shallow merge:** вложенные объекты между `shared/` и page JSON не дополняются — заменяются целиком.
 - Не дублируйте один top-level ключ в нескольких `shared/*.json`.
-- Порядок слоёв — [`app/shared/README.md`](../../app/shared/README.md).
+- Порядок слоёв — [`app/shared/README.md`](../../../app/shared/README.md).
 
 ### `{% set %}` (partials, mixins, мелкие поля страницы)
 
@@ -96,7 +96,7 @@ Sizing, форматы, `picture`/`srcset` и гейты PageSpeed — в [`imag
 - **Модификатор при include:** `{% include … with { … } %}` для мелких отличий оформления.
 - **Для прототипа избегайте:** общий каталог в layout по индексу/ключу; partial только ради `{% set %}`; индексы/`%` для чередования стилей.
 - **Область видимости:** `{% set %}` внутри `{% include %}` не экспортируется в родитель.
-- **Не** используйте `manageEnv` / `addGlobal` в gulp для фикстур — см. [`gulpfile-universal-starter.RULE.md`](gulpfile-universal-starter.RULE.md).
+- **Не** используйте `manageEnv` / `addGlobal` в gulp для фикстур — см. [`gulpfile-universal-starter.RULE.md`](./gulpfile-universal-starter.md).
 - **Не** добавляйте partials только ради `{% set %}`.
 - **Формат литералов в `{% set %}` (обязательно):** развёрнутая читаемая структура — не однострочные «портянки» объектов.
   - `[` на той же строке, что и `{% set name =`; каждый элемент массива — с новой строки.
@@ -104,8 +104,8 @@ Sizing, форматы, `picture`/`srcset` и гейты PageSpeed — в [`imag
   - Вложенные массивы (например `tags`) — многострочно, по одному элементу на строку, если элементов два и больше.
   - Запятая после последнего элемента допустима; пустая строка перед `] %}` — только если так читабельнее в больших фикстурах.
   - **Не** сжимайте всю запись в одну строку, если в объекте больше двух полей.
-- **Prettier:** парсер Nunjucks/HTML **нельзя** прогонять по многострочным фикстурам `{% set %}` — он схлопывает объекты в нечитаемые переносы. Такие шаблоны — в [`.prettierignore`](../.prettierignore). Не запускайте `prettier --write` для ignored-файлов; форматируйте вручную по правилам выше.
-- **Проверка:** `gulpData(getTemplateData)` в [`gulpfile.js`](../../gulpfile.js); нет доменного `require()` фикстур и нет `manageEnv`/`addGlobal`; блоки `{% set %}` соответствуют многострочной схеме; `app/shared/*.json` и co-located `app/*.json` проходят `format:check`; после `npm run build` data-driven блоки в `dist/*.html` не пустые.
+- **Prettier:** парсер Nunjucks/HTML **нельзя** прогонять по многострочным фикстурам `{% set %}` — он схлопывает объекты в нечитаемые переносы. Такие шаблоны — в [`.prettierignore`](../../../.prettierignore). Не запускайте `prettier --write` для ignored-файлов; форматируйте вручную по правилам выше.
+- **Проверка:** `gulpData(getTemplateData)` в [`gulpfile.js`](../../../gulpfile.js); нет доменного `require()` фикстур и нет `manageEnv`/`addGlobal`; блоки `{% set %}` соответствуют многострочной схеме; `app/shared/*.json` и co-located `app/*.json` проходят `format:check`; после `npm run build` data-driven блоки в `dist/*.html` не пустые.
 
 ## Порог выноса в partial (не дробить без нужды)
 

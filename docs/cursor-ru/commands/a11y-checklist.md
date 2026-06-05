@@ -1,20 +1,22 @@
 # a11y-checklist
 
-Проведи целевую accessibility-проверку интерактивного UI перед завершением задачи.
+Фокусированная accessibility-проверка интерактивного UI перед завершением задачи.
+
+Канон policy: [`rules/accessibility-and-w3c.md`](../rules/accessibility-and-w3c.md).
 
 ## Чеклист
 
-1. Keyboard navigation работает для всех контролов.
-2. Tab order логичный и предсказуемый.
-3. `aria-expanded`, `aria-controls` и labels настроены корректно.
-4. `:focus-visible` состояния отчетливо видимы.
-5. Semantic landmarks и heading levels согласованы; демо типографики/статьи с внутренним `h1` — с `headingoffset` (см. [`rules/accessibility-and-w3c.RULE.md`](../../.cursor/rules/accessibility-and-w3c.RULE.md)).
-6. Корень модалки: `role="dialog"`, `aria-modal="true"`, `aria-labelledby`/`aria-label` на одном внешнем контейнере, не на `div` без роли (тот же rule).
-7. Для `img` корректно задан `alt` (описательный текст или пустой для декоративных изображений).
-8. Контраст текста и интерфейсных элементов достаточный.
+1. Клавиатурная навигация работает для всех контролов.
+2. Порядок Tab логичен и предсказуем.
+3. `aria-expanded`, `aria-controls` и labels подключены корректно.
+4. Стили `:focus-visible` хорошо видны.
+5. Landmarks, уровни заголовков и `headingoffset` для внутреннего `h1` в демо — см. accessibility rule выше.
+6. Роли и подписи modal/dialog (`role="dialog"`, `aria-modal`, `aria-labelledby`/`aria-label`) — см. accessibility rule выше.
+7. `alt` у `img` (описательный или пустой для декоративных) — см. accessibility rule выше.
+8. Контраст цветов приемлем.
 
-## Формат отчета
+## Формат отчёта
 
-- Critical issues (обязательно исправить)
-- Non-critical improvements
-- Явный pass-статус, если блокирующие проблемы не найдены
+- Критичные проблемы (исправить обязательно)
+- Некритичные улучшения
+- Явный pass, если блокирующих проблем нет

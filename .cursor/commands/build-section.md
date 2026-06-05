@@ -16,19 +16,15 @@ Build one section from a layout with framework-first interaction policy.
 4. If no, add minimal custom JS and document why framework support is insufficient.
 5. Refactor repeated elements into Nunjucks loops/partials.
 6. Use `js-*` classes for JS selectors only, keep them after visual classes in `class` attributes, and do not style them in CSS.
-7. Optimize media per [`rules/image-delivery-and-optimization.RULE.md`](../rules/image-delivery-and-optimization.RULE.md); keep section structure lean (no redundant wrappers).
-8. Set `alt` per [`rules/accessibility-and-w3c.RULE.md`](../rules/accessibility-and-w3c.RULE.md).
-9. Enforce Figma asset integrity when design assets are used:
-   - vectors are inserted as inline SVG (do not replace with emoji/text placeholders)
-   - raster assets are stored in structured local paths under `app/img/`
-   - no temporary remote asset URLs remain in final templates
-   - no empty/broken `img src` references in built output
-10. Keep atomic classes in markup aligned with canonical `prettier-plugin-tailwindcss` sorting.
-11. If custom CSS is added, keep property order from layout-critical to local decorative properties.
-12. For section-level font usage, ensure only required families/weights are referenced and `font-display: swap` is preserved in custom font declarations.
-13. Run a content stress-check: add longer text variants and swap images with different dimensions/aspect ratios.
-14. Verify focus states and keyboard behavior for interactive controls.
-15. Run `performance-checklist` before marking the section done.
+7. Optimize media and keep structure lean — [`rules/image-delivery-and-optimization.RULE.md`](../rules/image-delivery-and-optimization.RULE.md).
+8. Set `alt` on images — [`rules/accessibility-and-w3c.RULE.md`](../rules/accessibility-and-w3c.RULE.md).
+9. Figma-driven assets — [`rules/figma-asset-integrity.RULE.md`](../rules/figma-asset-integrity.RULE.md).
+10. Sort atomic classes per Prettier/Tailwind — [`rules/tailwind-usage-policy.RULE.md`](../rules/tailwind-usage-policy.RULE.md).
+11. Custom CSS property order — [`rules/architecture-and-delivery-policy.RULE.md`](../rules/architecture-and-delivery-policy.RULE.md).
+12. Section fonts (`WOFF`/`WOFF2`, used variants, `font-display: swap`) — [`rules/architecture-and-delivery-policy.RULE.md`](../rules/architecture-and-delivery-policy.RULE.md).
+13. Content stress-check (longer text, varied image aspect ratios) — [`rules/image-delivery-and-optimization.RULE.md`](../rules/image-delivery-and-optimization.RULE.md).
+14. Focus and keyboard behavior for interactive controls — [`rules/accessibility-and-w3c.RULE.md`](../rules/accessibility-and-w3c.RULE.md).
+15. Run [`performance-checklist.md`](performance-checklist.md) before marking the section done.
 
 ## Class Ordering Memo (short)
 
@@ -41,5 +37,5 @@ Build one section from a layout with framework-first interaction policy.
 - Decision gate result is explicit: framework component or justified custom JS.
 - Performance constraints are explicitly checked and reflected in delivery notes.
 - Layout remains stable with content replacements (longer text and image aspect-ratio changes).
-- Image delivery complies with `image-delivery-and-optimization.RULE.md`; all `img` elements have valid `alt` per accessibility rule.
-- Font delivery follows policy (`WOFF/WOFF2`, self-hosted when applicable, only used variants, `font-display: swap`).
+- Image delivery, `alt`, Figma assets, and fonts verified per linked rules above.
+- [`performance-checklist.md`](performance-checklist.md) completed where applicable.

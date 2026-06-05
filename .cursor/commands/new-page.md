@@ -10,21 +10,19 @@ Create a new page scaffold using current project conventions.
 
 ## Steps
 
-1. Create page template with required semantic landmarks (`header`, `nav`, `main`, `aside`, `footer`) and a single page-level `h1`.
-2. Set document shell defaults: `<html lang="ru">` (unless another locale is explicitly required) and `<meta name="viewport" content="width=device-width, initial-scale=1">`.
-3. Add minimal head/meta structure aligned with page purpose, including placeholders when SEO content is unknown:
+1. Semantic landmarks, single page-level `h1`, and section structure — [`rules/html-nunjucks-conventions.RULE.md`](../rules/html-nunjucks-conventions.RULE.md); landmarks and heading hierarchy — [`rules/accessibility-and-w3c.RULE.md`](../rules/accessibility-and-w3c.RULE.md).
+2. Document shell: `<html lang="ru">` (unless another locale is required) and `<meta name="viewport" content="width=device-width, initial-scale=1">`.
+3. Head/meta placeholders when SEO content is unknown:
    - `<meta name="description" content="description">`
    - `<meta name="keywords" content="keywords">`
 4. Set `<title>` to match the page name used in `app/index.html` page registry.
 5. If visual `h1` is missing in the layout, add a visually-hidden but accessible `h1`.
-6. Use `section`/`article` only with meaningful internal headings (`h2`/`h3` where appropriate).
-7. Split sections into includes/partials instead of large inline markup.
-8. Plan image slots per [`rules/image-delivery-and-optimization.RULE.md`](../rules/image-delivery-and-optimization.RULE.md) (`loading`, `picture`/`srcset`, 2× sizing, formats).
-9. Ensure every planned `img` has valid `alt` per [`rules/accessibility-and-w3c.RULE.md`](../rules/accessibility-and-w3c.RULE.md).
-10. Plan webfont strategy: self-hosted delivery (unless system-font-only), `WOFF/WOFF2` formats, and only required families/weights.
-11. Ensure custom font declarations use `font-display: swap`.
-12. Perform a content resilience check (longer text and varied image aspect ratios) per the image-delivery rule.
-13. Document assumptions for later a11y and interaction checks.
+6. Split sections into includes/partials instead of large inline markup.
+7. Plan image slots — [`rules/image-delivery-and-optimization.RULE.md`](../rules/image-delivery-and-optimization.RULE.md).
+8. Plan valid `alt` for every `img` — [`rules/accessibility-and-w3c.RULE.md`](../rules/accessibility-and-w3c.RULE.md).
+9. Webfont strategy (self-hosted, `WOFF`/`WOFF2`, used families/weights, `font-display: swap`) — [`rules/architecture-and-delivery-policy.RULE.md`](../rules/architecture-and-delivery-policy.RULE.md).
+10. Content resilience check (longer text, varied image aspect ratios) — [`rules/image-delivery-and-optimization.RULE.md`](../rules/image-delivery-and-optimization.RULE.md).
+11. Note assumptions for later interactive work; plan [`a11y-checklist.md`](a11y-checklist.md) when controls are added.
 
 ## Done
 
@@ -33,6 +31,5 @@ Create a new page scaffold using current project conventions.
 - Semantic landmarks and heading hierarchy are explicitly valid.
 - Document shell defaults are valid (`lang`, `viewport`, placeholder meta tags).
 - Baseline layout resilience is confirmed for variable text length and image proportions.
-- Image strategy is documented per `image-delivery-and-optimization.RULE.md` and valid `alt` per accessibility rule.
-- Font strategy is documented (formats, hosting, used variants, `font-display`).
+- Image, font, and accessibility strategy documented per linked rules above.
 - `<title>` matches the registered page name in `app/index.html`.

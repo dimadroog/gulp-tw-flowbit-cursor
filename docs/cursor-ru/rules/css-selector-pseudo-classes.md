@@ -4,7 +4,7 @@
 
 - **По умолчанию:** селекторы — **обычные списки через запятую** из элементов, классов и атрибутных фильтров — например `h1`, `h2`, `.article-prose a`, `.article-prose ul`, `blockquote cite`.
 - **Не оборачивайте** селекторы в **`:where()`** или **`:is()`** «для удобства» или чтобы имитировать сброс с нулевой специфичностью.
-- **Семантические классы** (`.btn`, `.article-prose`, BEM-блоки) — основной способ ограничить стили компонента; «голые» элементы — в **`app/scss/_typography.scss`** (`@layer base`) или в согласованном глобальном base — см. [`tailwind-usage-policy.RULE.md`](tailwind-usage-policy.RULE.md).
+- **Семантические классы** (`.btn`, `.article-prose`, BEM-блоки) — основной способ ограничить стили компонента; «голые» элементы — в **`app/scss/_typography.scss`** (`@layer base`) или в согласованном глобальном base — см. [`tailwind-usage-policy.RULE.md`](./tailwind-usage-policy.md).
 
 ## Зачем (контекст проекта)
 
@@ -46,5 +46,5 @@ h1 {
 
 ## Связанные правила
 
-- [`css-inheritance-layout.RULE.md`](css-inheritance-layout.RULE.md) — наследование vs повтор стеков на потомках.
-- [`scss-sass-module-system.RULE.md`](scss-sass-module-system.RULE.md) — порядок `@use` с `@tailwind` и `_typography.scss`.
+- [`css-inheritance-layout.RULE.md`](./css-inheritance-layout.md) — наследование vs повтор стеков на потомках.
+- [`scss-sass-module-system.RULE.md`](./scss-sass-module-system.md) — порядок `@use` с `@tailwind` и `_typography.scss`.

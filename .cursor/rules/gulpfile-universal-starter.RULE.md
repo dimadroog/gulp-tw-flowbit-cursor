@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Gulpfile Universal Starter
 
-- Treat [`gulpfile.js`](gulpfile.js) as a **reusable starter** for every new layout project cloned from this scaffold, not as a project-specific build script.
+- Treat [`gulpfile.js`](../../gulpfile.js) as a **reusable starter** for every new layout project cloned from this scaffold, not as a project-specific build script.
 - Change `gulpfile.js` only when the edit benefits **all** starters (bugfix, standard task path, shared vendor sync) or when the task brief **explicitly** requires a gulp change.
 - **Do not** add without explicit brief:
   - `require()` of **specific** project JSON/JS files for domain or mock content (e.g. `require('./app/shared/rubrics.json')`);

@@ -7,11 +7,11 @@
 - Исключить преждевременное завершение.
 - Гарантировать явный `pass` по всем обязательным проверкам.
 - Блокировать завершение, если любой применимый gate пропущен или провален.
-- Выполняется после всех task-gates и `validate-html`; `validate-all-directives` — следующий обязательный шаг и **не входит** в эту матрицу (см. [`WORKFLOW.md`](../../.cursor/WORKFLOW.md) §3).
+- Выполняется после всех task-gates и `validate-html`; `validate-all-directives` — следующий обязательный шаг и **не входит** в эту матрицу (см. [`WORKFLOW.md`](../../../.cursor/WORKFLOW.md) §3).
 
 ## Обязательная матрица статусов (должна быть явной)
 
-Полный список гейтов: [`WORKFLOW.md`](../../.cursor/WORKFLOW.md) §3. Для каждого пункта фиксируй один из статусов: `pass | fail | not_applicable`.
+Полный список гейтов: [`WORKFLOW.md`](../../../.cursor/WORKFLOW.md) §3. Для каждого пункта фиксируй один из статусов: `pass | fail | not_applicable`.
 
 1. `performance-checklist`
 2. `a11y-checklist`

@@ -90,7 +90,7 @@ Hybrid policy: page-level mock may live in JSON; partials and mixins stay in `{%
 - **`{% set %}` on a page overrides** the same key from JSON (intentional override; avoid duplicating without need).
 - **Shallow merge only:** do not expect nested objects to merge across `shared/` and page JSON — nested keys are replaced whole.
 - Do not duplicate the same top-level key across multiple `shared/*.json` files.
-- See [`app/shared/README.md`](../app/shared/README.md) for the layer order.
+- See [`app/shared/README.md`](../../app/shared/README.md) for the layer order.
 
 ### `{% set %}` (partials, mixins, small page fields)
 
@@ -109,8 +109,8 @@ Hybrid policy: page-level mock may live in JSON; partials and mixins stay in `{%
   - Nested arrays (e.g. `tags`) are multiline with one item per line when there are two or more items.
   - Trailing comma after the last element is allowed; keep a blank line before `] %}` only when it aids readability in large fixtures.
   - **Do not** squeeze an entire record into a single line when it has more than two fields.
-- **Prettier:** the Nunjucks/HTML parser **must not** reformat multiline fixture `{% set %}` blocks (it collapses objects into unreadable wrapped lines). List those templates in [`.prettierignore`](../.prettierignore). Do **not** run `prettier --write` on ignored files; hand-format per the rules above.
-- **Verification:** `gulpData(getTemplateData)` in [`gulpfile.js`](gulpfile.js); no domain-specific `require()` of fixture JSON and no `manageEnv`/`addGlobal`; fixture `{% set %}` blocks follow the multiline layout above; `app/shared/*.json` and co-located `app/*.json` pass `format:check`; after `npm run build`, data-driven blocks in `dist/*.html` render non-empty content.
+- **Prettier:** the Nunjucks/HTML parser **must not** reformat multiline fixture `{% set %}` blocks (it collapses objects into unreadable wrapped lines). List those templates in [`.prettierignore`](../../.prettierignore). Do **not** run `prettier --write` on ignored files; hand-format per the rules above.
+- **Verification:** `gulpData(getTemplateData)` in [`gulpfile.js`](../../gulpfile.js); no domain-specific `require()` of fixture JSON and no `manageEnv`/`addGlobal`; fixture `{% set %}` blocks follow the multiline layout above; `app/shared/*.json` and co-located `app/*.json` pass `format:check`; after `npm run build`, data-driven blocks in `dist/*.html` render non-empty content.
 
 ## Partial Extraction Threshold (do not over-split)
 

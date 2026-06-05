@@ -2,7 +2,7 @@
 
 Используй эту команду как единый orchestrator для задач по верстке. Это hard-mode flow с fail-fast контролем завершения.
 
-Каноника, стек и точность макета: [`WORKFLOW.md`](../../.cursor/WORKFLOW.md) (**§1.1–1.2**).
+Каноника, стек и точность макета: [`WORKFLOW.md`](../../../.cursor/WORKFLOW.md) (**§1.1–1.2**).
 
 ## Примеры триггеров
 
@@ -31,7 +31,7 @@
   - Принудительная валидация переиспользования шаблонов (Nunjucks loops/includes/macros) вместо дублирования.
   - Валидация направления по стилям/производительности (Tailwind-first, media/font delivery, content resilience).
   - Валидация целостности Figma-ассетов (для вектора — inline SVG где применимо, для растра — локальные структурированные пути, запрет подмены графики текстом/emoji).
-- **Post-process (блокирует завершение):** порядок как в [`WORKFLOW.md`](../../.cursor/WORKFLOW.md) §3 и в Orchestration flow ниже.
+- **Post-process (блокирует завершение):** порядок как в [`WORKFLOW.md`](../../../.cursor/WORKFLOW.md) §3 и в Orchestration flow ниже.
   - `performance-checklist` для изменений страниц/секций/медиа.
   - `a11y-checklist` для интерактивных изменений.
   - `validate-figma-assets` для Figma-driven страниц/секций.

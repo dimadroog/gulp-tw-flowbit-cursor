@@ -1,33 +1,34 @@
 # performance-checklist
 
-Запускай этот чеклист, чтобы держать реализацию сфокусированной на скорости загрузки и runtime-производительности.
+Чеклист скорости загрузки и runtime performance.
 
-## Scope
+## Область
 
-- Создание новых страниц
-- Реализация секций
-- Рефакторинг, затрагивающий JS/CSS/media
+- Создание страницы
+- Реализация секции
+- Рефакторы с затронутыми JS/CSS/media
 
 ## Чеклист
 
-1. Сверяй изменения с релевантными рекомендациями Lighthouse и PageSpeed (изображения, render-blocking ресурсы, размер DOM, неиспользуемый код).
-2. Проверь доставку изображений по [`rules/image-delivery-and-optimization.RULE.md`](../../.cursor/rules/image-delivery-and-optimization.RULE.md): явный `loading`, intrinsic ≤ rendered × 2.0, WebP/сжатие где уместно.
-3. Проверь адаптивные `picture`/`srcset`, когда размер зависит от viewport; каждый кандидат в пределах правила 2× для своего rendered-слота.
-4. Запусти PageSpeed Insights (или Lighthouse) и убедись, что аудит **«Properly size images»** зелёный без предупреждений для затронутых страниц.
-5. Проверь `alt` у всех `img` по [`rules/accessibility-and-w3c.RULE.md`](../../.cursor/rules/accessibility-and-w3c.RULE.md).
-6. Избегай лишнего JS для простых UI-паттернов; предпочитай нативные HTML/CSS или framework-native поведение.
-7. Удаляй дублирующийся или неиспользуемый CSS/JS, появившийся в ходе реализации.
-8. Поддерживай компактную DOM-структуру без лишних оберток.
-9. Проверь стратегию шрифтов: `WOFF/WOFF2`, self-hosted доставка (если проект не на системных шрифтах), и загрузка только используемых семейств/начертаний.
-10. Проверь, что в кастомных `@font-face` задан `font-display: swap`.
-11. Выполняй контент-стресс-тест: длинный текст и альтернативные пропорции изображений не ломают верстку и не создают крупных CLS (устойчивость по image-delivery rule).
-12. Фиксируй ожидаемые performance-компромиссы в delivery-отчете.
+Канон performance policy: [`rules/architecture-and-delivery-policy.md`](../rules/architecture-and-delivery-policy.md).
 
-## Результат
+1. Сверь изменения с релевантными рекомендациями Lighthouse и PageSpeed (изображения, render-blocking, размер DOM, неиспользуемый код).
+2. Доставка изображений (`loading`, intrinsic ≤ rendered × 2.0, WebP/сжатие) — [`rules/image-delivery-and-optimization.md`](../rules/image-delivery-and-optimization.md).
+3. `picture`/`srcset` там, где размер зависит от viewport; каждый кандидат в пределах правила 2× для своего слота.
+4. PageSpeed Insights (или Lighthouse): аудит **«Properly size images»** без fail/warning для затронутых страниц.
+5. Корректный `alt` у всех `img` — [`rules/accessibility-and-w3c.md`](../rules/accessibility-and-w3c.md).
+6. Минимум лишнего JS; нативный HTML/CSS или framework-native — [`rules/javascript-minimalism.md`](../rules/javascript-minimalism.md).
+7. Убери дублирующийся или мёртвый CSS/JS после реализации.
+8. DOM без лишних обёрток.
+9. Webfont (`WOFF`/`WOFF2`, self-hosted, загруженные варианты, `font-display: swap`) — [`rules/architecture-and-delivery-policy.md`](../rules/architecture-and-delivery-policy.md).
+10. Стресс-контент: длинный текст и другие пропорции изображений не ломают layout и не дают сильный CLS — [`rules/image-delivery-and-optimization.md`](../rules/image-delivery-and-optimization.md).
+11. Зафиксируй ожидаемые performance trade-offs в отчёте.
 
-- Краткая performance-заметка с:
-  - ключевыми примененными оптимизациями
-  - примененными или осознанно отложенными рекомендациями Lighthouse/PageSpeed
-  - решениями по доставке шрифтов (форматы, хостинг, загруженные начертания, `font-display`)
-  - неустраненными узкими местами
-  - follow-up TODO-пунктами
+## Вывод
+
+- Краткая performance-заметка:
+  - ключевые оптимизации
+  - применённые или отложенные рекомендации Lighthouse/PageSpeed
+  - решения по шрифтам (форматы, хостинг, загруженные варианты, `font-display`)
+  - нерешённые hotspots
+  - follow-up TODO

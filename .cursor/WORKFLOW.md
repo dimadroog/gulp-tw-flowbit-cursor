@@ -64,10 +64,18 @@ Output: explicit **`pass|fail|not_applicable`** for each applicable gate, with c
 
 ## 4) Rules vs skills vs hooks
 
-- **Rules** (`rules/*.RULE.md`, many `alwaysApply`): binding policies. To add or extend them with correct placement, follow [`commands/add-rule.md`](commands/add-rule.md).
-- **Commands** (`commands/*.md`): procedural gates and slash-command text.
+- **Rules** (`rules/*.RULE.md`, many `alwaysApply`): binding policies — canonical depth and verification. To add or extend them with correct placement, follow [`commands/add-rule.md`](commands/add-rule.md).
+- **Commands** (`commands/*.md`): procedural gates, task sequencing, and slash-command text — **not** long policy copies.
 - **Skills** (`skills/**/SKILL.md`): optional depth — **open explicitly** when relevant; not loaded by default.
 - **Hooks** ([`hooks.json`](hooks.json)): currently empty; no automatic enforcement at edit time.
+
+### Commands vs rules linking
+
+- **Rules own policy** — full requirements and how to verify them.
+- **Commands own procedure** — step order, decision gates, calls to other commands; link to rules instead of duplicating policy bullets.
+- **Command step format:** one **anchor line** (what to check at this step) + markdown link to the rule (`../rules/<topic>.RULE.md` from `commands/`).
+- **Keep inline** only what is **task-specific** (framework decision gate, class-order memo, report/output format, repo commands such as `npm run normalize:svg-layout`).
+- **Russian mirror:** same steps; link to `docs/cursor-ru/rules/<topic>.md` (no `.RULE` suffix, no `.cursor/` paths for human reading).
 
 ## 5) Supplementary / historical
 

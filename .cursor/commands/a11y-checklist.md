@@ -2,15 +2,17 @@
 
 Run a focused accessibility pass for interactive UI before task completion.
 
+Canonical policy: [`rules/accessibility-and-w3c.RULE.md`](../rules/accessibility-and-w3c.RULE.md).
+
 ## Checklist
 
 1. Keyboard navigation works for all controls.
 2. Tab order is logical and predictable.
 3. `aria-expanded`, `aria-controls`, and labels are wired correctly.
 4. `:focus-visible` styles are clearly visible.
-5. Semantic landmarks and heading levels are coherent; typography/article demos use `headingoffset` when they include inner `h1` (see [`rules/accessibility-and-w3c.RULE.md`](../rules/accessibility-and-w3c.RULE.md)).
-6. Modal roots: `role="dialog"`, `aria-modal="true"`, and `aria-labelledby`/`aria-label` on the same outer container — not on an unroled `div` (same rule).
-7. `img` elements use correct `alt` values (descriptive or empty for decorative images).
+5. Semantic landmarks, heading levels, and `headingoffset` for inner `h1` in demos — see accessibility rule above.
+6. Modal/dialog roles and labelling (`role="dialog"`, `aria-modal`, `aria-labelledby`/`aria-label`) — see accessibility rule above.
+7. `img` `alt` values (descriptive or empty for decorative) — see accessibility rule above.
 8. Color contrast is acceptable.
 
 ## Reporting Format

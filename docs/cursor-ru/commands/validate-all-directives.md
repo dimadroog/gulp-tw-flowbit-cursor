@@ -6,16 +6,16 @@
 
 - Исключить частичное соблюдение требований.
 - Блокировать завершение при нарушении любой обязательной директивы.
-- Обеспечить стабильное качество по performance, accessibility, семантике, стилям, JS-архитектуре, ассетам, pixel-perfect соответствию и workflow-политикам (включая порядок гейтов в [`WORKFLOW.md`](../../.cursor/WORKFLOW.md)).
+- Обеспечить стабильное качество по performance, accessibility, семантике, стилям, JS-архитектуре, ассетам, pixel-perfect соответствию и workflow-политикам (включая порядок гейтов в [`WORKFLOW.md`](../../../.cursor/WORKFLOW.md)).
 
 ## Обязательные проверки
 
 1. Определи релевантный scope директив для текущей задачи:
-   - [`WORKFLOW.md`](../../.cursor/WORKFLOW.md) (**каноника**: процедура, стек §1.1, fidelity §1.2, матрица гейтов §3)
+   - [`WORKFLOW.md`](../../../.cursor/WORKFLOW.md) (**каноника**: процедура, стек §1.1, fidelity §1.2, матрица гейтов §3)
    - все rules с `alwaysApply: true`
    - все command-level обязательные проверки по типу задачи
 2. Проверь реализацию по каждой категории директив:
-   - архитектура и performance delivery (включая доставку и sizing изображений при изменении растра или адаптивных источников — [`rules/image-delivery-and-optimization.RULE.md`](../../.cursor/rules/image-delivery-and-optimization.RULE.md))
+   - архитектура и performance delivery (включая доставку и sizing изображений при изменении растра или адаптивных источников — [`rules/image-delivery-and-optimization.RULE.md`](../../../.cursor/rules/image-delivery-and-optimization.RULE.md))
    - accessibility/W3C семантика
    - Tailwind/styling конвенции
    - JavaScript minimalism/architecture

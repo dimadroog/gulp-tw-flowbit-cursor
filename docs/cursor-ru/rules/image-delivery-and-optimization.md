@@ -2,8 +2,8 @@
 
 Каноническая политика для растровых изображений и адаптивной разметки в layout-проектах. Связанные темы остаются в соседних правилах — не дублируйте их здесь:
 
-- **Целостность импорта из Figma** (inline SVG, локальные пути, без MCP URL, геометрия вектора): [`figma-asset-integrity.RULE.md`](figma-asset-integrity.RULE.md).
-- **`alt` и доступность non-text** (описательный vs декоративный, контраст): [`accessibility-and-w3c.RULE.md`](accessibility-and-w3c.RULE.md).
+- **Целостность импорта из Figma** (inline SVG, локальные пути, без MCP URL, геометрия вектора): [`figma-asset-integrity.RULE.md`](./figma-asset-integrity.md).
+- **`alt` и доступность non-text** (описательный vs декоративный, контраст): [`accessibility-and-w3c.RULE.md`](./accessibility-and-w3c.md).
 
 ## Загрузка
 
@@ -65,4 +65,4 @@ Intrinsic height ≤ Rendered height × 2.0
 
 ## Блокирующие условия
 
-- Задачи с новым или изменённым растром **не завершены**, пока любой слот нарушает **Intrinsic ≤ Rendered × 2.0** или пока PSI **«Properly size images»** показывает fail/warning для этих URL — если в brief нет явного waiver (та же позиция, что waivers mockup fidelity в [`WORKFLOW.md`](../../.cursor/WORKFLOW.md) §1.2).
+- Задачи с новым или изменённым растром **не завершены**, пока любой слот нарушает **Intrinsic ≤ Rendered × 2.0** или пока PSI **«Properly size images»** показывает fail/warning для этих URL — если в brief нет явного waiver (та же позиция, что waivers mockup fidelity в [`WORKFLOW.md`](../../../.cursor/WORKFLOW.md) §1.2).
