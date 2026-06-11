@@ -1,6 +1,6 @@
 ---
 description: Framework-first JS; js-* hooks for classes and ids in custom JS; Flowbite data-API id exceptions.
-alwaysApply: false
+alwaysApply: true
 globs:
   - app/js/**
   - app/**/*.njk

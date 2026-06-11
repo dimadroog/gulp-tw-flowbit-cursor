@@ -1,6 +1,6 @@
 ---
 description: Standard transition duration (~0.2s) for hover/focus states; capped smooth motion for expand/collapse surfaces.
-alwaysApply: false
+alwaysApply: true
 globs:
   - app/scss/**
   - app/js/**

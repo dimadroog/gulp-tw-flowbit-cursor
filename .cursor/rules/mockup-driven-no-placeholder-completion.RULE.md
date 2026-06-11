@@ -1,6 +1,6 @@
 ---
 description: For mockup-driven tasks, completion is forbidden while visual placeholders or deferred fidelity TODOs remain.
-alwaysApply: false
+alwaysApply: true
 ---
 
 # Mockup-Driven No-Placeholder Completion Policy

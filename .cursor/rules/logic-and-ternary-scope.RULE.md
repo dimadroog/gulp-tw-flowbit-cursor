@@ -1,6 +1,6 @@
 ---
 description: Use explicit logical blocks for multi-line branching and reserve ternary operators for one-line expressions.
-alwaysApply: false
+alwaysApply: true
 globs:
   - app/**/*.njk
   - app/js/**

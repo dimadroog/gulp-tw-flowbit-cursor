@@ -1,6 +1,6 @@
 ---
 description: Web image delivery, intrinsic sizing for PageSpeed, responsive sources, and loading policy.
-alwaysApply: false
+alwaysApply: true
 globs:
   - app/**/*.njk
   - app/**/*.html

@@ -1,6 +1,6 @@
 ---
 description: JavaScript architecture baseline for Tailwind + Flowbite projects.
-alwaysApply: false
+alwaysApply: true
 globs:
   - app/js/**
 ---

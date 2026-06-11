@@ -1,6 +1,6 @@
 ---
 description: Prefer plain CSS selectors and semantic classes over :where() and :is() unless a documented cascade reason exists.
-alwaysApply: false
+alwaysApply: true
 globs:
   - app/scss/**
 ---

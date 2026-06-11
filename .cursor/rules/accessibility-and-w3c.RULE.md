@@ -1,6 +1,6 @@
 ---
 description: Accessibility, W3C, and interaction safety baseline.
-alwaysApply: false
+alwaysApply: true
 globs:
   - app/**/*.njk
   - app/**/*.html

@@ -1,6 +1,6 @@
 ---
 description: Figma asset import integrity policy for layout delivery.
-alwaysApply: false
+alwaysApply: true
 globs:
   - app/img/**
   - app/**/*.njk

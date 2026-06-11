@@ -1,6 +1,6 @@
 ---
 description: HTML/Nunjucks conventions — reuse via macros; images per delivery rule; link stubs href="#"; JS anchors href="javascript:;"; partial extraction threshold.
-alwaysApply: false
+alwaysApply: true
 globs:
   - app/**/*.njk
   - app/**/*.html
