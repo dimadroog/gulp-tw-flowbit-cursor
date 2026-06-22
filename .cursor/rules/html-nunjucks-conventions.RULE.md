@@ -127,3 +127,14 @@ Hybrid policy: page-level mock may live in JSON; partials and mixins stay in `{%
 - **Prefer a macro** over a partial when the pattern repeats with different data in the same or several files but the outer wrapper stays in the caller.
 - **Shell partials** (`_header.njk`, `_footer.njk`, layouts) remain valid: they are included from the root layout and represent global chrome, not single-use fragments.
 - **Verification:** before adding `_something.njk`, state the **include sites** (file paths). If there is only one, inline unless the task brief or an approved plan explicitly requires a separate file (e.g. parallel ownership, generated include list).
+
+## Tailwind class names in markup (content scan)
+
+- **Do not** build Tailwind or project component class names by interpolating Nunjucks variables into the `class` attribute (for example `site-footer-column-{{ loop.index }}`, `{{ column.modifierClass }}`, or `{{ classes[loop.index0] }}`). Tailwind’s content scanner reads **literal** strings in `app/**/*.njk`; dynamic fragments are invisible at build time, so matching `@apply` rules in SCSS may be purged and styles silently missing in `dist/css`.
+- **Do** keep loops for **data** (labels, links, copy); bind **layout/modifier** classes with explicit literals the scanner can see:
+  - a fixed `{% if %} / {% elif %}` branch per known modifier (`site-footer-column-1`, `site-footer-column-2`, …);
+  - separate markup blocks when structure differs;
+  - or atomic Tailwind utilities composed in markup when the set is truly dynamic (see [`tailwind-usage-policy.RULE.md`](tailwind-usage-policy.RULE.md)).
+- **Do not** paper over missing literals with `safelist` in `tailwind.config.js` when the fix belongs in templates — reserve safelist for third-party or generated markup outside `app/**/*.njk`.
+- Pair each authored modifier class in markup with a named rule in project SCSS (`@layer components`, `@apply` per [`tailwind-usage-policy.RULE.md`](tailwind-usage-policy.RULE.md)); do not replace `@apply` with raw CSS solely to dodge purge — fix class literals in templates instead.
+- **Verification:** new/changed modifier classes appear as **full literal substrings** in `app/**/*.njk` (`rg 'site-footer-column-[123]' app/**/*.njk` or project-specific names); `npm run build` succeeds; built `dist/css/*.css` contains the modifier selectors; no new `safelist` entries for classes that should be visible in templates.

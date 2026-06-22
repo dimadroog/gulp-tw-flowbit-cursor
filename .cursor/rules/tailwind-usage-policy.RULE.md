@@ -62,6 +62,7 @@ In markup: `class="btn btn-primary"` instead of repeating the full utility strin
 - New `@apply` classes use **semantic** names, not visual ones (`rg '\.(blue|red)-' app/scss/_components.scss` — no new matches).
 - Templates do not duplicate long utility stacks where `_components.scss` already defines the semantic class.
 - `npm run build` (or `gulp build`) completes without PostCSS/Tailwind `@apply` errors.
+- Modifier/component classes used in markup must appear as **literal** strings in `app/**/*.njk` so Tailwind content scan retains matching `@apply` rules — see [`html-nunjucks-conventions.RULE.md`](html-nunjucks-conventions.RULE.md) § Tailwind class names in markup.
 
 ## Required Semantic Components (`@apply`)
 

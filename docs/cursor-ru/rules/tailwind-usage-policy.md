@@ -54,6 +54,7 @@
 - Имена классов **семантические**, не визуальные (`rg '\.(blue|red)-' app/scss/_components.scss` — без новых совпадений).
 - В шаблонах нет дублирования длинных utility-стеков там, где класс уже есть в `_components.scss`.
 - `npm run build` (или `gulp build`) без ошибок PostCSS/Tailwind на `@apply`.
+- Модификаторы/component-классы в разметке — **литеральные** строки в `app/**/*.njk`, чтобы content scan Tailwind сохранял `@apply` в SCSS — см. [`html-nunjucks-conventions.md`](./html-nunjucks-conventions.md) § Имена Tailwind-классов в разметке.
 
 ## Обязательные семантические компоненты (`@apply`)
 

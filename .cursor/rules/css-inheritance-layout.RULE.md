@@ -58,7 +58,7 @@ Set on **each element** that needs them — never assume propagation:
 ## Tailwind / `@apply` in this repo
 
 - Prefer **plain selector lists** and semantic classes over `:where()` / `:is()` unless a documented cascade exception applies — see [`css-selector-pseudo-classes.RULE.md`](css-selector-pseudo-classes.RULE.md).
-- Prefer **one** `@apply` text stack on a **parent** semantic class; children use modifiers (`.is-active`, `.site-header-logo-dot`) for deltas.
+- Prefer **one** `@apply` text stack on a **parent** semantic class; children use hyphen modifiers or state classes (`.is-active`, `.site-header-logo-dot`) for deltas — see [`tailwind-usage-policy.RULE.md`](tailwind-usage-policy.RULE.md) **Semantic Class Naming (Kebab-Case)** (no `__` / `--` BEM separators).
 - Do not paste identical `text-14 text-neutral-800` (or equivalent) on every nested `a`/`span` if they already sit under a block that set the same values.
 - Utility strings in Nunjucks are for **layout and exceptions**, not for re-stating inherited typography on each node.
 
