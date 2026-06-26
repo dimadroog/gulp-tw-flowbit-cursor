@@ -9,7 +9,13 @@ globs:
 # Figma Asset Integrity Policy
 
 - When implementing UI from Figma, preserve asset semantics exactly: icons/illustrations remain graphics and must not be replaced with text or emoji substitutes.
-- For vector graphics, inline SVG markup directly in templates when the element is part of UI structure (icons, logo marks, control glyphs).
+
+## Simple vector icons (markup)
+
+- For **simple icons and control glyphs** in templates (nav icons, button glyphs, logos in the DOM, icons needing `currentColor` or accessible naming on the graphic), embed **inline `<svg>`** — not `<img src="…svg">` when inline is sufficient.
+- Glyphs delivered **only through CSS** (pseudo-elements, custom form control marks, decorative backgrounds): URL-encoded `data:image/svg+xml` per [`css-authoring.RULE.md`](css-authoring.RULE.md) § Simple SVG icons in CSS.
+- When in doubt for a visible control icon, prefer **inline markup** over a CSS-only glyph.
+
 - Treat SVG files under `app/img/` as **design artifacts**: after download/export from Figma (or MCP), store them **without unapproved edits** to geometry (`d`, `path`, `viewBox`, inner `transform`) or to root `<svg>` semantics before `{% include %}` pulls them into markup. The included file should match the exported source unless the task explicitly authorizes a delta.
 - For raster graphics, download and store assets under structured project paths (for example `app/img/<page-or-feature>/...`) and reference only local project paths.
 - After raster export, size and compress per [`image-delivery-and-optimization.RULE.md`](image-delivery-and-optimization.RULE.md).
