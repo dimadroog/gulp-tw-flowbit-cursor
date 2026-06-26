@@ -28,7 +28,7 @@
 ## Модальные окна (`div` + `aria-labelledby`)
 
 - У `div` неявная роль **`generic`**. **`aria-labelledby`** (и **`aria-label`**) на `div` **недопустимы**, пока не задана явная роль **кроме** `caption`, `code`, `deletion`, `emphasis`, `generic`, `insertion`, `paragraph`, `presentation`, `strong`, `subscript`, `superscript`.
-- **Корень Flowbite / кастомной модалки:** на **внешнем** контейнере (узел с `data-modal-target` / `id` для открытия-закрытия) вместе укажи **`role="dialog"`**, **`aria-modal="true"`** и **`aria-labelledby`** (или **`aria-label`**). Не оставляй `aria-labelledby` на внешнем `div` без роли, а `role="dialog"` — только на внутренней карточке.
+- **Корень Preline / кастомного overlay:** на **внешнем** `hs-overlay` (узел с `data-hs-overlay="#…"` / `id` для show/hide) вместе укажи **`role="dialog"`**, **`aria-modal="true"`** и **`aria-labelledby`** (или **`aria-label`**).
 - **`aria-labelledby`** должен ссылаться на **`id`, существующий в DOM** в открытом состоянии (видимый заголовок или `.sr-only` подпись). Не дублируй один `id` между формой и экраном успеха.
 - Не вкладывай **`role="dialog"`** друг в друга.
 - **Проверка:** W3C Nu Checker не выдаёт ошибку о запрете `aria-labelledby` на `div`; общие partial модалок проходят **`npm run validate:html`**.

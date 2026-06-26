@@ -2,5 +2,5 @@ dist
 node_modules
 # Nunjucks templates — hand-formatted (Prettier breaks multiline {% set %} blocks)
 **/*.njk
-# auto-generated files
-app/scss/_fonts.scss
+# Vendor libs synced from node_modules
+app/lib/preline/*.js

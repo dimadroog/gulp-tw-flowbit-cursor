@@ -2,7 +2,7 @@
 /node_modules/
 
 # Generated vendor assets (synced from node_modules by gulp task)
-/app/lib/flowbite/
+/app/lib/preline/
 
 # Logs
 npm-debug.log*

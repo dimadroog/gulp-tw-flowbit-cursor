@@ -8,10 +8,12 @@
 
 ## UI interaction stack
 
-- Tailwind CSS is the styling baseline.
-- Flowbite is the default interactive UI library (modal, accordion, collapse, offcanvas, dropdown, tabs, tooltip).
-- Flowbite JS is shipped from `dist/lib/node_modules/flowbite/dist/flowbite.min.js` and loaded in the main Nunjucks layout.
+- Tailwind CSS 4 is the styling baseline (`app/css/style.css`, `@tailwindcss/postcss`).
+- Preline (`@preline/*`, MIT) is the default interactive UI library — modal/drawer (`overlay`), dropdown, tabs, carousel, select, file-upload, and others as needed.
+- Preline modules are **not** bundled by default. Add them incrementally via [`.cursor/commands/add-preline-module.md`](.cursor/commands/add-preline-module.md).
+- Synced vendor JS lives under `app/lib/preline/` (gitignored) and is copied to `dist/lib/preline/` on build.
 
 ## Interaction policy
 
-- Use Flowbite data attributes/API first.
+- Use Preline `data-hs-*` / `hs-*` markup and auto-init before custom JS.
+- Keep bespoke behavior minimal.

@@ -2,7 +2,7 @@
 description: CSS inheritance hierarchy for layout — set typography on ancestors, override only deltas, explicit box model on each element.
 alwaysApply: true
 globs:
-  - app/scss/**
+  - app/css/**
 ---
 
 # CSS Inheritance for Layout
@@ -11,10 +11,10 @@ Use the cascade so **descendants pick up typography and color from ancestors** i
 
 ## Project baseline (level 1)
 
-- **Document root:** `html { font-size: var(--font-size); }` in `app/scss/_components.scss` (`@layer base`).
+- **Document root:** `html { font-size: var(--font-size); }` in `app/css/components.css` (`@layer base`) when the token is defined.
 - **Body defaults:** `body` sets `font-sans`, `text-foreground`, `background`, `antialiased` once — all in-page text inherits unless overridden.
 - **Heading scale:** `h1`–`h4` in `@layer base` override only size/weight/line-height where the design contract differs from body; do not re-declare `font-family` on each heading if it matches body.
-- **Tokens:** colors and type sizes come from `app/scss/_variables.scss` and `tailwind.config.js` — prefer inheritance + token utilities over hard-coded hex on every child.
+- **Tokens:** colors and type sizes come from `tailwind.config.js` — prefer inheritance + token utilities over hard-coded hex on every child.
 
 ## What inherits (set high, override low)
 
@@ -33,14 +33,14 @@ Set on **each element** that needs them — never assume propagation:
 
 - `margin`, `padding`
 - `border` (and radius when not using a shared utility on the element itself)
-- `width`, `height`, `min-*`, `max-*`
+- `width`, `height`, `min-*`, `max-*` — set when the layout needs them; **do not** default to fixed pixel boxes on every element (see [`layout-sizing-and-flex.RULE.md`](layout-sizing-and-flex.RULE.md))
 - `background` / `background-color`
 - `display`, `position`, `flex`/`grid` layout, `gap`
 - `box-shadow`
 
 ## Levels (authoring order)
 
-1. **Global** — `body` / `@layer base` in `_components.scss`.
+1. **Global** — `body` / `@layer base` in `components.css`.
 2. **Layout belt** — `.container` (width/padding only; typography inherits from body).
 3. **Component block** — BEM root (e.g. `.site-header`, `.card`): set shared `font-family`, `color`, `font-size`, `line-height` **once** on the block if the whole subtree shares them.
 4. **Elements** — headings, links, labels inside the block: change only what differs; avoid repeating inherited text properties.
@@ -53,7 +53,7 @@ Set on **each element** that needs them — never assume propagation:
 ## `inherit` and `initial`
 
 - **`inherit`** — child should match parent explicitly (e.g. link color inside a tinted card when design requires it).
-- **`initial`** — reset to UA default only when inheritance causes a bug; document the reason in a short SCSS comment.
+- **`initial`** — reset to UA default only when inheritance causes a bug; document the reason in a short CSS comment.
 
 ## Tailwind / `@apply` in this repo
 
@@ -66,5 +66,5 @@ Set on **each element** that needs them — never assume propagation:
 
 - [ ] Base typography lives on `body` / block root, not duplicated on three+ nested selectors without a design reason.
 - [ ] Spacing and borders are set on the elements that own the box, not assumed from parents.
-- [ ] New SCSS does not repeat `font-family` / `font-size` / `color` / `line-height` on children that already inherit the same values from an ancestor in the same block.
+- [ ] New CSS does not repeat `font-family` / `font-size` / `color` / `line-height` on children that already inherit the same values from an ancestor in the same block.
 - [ ] Form fields either use `.form-control` / documented utilities or explicit `inherit` where matching parent text is required.

@@ -37,7 +37,7 @@ globs:
 ## Modal and dialog markup (`div` + `aria-labelledby`)
 
 - A `div` has implicit role **`generic`**. **`aria-labelledby`** (and **`aria-label`**) on a `div` are **invalid** unless the element has an explicit role **other than** `caption`, `code`, `deletion`, `emphasis`, `generic`, `insertion`, `paragraph`, `presentation`, `strong`, `subscript`, or `superscript`.
-- **Flowbite / custom modal roots:** on the **outer** modal container (the node targeted by `data-modal-target` / `id` used for show/hide), set **`role="dialog"`**, **`aria-modal="true"`**, and **`aria-labelledby`** (or **`aria-label`**) together. Do **not** put `role="dialog"` only on an inner content box while `aria-labelledby` stays on an outer unroled `div` — that duplicates or breaks the dialog contract.
+- **Preline / custom overlay roots:** on the **outer** `hs-overlay` container (the node targeted by `data-hs-overlay="#…"` / `id` used for show/hide), set **`role="dialog"`**, **`aria-modal="true"`**, and **`aria-labelledby`** (or **`aria-label`**) together. Do **not** put `role="dialog"` only on an inner content box while `aria-labelledby` stays on an outer unroled `div` — that duplicates or breaks the dialog contract.
 - **`aria-labelledby`** must reference an **`id` present in the DOM** for the open state (visible heading or `.sr-only` label). Avoid duplicate `id` values across form vs success views.
 - Do **not** nest `role="dialog"` elements.
 - **Verification:** W3C Nu Checker shows no error that `aria-labelledby` is disallowed on `div`; modal partials in shared layout includes pass `npm run validate:html`.

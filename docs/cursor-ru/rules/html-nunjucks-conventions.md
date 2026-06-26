@@ -46,7 +46,7 @@
 - Корневой layout должен держать глобальный footer **у нижнего края окна**, если контента меньше высоты viewport; при длинной странице footer идёт **после** прокручиваемого контента.
 - **Порядок в DOM** в `_main.njk`: `header` (partial) → `main` → `footer` (partial). Не переносите footer внутрь `main`, если бриф не требует иной shell.
 - **CSS-контракт:** `body` — колоночный flex-контейнер с минимальной высотой viewport (`min-h-screen` или согласованный эквивалент); `main` — `flex-1` (`grow`), забирает оставшееся пространство между header и footer.
-- Реализуйте через `@apply` в SCSS проекта (`_components.scss`, `@layer base` для `body` и `.main` — см. [`tailwind-usage-policy.RULE.md`](./tailwind-usage-policy.md)), без длинных utility-строк на `<body>` в Nunjucks.
+- Реализуйте через `@apply` в CSS проекта (`app/css/components.css`, `@layer base` для `body` и `.main` — см. [`tailwind-usage-policy.md`](./tailwind-usage-policy.md)), без длинных utility-строк на `<body>` в Nunjucks.
 - **Не** используйте `position: fixed` / `sticky` на site footer только ради прижатия к низу viewport; sticky header (`site-header`) остаётся отдельно.
 - **Проверка:** на короткой странице (`index.html` / пустая `home-page`) в DevTools footer у нижнего края viewport без большой белой полосы снизу; на длинной — высота документа больше viewport, footer после контента. `npm run build` проходит.
 

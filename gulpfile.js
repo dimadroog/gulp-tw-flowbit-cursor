@@ -12,7 +12,7 @@ let patch = {
   },
   src: {
     html: [source_folder + "/**/*.njk", "!" + source_folder + "/**/_*.njk"],
-    css: [source_folder + "/scss/*.scss", "!" + source_folder + "/scss/_*.scss"],
+    css: [source_folder + "/css/style.css"],
     js: [source_folder + "/js/*.js", "!" + source_folder + "/js/_*.js"],
     lib: [
       source_folder + "/lib/**",
@@ -26,7 +26,7 @@ let patch = {
   watch: {
     html: source_folder + "/**/*.njk",
     json: [source_folder + "/shared/**/*.json", source_folder + "/*.json"],
-    css: source_folder + "/scss/**/*.scss",
+    css: source_folder + "/css/**/*.css",
     js: source_folder + "/js/**/*.js",
     img: source_folder + "/img/**/*.{jpg,png,svg,gif,ico,webp,mp4,webm,webmanifest}",
   },
@@ -39,17 +39,15 @@ let postcss = require("gulp-postcss");
 let sharp = require("sharp");
 let path = require("path");
 let { readFileSync, readdirSync, existsSync, promises: fsp } = require("fs");
+let { Transform } = require("stream");
 
 let browsersync = require("browser-sync").create();
 let del = require("del");
-let sass = require("gulp-sass")(require("sass"));
-// let autoprefixer = require('gulp-autoprefixer');
 let clean_css = require("gulp-clean-css");
 let rename = require("gulp-rename");
 let prettyHtml = require("gulp-pretty-html");
 let nunjucksRender = require("gulp-nunjucks-render");
 let gulpData = require("gulp-data");
-// let babel = require('gulp-babel');
 
 function loadJson(filePath) {
   return JSON.parse(readFileSync(filePath, "utf8"));
@@ -76,12 +74,14 @@ function getTemplateData(file) {
   return ctx;
 }
 
-const vendorLibs = [
-  {
-    src: "./node_modules/flowbite/dist/flowbite*.min.js",
-    dest: source_folder + "/lib/flowbite/",
-  },
-];
+// Add @preline/* entries here when a module is needed — see .cursor/commands/add-preline-module.md
+// Example:
+// {
+//   src: "./node_modules/@preline/dropdown/index.js",
+//   dest: source_folder + "/lib/preline/",
+//   rename: "dropdown.js",
+// },
+const vendorLibs = [];
 
 function browserSync() {
   browsersync.init({
@@ -109,7 +109,6 @@ function html() {
 
 function css() {
   return src(patch.src.css)
-    .pipe(sass({ outputStyle: "expanded" }).on("error", sass.logError))
     .pipe(postcss())
     .pipe(dest(patch.build.css))
     .pipe(clean_css())
@@ -123,14 +122,7 @@ function css() {
 }
 
 function js() {
-  return (
-    src(patch.src.js)
-      // .pipe(babel({
-      //     presets: ['@babel/env']
-      // }))
-      .pipe(dest(patch.build.js))
-      .pipe(browsersync.stream())
-  );
+  return src(patch.src.js).pipe(dest(patch.build.js)).pipe(browsersync.stream());
 }
 
 // Raster formats processed by sharp; everything else copied as-is
@@ -232,7 +224,24 @@ function syncVendorLibs(done) {
     ...vendorLibs.map(
       (entry) =>
         function syncSingleVendorLib() {
-          return src(entry.src, { allowEmpty: true }).pipe(dest(entry.dest));
+          let stream = src(entry.src, { allowEmpty: true });
+          if (entry.rename) {
+            stream = stream.pipe(rename(entry.rename));
+          }
+          if (entry.patch) {
+            stream = stream.pipe(
+              new Transform({
+                objectMode: true,
+                transform(file, _, cb) {
+                  if (file.isBuffer()) {
+                    file.contents = Buffer.from(entry.patch(file.contents.toString("utf8")));
+                  }
+                  cb(null, file);
+                },
+              })
+            );
+          }
+          return stream.pipe(dest(entry.dest));
         }
     )
   );

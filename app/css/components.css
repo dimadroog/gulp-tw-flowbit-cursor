@@ -1,0 +1,19 @@
+@layer base {
+  body {
+    @apply flex min-h-screen flex-col;
+  }
+
+  .main {
+    @apply flex-1;
+  }
+}
+
+@layer components {
+  /* .btn, .btn-primary, .btn-outline, .btn-dark */
+
+  /* .form-label, .form-check-label, .form-control, .form-check-input */
+
+  /* .container — max-w-content, px-6, mx-auto (disable corePlugins.container in tailwind.config when tokens are set) */
+
+  /* .typography — prose headings, lists, blockquotes */
+}

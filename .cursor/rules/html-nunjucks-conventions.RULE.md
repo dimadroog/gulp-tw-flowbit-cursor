@@ -54,7 +54,7 @@ globs:
 - The root layout must keep the global footer at the **bottom of the viewport** when page content is shorter than the viewport; on long pages the footer follows content after scroll.
 - **DOM order** in `_main.njk`: `header` (partial) → `main` → `footer` (partial). Do not move the footer inside `main` unless the task brief requires a different shell.
 - **CSS contract:** `body` is a column flex container with at least full viewport height (`min-h-screen` or agreed equivalent); `main` uses `flex-1` (Tailwind `grow`) so it consumes remaining space between header and footer.
-- Implement via `@apply` in project SCSS (`_components.scss` `@layer base` for `body`, `.main` — see [`tailwind-usage-policy.RULE.md`](tailwind-usage-policy.RULE.md)), not repeated utility strings on `<body>` in Nunjucks.
+- Implement via `@apply` in project CSS (`app/css/components.css` `@layer base` for `body`, `.main` — see [`tailwind-usage-policy.RULE.md`](tailwind-usage-policy.RULE.md)), not repeated utility strings on `<body>` in Nunjucks.
 - **Do not** use `position: fixed` / `sticky` on the site footer solely to pin it to the viewport bottom; sticky header (`site-header`) remains independent.
 - **Verification:** on a short page (`index.html` / empty `home-page`), DevTools shows the footer adjacent to the bottom edge of the viewport with no large white gap below; on a long page, document scroll height exceeds the viewport and the footer appears after content. `npm run build` succeeds.
 

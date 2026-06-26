@@ -1,50 +1,19 @@
-# CSS-селекторы — обычные списки вместо `:where` / `:is`
+# Псевдоклассы и селекторы CSS
 
-## Политика
+> **Enforce:** [`.cursor/rules/css-selector-pseudo-classes.RULE.md`](../../../.cursor/rules/css-selector-pseudo-classes.RULE.md).
 
-- **По умолчанию:** селекторы — **обычные списки через запятую** из элементов, классов и атрибутных фильтров — например `h1`, `h2`, `.article-prose a`, `.article-prose ul`, `blockquote cite`.
-- **Не оборачивайте** селекторы в **`:where()`** или **`:is()`** «для удобства» или чтобы имитировать сброс с нулевой специфичностью.
-- **Семантические классы** (`.btn`, `.article-prose`, BEM-блоки) — основной способ ограничить стили компонента; «голые» элементы — в **`app/scss/_typography.scss`** (`@layer base`) или в согласованном глобальном base — см. [`tailwind-usage-policy.RULE.md`](./tailwind-usage-policy.md).
+- **Семантические классы** (`.btn`, `.article-prose`, BEM-блоки) — основной способ ограничить стили; «голые» элементы — в **`app/css/components.css`** (`@layer base`) — см. [`tailwind-usage-policy.md`](./tailwind-usage-policy.md).
 
-## Зачем (контекст проекта)
+## `:where()` / `:is()`
 
-- **`:where()` обнуляет специфичность.** Tailwind Preflight использует обычные селекторы элементов (`h1`, `p`, `ul`, `ol`). Правило `:where(h1) { font-size: 40px }` **проигрывает** `h1 { font-size: inherit }`, даже если в файле оно ниже — типографика в браузере «не применится».
-- **`:is()`** берёт специфичность **самого специфичного** аргумента в списке; на ревью легко ошибиться; это не замена явному классу или короткому списку селекторов.
+- **`:where()` обнуляет специфичность** — может проигрывать Preflight; не использовать для глобальной типографики без проверки в DevTools.
 
-## Когда допустимы обёртки
+Если цель — «глобальный `button` не ломает кнопки», используйте **`.btn`** / form-классы из `components.css`, а не `:where(button)`.
 
-**`:where()` / `:is()`** — только если **все** пункты выполнены:
+## Проверка
 
-1. В брифе или **комментарии в SCSS** указана цель каскада (например «не перебивать `.article-title` на `h1`» — по возможности **класс в шапке**, а не `:where`).
-2. В **собранном CSS** (DevTools или `dist/css/style.css`) проверено, что правило **перебивает** Preflight и классы компонентов для нужных свойств.
-3. Обычный список селекторов или scoped-класс **не даёт** того же без дублирования.
+- [ ] `rg ':where\\(|:is\\(' app/css` — нет совпадений или у каждого комментарий с исключением.
 
-Если цель — «глобальный `button` не ломает кнопки», используйте **`.btn`** / form-классы из `_components.scss`, а не `:where(button)`.
+## См. также
 
-## Предпочтительные паттерны
-
-```scss
-/* Хорошо — @layer base, plain elements, после Preflight в бандле */
-h1 {
-  @apply font-display text-[40px] …;
-}
-.article-prose a {
-  @apply text-blue-700 underline …;
-}
-
-/* Плохо — проигрывает Preflight по font-size, margin, list-style */
-:where(h1) {
-  @apply font-display text-[40px] …;
-}
-```
-
-## Проверка (перед завершением SCSS)
-
-- [ ] `rg ':where\\(|:is\\(' app/scss` — **нет совпадений** или у каждого есть **комментарий** с исключением и проверкой свойства в DevTools.
-- [ ] Новая глобальная типографика / prose — **plain** `h1`–`h6`, `p`, `ul`/`ol`, `blockquote`, `table` (или `.article-prose …`), без `:where(…)`.
-- [ ] `npm run build` успешен; при изменении типографики — spot-check страницы с голым HTML в `.article-prose`.
-
-## Связанные правила
-
-- [`css-inheritance-layout.RULE.md`](./css-inheritance-layout.md) — наследование vs повтор стеков на потомках.
-- [`scss-sass-module-system.RULE.md`](./scss-sass-module-system.md) — порядок `@use` с `@tailwind` и `_typography.scss`.
+- [`css-authoring.md`](./css-authoring.md) — plain CSS в `app/css/`, Tailwind 4 через `style.css`.

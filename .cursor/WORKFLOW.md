@@ -14,10 +14,11 @@ Use this file as the **canonical route** through `.cursor/`. Other docs add deta
 
 Single source for stack choices; do not duplicate this list in [`README.md`](README.md).
 
-- **Tailwind CSS + Flowbite (MIT)** for modal, collapse, accordion, offcanvas, dropdown, tabs, tooltip.
-- Prefer **Flowbite data-attribute API** before custom JS; keep bespoke behavior minimal.
+- **Tailwind CSS 4 + Preline (`@preline/*`, MIT)** for modal/drawer, collapse, accordion, dropdown, tabs, carousel, select, file-upload, tooltip — **add modules incrementally** via [`commands/add-preline-module.md`](commands/add-preline-module.md).
+- Prefer **Preline `data-hs-*` / `hs-*` markup** before custom JS; keep bespoke behavior minimal.
+- **Styles:** `app/css/style.css` entry, section CSS in `app/css/` — see [`rules/css-authoring.RULE.md`](rules/css-authoring.RULE.md).
 - **Scrollspy:** use project helper `data-scrollspy-nav` for in-page section tracking.
-- **Searchable / custom select** plugins only on pages that explicitly require them.
+- **Searchable / custom select:** add `@preline/select` only on pages that explicitly require it (see `add-preline-module`).
 - **Images:** delivery, intrinsic sizing, and PageSpeed — [`rules/image-delivery-and-optimization.RULE.md`](rules/image-delivery-and-optimization.RULE.md).
 
 ### 1.2 Design fidelity (mockup-driven, blocking)

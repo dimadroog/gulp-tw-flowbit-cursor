@@ -18,7 +18,7 @@ Canonical map: [`WORKFLOW.md`](../WORKFLOW.md) (**§4** rules vs commands vs ski
    - what is forbidden/required + **verification** (“how to tell it’s done”).
    - phrase it so it reads sensibly for **another** layout repo using the same `.cursor` pack (no “this site/project/client”).
 4. **Portable governance scope** — before writing, confirm the policy belongs in `rules/*.RULE.md`:
-   - **In scope:** recurring layout-dev practices (HTML/Nunjucks, Tailwind, Flowbite, gulp/`npm run qa` per `WORKFLOW` §1.1–2), durable paths as **class conventions** (`app/`, `dist/`, `njk-layouts`, layout-shell partials), abstract UI zones (header, hero, flagship card).
+   - **In scope:** recurring layout-dev practices (HTML/Nunjucks, Tailwind 4, Preline, gulp/`npm run qa` per `WORKFLOW` §1.1–2), durable paths as **class conventions** (`app/`, `dist/`, `njk-layouts`, layout-shell partials), abstract UI zones (header, hero, flagship card).
    - **Out of scope for rules:** client/brand names, domains, page-specific URLs, one Figma file or one page filename as the norm, sprint/ticket IDs, iteration waivers (“for now on this repo…”).
    - **If the ask is instance-specific:** document in project files (`PROJECT_PROGRESS.md`, design-system, task brief); **do not** add a `.RULE.md`. If the user insists on a rule, generalize the wording and note `redirected` / `generalized` in the report.
 5. **Ambiguity barrier** — if scope, applicability, severity (blocking vs recommended), target files, or **portable vs repo-only** intent are unclear, ask **minimal** clarifying questions (e.g. “portable policy for all layout projects, or a one-off note for this repo only?”) and **pause writes** until resolved.

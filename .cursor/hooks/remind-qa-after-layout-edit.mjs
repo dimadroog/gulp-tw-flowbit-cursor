@@ -7,7 +7,7 @@ import { readFileSync } from "node:fs";
 const input = JSON.parse(readFileSync(0, "utf8"));
 const filePath = String(input.file_path ?? input.path ?? "");
 
-const layoutPattern = /\.(njk|scss|js|html)$/i;
+const layoutPattern = /\.(njk|css|js|html)$/i;
 const inApp = /^app\//.test(filePath) || /[/\\]app[/\\]/.test(filePath);
 
 if (inApp && layoutPattern.test(filePath)) {

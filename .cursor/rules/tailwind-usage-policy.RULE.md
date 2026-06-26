@@ -12,6 +12,7 @@ globs:
 - Prefer tokenized spacing, typography, radius, and color utilities over ad-hoc values.
 - Compose sections with reusable utility patterns before introducing custom CSS.
 - For typography and color inside component trees, follow [`css-inheritance-layout.RULE.md`](css-inheritance-layout.RULE.md): set inheritable properties on ancestors, override only deltas.
+- For layout mode, width/height, flex distribution, and control sizing, follow [`layout-sizing-and-flex.RULE.md`](layout-sizing-and-flex.RULE.md): flex before grid, padding-based controls, `flex-[*_*_*]` shorthand.
 
 ## When To Use `@apply` Vs Atomic Utilities
 
@@ -21,7 +22,7 @@ globs:
 
 - **Repeatability:** the same utility stack appears in **≥2–3** places — extract to a class.
 - **Semantics:** give the set a meaningful name (`.btn`, `.card`, `.form-field`) for clarity and consistency; avoid visual names (`.blue-button`).
-- **Maintainability:** colors, spacing, and states should change in one place (`app/scss/_components.scss`).
+- **Maintainability:** colors, spacing, and states should change in one place (`app/css/components.css`).
 - **Stable variations:** base stack is stable; variants via modifiers (`.btn-primary`, `.btn--outline`) or scoped utilities in markup.
 - **Coherent blocks:** utilities form a logical unit (layout shell, control chrome, visual token).
 - **Markup length:** long class lists hurt readability — extract the base set.
@@ -32,7 +33,7 @@ globs:
 - **Many small variations:** each instance differs strongly — atomic utilities stay flexible.
 - **Context-dependent combos:** classes change dynamically in templates (conditional Nunjucks utilities).
 - **Cascade debugging:** seeing exact utilities in markup helps trace specificity issues.
-- **Tailwind variant caveats:** responsive/state utilities need careful `@screen` / `@variants` in SCSS or stay in markup.
+- **Tailwind variant caveats:** responsive/state utilities and Preline custom variants (`hs-dropdown-open:`, etc.) belong in markup or plain CSS — not Sass `@screen` / `@variants`.
 
 ### Practical recipe
 
@@ -40,13 +41,13 @@ globs:
 - Name semantically (`.btn`, `.card`, `.kbd`, `.form-input`), not by color.
 - Extract **only the base** stack; edge states stay as markup utilities or BEM-style modifiers.
 - Prefer **Tailwind theme tokens** (`theme.extend`, project CSS variables) over hard-coded values inside `@apply`.
-- Group new classes in **`@layer components`** in `_components.scss` with short section comments.
-- For responsive/state: use `@screen` / `@variants` in SCSS, or combine a semantic base with utilities in markup.
+- Group new classes in **`@layer components`** in `components.css` with short section comments.
+- For responsive/state: use Tailwind variants in markup/CSS, or combine a semantic base with utilities in markup.
 
 ### Example
 
-```scss
-/* app/scss/_components.scss — illustrative */
+```css
+/* app/css/components.css — illustrative */
 .btn {
   @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-base font-medium;
 }
@@ -59,38 +60,38 @@ In markup: `class="btn btn-primary"` instead of repeating the full utility strin
 
 ### Verification (`@apply` extractions)
 
-- New `@apply` classes use **semantic** names, not visual ones (`rg '\.(blue|red)-' app/scss/_components.scss` — no new matches).
-- Templates do not duplicate long utility stacks where `_components.scss` already defines the semantic class.
+- New `@apply` classes use **semantic** names, not visual ones (`rg '\.(blue|red)-' app/css/components.css` — no new matches).
+- Templates do not duplicate long utility stacks where `components.css` already defines the semantic class.
 - `npm run build` (or `gulp build`) completes without PostCSS/Tailwind `@apply` errors.
 - Modifier/component classes used in markup must appear as **literal** strings in `app/**/*.njk` so Tailwind content scan retains matching `@apply` rules — see [`html-nunjucks-conventions.RULE.md`](html-nunjucks-conventions.RULE.md) § Tailwind class names in markup.
 
 ## Required Semantic Components (`@apply`)
 
-Aligned with **`_typography.scss`**: project tokens as Tailwind utilities, grouped in SCSS **`@layer components`** via **`@apply`** (`app/scss/_components.scss`). Markup prefers **semantic classes** instead of repeating long utility strings on every control. These are **mandatory** project contracts — not ad-hoc BEM escapes.
+Aligned with **typography in `components.css`**: project tokens as Tailwind utilities, grouped in **`@layer components`** via **`@apply`** (`app/css/components.css`). Markup prefers **semantic classes** instead of repeating long utility strings on every control. These are **mandatory** project contracts — not ad-hoc BEM escapes.
 
 ### Buttons
 
-- **`button`** (and `a`/`input` acting as buttons) use base **`.btn`** plus a variant: **`.btn-primary`**, **`.btn-outline`**, **`.btn-dark`**, or future **`.btn-*`** modifiers defined next to the base in `_components.scss`.
-- **Label presentation:** text inside **`.btn` / `.btn-*`** must **not** be underlined (including when the control is an **`a`** inheriting global link styles). Enforce in the **`.btn`** base **`@apply`** in **`_components.scss`** with **`no-underline`** (do not re-enable **`underline`** / **`decoration-*`** on button classes in templates unless the task brief documents an explicit “link-styled” exception outside the button system).
-- **Verification:** **`_components.scss`** `.btn` includes **`no-underline`**; new **`a class="btn`** markup carries no extra underline utilities; grep for **`btn` + `underline`** in **`app/`** should be empty aside from documented exceptions.
+- **`button`** (and `a`/`input` acting as buttons) use base **`.btn`** plus a variant: **`.btn-primary`**, **`.btn-outline`**, **`.btn-dark`**, or future **`.btn-*`** modifiers defined next to the base in `app/css/components.css`.
+- **Label presentation:** text inside **`.btn` / `.btn-*`** must **not** be underlined (including when the control is an **`a`** inheriting global link styles). Enforce in the **`.btn`** base **`@apply`** in **`app/css/components.css`** with **`no-underline`** (do not re-enable **`underline`** / **`decoration-*`** on button classes in templates unless the task brief documents an explicit “link-styled” exception outside the button system).
+- **Verification:** **`app/css/components.css`** `.btn` includes **`no-underline`**; new **`a class="btn`** markup carries no extra underline utilities; grep for **`btn` + `underline`** in **`app/`** should be empty aside from documented exceptions.
 
 ### Form controls (native inputs)
 
 - **Native form input elements** include **`input`** with **any** `type` (therefore also **`checkbox`** and **`radio`**), plus **`select`** and **`textarea`**. Use **`fieldset` / `legend`** when grouping makes sense and wire **`aria-invalid` / `aria-describedby`** consistently.
-- **`label`** for stacked **`.form-control`** fields (**`input`/`select`/`textarea`**) must use **`.form-label`** (**`@apply`** next to controls in **`_components.scss`**). **`label`** paired with **`.form-check-input`** rows must use **`.form-check-label`**. Do not paste replicated Tailwind typography/spacing bundles on **`label`** elements in authored templates unless the brief documents an exception.
-- **`.form-control`** (the **`@apply`** shell in **`_components.scss`**) is **only** for **text-like `input`**, **`select`**, and **`textarea`**. **`checkbox`** and **`radio`** must use **`.form-check-input`** (**`@apply`** in the same file). Add **`mt-1`** next to `.form-check-input` on checkbox rows when the label wrapper uses **`items-start`** alignment.
+- **`label`** for stacked **`.form-control`** fields (**`input`/`select`/`textarea`**) must use **`.form-label`** (**`@apply`** next to controls in **`app/css/components.css`**). **`label`** paired with **`.form-check-input`** rows must use **`.form-check-label`**. Do not paste replicated Tailwind typography/spacing bundles on **`label`** elements in authored templates unless the brief documents an exception.
+- **`.form-control`** (the **`@apply`** shell in **`app/css/components.css`**) is **only** for **text-like `input`**, **`select`**, and **`textarea`**. **`checkbox`** and **`radio`** must use **`.form-check-input`** (**`@apply`** in the same file). Add **`mt-1`** next to `.form-check-input` on checkbox rows when the label wrapper uses **`items-start`** alignment.
 - **Error state:** **`.form-control[aria-invalid="true"]`** and **`.form-check-input[aria-invalid="true"]`** — derive invalid chrome from **`aria-invalid="true"`** only; do not duplicate red-border utility strings per template.
 - **Verification:** labels use **`form-label`** / **`form-check-label`** as above; text/select/textarea use **`form-control`** + **`aria-invalid`** when invalid; **`checkbox`** / **`radio`** use **`form-check-input`** + **`aria-invalid`** when invalid (never `form-control`).
 
 ### Content belt
 
-- Main page content that should share the standard content width is wrapped in **`.container`** (`app/scss/_components.scss`: **`max-w-content`**, **`px-6`**, **`mx-auto`**). The built-in Tailwind **`container`** utility is **disabled** (`corePlugins.container: false`) so only this semantic class emits.
+- Main page content that should share the standard content width is wrapped in **`.container`** (`app/css/components.css`: **`max-w-content`**, **`px-6`**, **`mx-auto`**). The built-in Tailwind **`container`** utility is **disabled** (`corePlugins.container: false`) so only this semantic class emits.
 - Root layout wraps **`{% block content %}`** in **`.container`** (`app/njk-layouts/_main.njk`); inner pages should not nest a second full-width container unless the design requires it.
 
 ### Authoring flow
 
-- When adjusting **`.btn-*`**, **`.form-label`**, **`.form-check-label`**, **`.form-control`**, or **`.form-check-input`**, change **`_components.scss`** only — do not fork divergent utility stacks in templates.
-- **Third-party caveat:** if Flowbite or external markup requires raw utilities, document a one-line exception in the task report and keep the default pattern for project-authored controls.
+- When adjusting **`.btn-*`**, **`.form-label`**, **`.form-check-label`**, **`.form-control`**, or **`.form-check-input`**, change **`app/css/components.css`** only — do not fork divergent utility stacks in templates.
+- **Third-party caveat:** if Preline or external markup requires raw utilities, document a one-line exception in the task report and keep the default pattern for project-authored controls.
 
 ## BEM And Custom CSS Exceptions
 
@@ -100,7 +101,7 @@ Aligned with **`_typography.scss`**: project tokens as Tailwind utilities, group
 
 ## Custom CSS Property Order
 
-- In custom CSS/SCSS blocks, sort properties from global layout impact to local styling details.
+- In custom CSS blocks, sort properties from global layout impact to local styling details.
 - Recommended order:
   1. Positioning and flow: `position`, `top/right/bottom/left`, `float`, `clear`, `z-index`.
   2. Box size and spacing: `width/height`, `margin`, `padding`.

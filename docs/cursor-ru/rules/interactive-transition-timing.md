@@ -1,13 +1,15 @@
-# Время переходов для интерактива
+# Тайминги интерактивных переходов
 
-- **Hover / focus-visible:** элементы своей разметки, у которых на **`:hover`**, **`:focus`** или **`:focus-visible`** меняются **`color`**, **`background-color`**, **`border-color`**, **`opacity`** или **`box-shadow`** (включая focus ring), должны иметь переход по умолчанию **~0.2s** (**`200ms`**, **`ease-in-out`**), если в брифе явно не требован мгновенный отклик.
-- Реализация через Tailwind (**`transition-colors duration-200 ease-in-out`**) или эквивалент в **`app/scss/_components.scss`** (`.btn`, `.form-control`, `.form-check-input`, и т.д.) и **прозаические ссылки** в **`app/scss/_typography.scss`**. При добавлении кастомной анимации учитывать **`prefers-reduced-motion`**.
+> **Enforce:** [`.cursor/rules/interactive-transition-timing.RULE.md`](../../../.cursor/rules/interactive-transition-timing.RULE.md).
 
-## Раскрытие / появление
+- **Hover / focus-visible:** смена color/background/border/opacity/shadow — **~0.2s** (`duration-200`, `ease-in-out`), если бриф не требует мгновенной реакции.
+- Реализация через Tailwind или **`app/css/components.css`** (`.btn`, `.form-control`, …) и типографику в **`components.css`**. Учитывать **`prefers-reduced-motion`** (`motion.css`).
 
-- **Раскрывающиеся панели, аккордеон, выпадающие блоки, оверлеи/modal вход-выход** в своём CSS должны быть **плавными, но недолгими**: ориентир **≤300ms**, по умолчанию **200–300ms**; **>400ms** для типовых показов/скрытий без явного решения в брифе не использовать.
+## Раскрытие / overlay
+
+- Анимации панелей, drawer, dropdown, modal — **≤300ms**, по умолчанию **200–300ms**.
+- Состояния Preline: варианты **`hs-*-open:`** из `variants.css` + authored `duration-*`.
 
 ## Исключения
 
-- **Готовые библиотеки** (например дефолтные переходы Flowbite) — как у провайдера, пока задача их не переопределяет; расхождение фиксируй одной строкой в отчёте по задаче.
-- **Проверка:** в своём коде видна цепочка **`duration-200`** (**`0.2s`**) для hover/focus; раскрытия — **`duration-*` ≤300ms** или явное пояснение в шаблоне/скомпилированном CSS.
+- Переходы Preline по умолчанию — как у библиотеки, если задача их не переопределяет; расхождение — одна строка в отчёте.

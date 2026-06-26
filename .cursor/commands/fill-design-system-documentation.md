@@ -45,7 +45,7 @@ Produce structured documentation for each section with:
 - Document only what is confirmed in `design-system.njk` (or `design-system.html` after build).
 - If a section is only partially represented, add `TODO` entries and list missing data.
 - For tables, explicitly state that the example is commented out in current `design-system.njk`, and add a `TODO` for an active example.
-- For font settings, do not invent values; if `design-system.njk` has no explicit token/family data, add `TODO` and point to required source (`scss` or design tokens).
+- For font settings, do not invent values; if `design-system.njk` has no explicit token/family data, add `TODO` and point to required source (`app/css/fonts.css` or design tokens).
 - Add concise a11y notes for each interactive element (label, focus, `aria`, state behavior).
 
 ## Expected output

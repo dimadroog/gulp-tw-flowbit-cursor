@@ -2,7 +2,7 @@
 
 - По умолчанию используй progressive enhancement: базовый контент и контролы должны оставаться рабочими без custom JS, где это возможно.
 - Используй unobtrusive JavaScript: поведение через `data-*` и `js-*` hooks (классы в приоритете; `js-` id при необходимости) — см. [`javascript-minimalism.RULE.md`](./javascript-minimalism.md) § «Именование JS-хуков».
-- Для стандартных интерактивных сценариев сначала применяй Flowbite и только потом добавляй custom-логику.
+- Для стандартных интерактивных сценариев сначала применяй Preline и только потом добавляй custom-логику.
 
 ## Functional Core / Imperative Shell
 

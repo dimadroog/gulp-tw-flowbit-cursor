@@ -4,6 +4,7 @@
 - Предпочитать tokenized utilities для spacing, typography, radius и color вместо ad-hoc значений.
 - Собирать секции из переиспользуемых utility-паттернов до добавления custom CSS.
 - Для типографики и цвета внутри деревьев компонентов следуйте [`css-inheritance-layout.RULE.md`](./css-inheritance-layout.md): наследуемые свойства на предках, переопределение только отличий.
+- Для режима раскладки, width/height, flex-распределения и размеров контролов следуйте [`layout-sizing-and-flex.md`](./layout-sizing-and-flex.md): flex вместо grid, контролы через padding, shorthand `flex-[*_*_*]`.
 
 ## Когда использовать `@apply`, а когда атомарные утилиты
 
@@ -13,7 +14,7 @@
 
 - **Повторяемость:** один и тот же набор утилит в **≥2–3** местах — вынести в класс.
 - **Семантика:** дать набору осмысленное имя (`.btn`, `.card`, `.form-field`), не визуальное (`.blue-button`).
-- **Поддерживаемость:** цвет, отступы и состояния меняются в одном месте (`app/scss/_components.scss`).
+- **Поддерживаемость:** цвет, отступы и состояния меняются в одном месте (`app/css/components.css`).
 - **Стабильные вариации:** базовый набор стабилен; варианты — модификаторами (`.btn-primary`, `.btn--outline`) или точечными утилитами в разметке.
 - **Цельные блоки:** утилиты образуют логическую единицу (layout, control, visual token).
 - **Длина разметки:** длинные списки классов ухудшают читаемость — вынести базовый набор.
@@ -24,7 +25,7 @@
 - **Много мелких вариаций:** каждый экземпляр сильно отличается — атомарные классы гибче.
 - **Контекстные комбинации:** классы меняются динамично в шаблоне (условные utility в Nunjucks).
 - **Отладка cascade:** в разметке проще видеть точные утилиты.
-- **Ограничения Tailwind:** responsive/state-варианты требуют аккуратного `@screen` / `@variants` в SCSS или остаются в разметке.
+- **Ограничения Tailwind:** responsive/state и варианты Preline (`hs-dropdown-open:` и т.д.) — в разметке или plain CSS, не Sass `@screen` / `@variants`.
 
 ### Практический рецепт
 
@@ -32,13 +33,13 @@
 - Именуйте семантически (`.btn`, `.card`, `.kbd`, `.form-input`), не по цвету.
 - Выносите **только базу**; особые состояния — утилитами в разметке или модификаторами.
 - Цвета и spacing — из **токенов Tailwind/проекта**, не «зашитые» значения в `@apply`.
-- Новые классы — в **`@layer components`** в `_components.scss` с короткими комментариями-секциями.
-- Responsive/state: `@screen` / `@variants` в SCSS или база + утилиты в разметке.
+- Новые классы — в **`@layer components`** в `components.css` с короткими комментариями-секциями.
+- Responsive/state: варианты Tailwind в разметке/CSS или база + утилиты в разметке.
 
 ### Пример
 
-```scss
-/* app/scss/_components.scss — иллюстрация */
+```css
+/* app/css/components.css — иллюстрация */
 .btn {
   @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-base font-medium;
 }
@@ -51,38 +52,38 @@
 
 ### Проверка (новые выносы в `@apply`)
 
-- Имена классов **семантические**, не визуальные (`rg '\.(blue|red)-' app/scss/_components.scss` — без новых совпадений).
-- В шаблонах нет дублирования длинных utility-стеков там, где класс уже есть в `_components.scss`.
+- Имена классов **семантические**, не визуальные (`rg '\.(blue|red)-' app/css/components.css` — без новых совпадений).
+- В шаблонах нет дублирования длинных utility-стеков там, где класс уже есть в `components.css`.
 - `npm run build` (или `gulp build`) без ошибок PostCSS/Tailwind на `@apply`.
-- Модификаторы/component-классы в разметке — **литеральные** строки в `app/**/*.njk`, чтобы content scan Tailwind сохранял `@apply` в SCSS — см. [`html-nunjucks-conventions.md`](./html-nunjucks-conventions.md) § Имена Tailwind-классов в разметке.
+- Модификаторы/component-классы в разметке — **литеральные** строки в `app/**/*.njk`, чтобы content scan Tailwind сохранял `@apply` в CSS — см. [`html-nunjucks-conventions.md`](./html-nunjucks-conventions.md) § Имена Tailwind-классов в разметке.
 
 ## Обязательные семантические компоненты (`@apply`)
 
-В одном стиле с **`_typography.scss`**: токены проекта — утилиты Tailwind, сведённые в SCSS **`@layer components`** через **`@apply`** (`app/scss/_components.scss`). В разметке по умолчанию — **семантические классы**, а не длинные строки утилит. Это **обязательный** контракт проекта, а не случайное BEM-исключение.
+В одном стиле с **типографикой в `components.css`**: токены проекта — утилиты Tailwind в **`@layer components`** через **`@apply`** (`app/css/components.css`). В разметке по умолчанию — **семантические классы**, а не длинные строки утилит. Это **обязательный** контракт проекта, а не случайное BEM-исключение.
 
 ### Кнопки
 
-- Элемент **`button`** (и `a` / `input` с ролью кнопки) используют базу **`.btn`** и модификатор: **`.btn-primary`**, **`.btn-outline`**, **`.btn-dark`** или последующие **`.btn-*`** в `_components.scss`.
-- **Оформление подписи:** текст **внутри** **`.btn` / `.btn-*`** не должен быть **подчёркнут** (в т.ч. у **`a.btn`** при глобальных стилях ссылок). В базе **`.btn`** в **`_components.scss`** — **`@apply`** с **`no-underline`**; в шаблонах не добавлять **`underline`** / **`decoration-*`**, если бриф явно не описывает исключение «как ссылка».
-- **Проверка:** в **`_components.scss`** у **`.btn`** есть **`no-underline`**; новые **`a class="btn`** без лишних утилит подчёркивания; поиск **`btn` + `underline`** по **`app/`** пустой, кроме задокументированных исключений.
+- Элемент **`button`** (и `a` / `input` с ролью кнопки) используют базу **`.btn`** и модификатор: **`.btn-primary`**, **`.btn-outline`**, **`.btn-dark`** или последующие **`.btn-*`** в `components.css`.
+- **Оформление подписи:** текст **внутри** **`.btn` / `.btn-*`** не должен быть **подчёркнут** (в т.ч. у **`a.btn`** при глобальных стилях ссылок). В базе **`.btn`** в **`components.css`** — **`@apply`** с **`no-underline`**; в шаблонах не добавлять **`underline`** / **`decoration-*`**, если бриф явно не описывает исключение «как ссылка».
+- **Проверка:** в **`components.css`** у **`.btn`** есть **`no-underline`**; новые **`a class="btn`** без лишних утилит подчёркивания; поиск **`btn` + `underline`** по **`app/`** пустой, кроме задокументированных исключений.
 
 ### Нативные элементы ввода (форма)
 
 - К **нативным элементам ввода формы** относятся **`input`** с **любым** `type` (в т.ч. **`checkbox`** и **`radio`**), а также **`select`** и **`textarea`**. Группы — **`fieldset` / `legend`**, когда уместно; **`aria-invalid` / `aria-describedby`** — единообразно.
-- **`label`** над **`.form-control`** (**`input`/`select`/`textarea`**) — **`.form-label`** (**`@apply`** в **`_components.scss`**). **`label`** рядом с **`.form-check-input`** — **`.form-check-label`**. В своих шаблонах не копировать длинные утилиты на **`label`**, если бриф не исключает паттерн.
+- **`label`** над **`.form-control`** (**`input`/`select`/`textarea`**) — **`.form-label`** (**`@apply`** в **`components.css`**). **`label`** рядом с **`.form-check-input`** — **`.form-check-label`**. В своих шаблонах не копировать длинные утилиты на **`label`**, если бриф не исключает паттерн.
 - **`.form-control`** — **только** для **текстоподобных `input`**, **`select`**, **`textarea`**. **`checkbox`/`radio`** — **`.form-check-input`** в том же файле; при **`items-start`** у чекбокса — **`mt-1`** рядом с инпутом.
 - **Ошибка:** **`.form-control[aria-invalid="true"]`** и **`.form-check-input[aria-invalid="true"]`** только через **`aria-invalid="true"`**, без отдельных красных border/утилит в каждом шаблоне.
 - **Проверка:** **`form-label`** / **`form-check-label`**; текстовые поля — **`form-control`** и при необходимости **`aria-invalid`**; **`form-check-input`** без **`form-control`**, при ошибке **`aria-invalid`**.
 
 ### Контентный пояс
 
-- Основной контент с общей шириной колонки — **`.container`** (`app/scss/_components.scss`: **`max-w-content`**, **`px-6`**, **`mx-auto`**). Встроенную утилиту Tailwind **`container`** отключили (`corePlugins.container: false`).
+- Основной контент с общей шириной колонки — **`.container`** (`app/css/components.css`: **`max-w-content`**, **`px-6`**, **`mx-auto`**). Встроенную утилиту Tailwind **`container`** отключили (`corePlugins.container: false`).
 - Корневой layout оборачивает **`{% block content %}`** в **`.container`** (`app/njk-layouts/_main.njk`); внутренним страницам не дублировать второй такой пояс без дизайн-причины.
 
 ### Как дополнять
 
-- Правки **`.btn-*`**, **`.form-label`**, **`.form-check-label`**, **`.form-control`**, **`.form-check-input`** — только **`_components.scss`**, затем Nunjucks; не плодить разные связки утилит в шаблонах.
-- **Сторонние компоненты:** если Flowbite или чужая разметка требует сырых утилит — одна строка исключения в отчёте; для своих контролов — паттерн по умолчанию.
+- Правки **`.btn-*`**, **`.form-label`**, **`.form-check-label`**, **`.form-control`**, **`.form-check-input`** — только **`components.css`**, затем Nunjucks; не плодить разные связки утилит в шаблонах.
+- **Сторонние компоненты:** если Preline или чужая разметка требует сырых утилит — одна строка исключения в отчёте; для своих контролов — паттерн по умолчанию.
 
 ## BEM и прочие custom CSS-исключения
 
@@ -92,7 +93,7 @@
 
 ## Порядок CSS-свойств для custom стилей
 
-- В custom CSS/SCSS-блоках сортируй свойства от более влияющих на документ к более локальным.
+- В custom CSS-блоках сортируй свойства от более влияющих на документ к более локальным.
 - Рекомендуемый порядок:
   1. Позиционирование и поток: `position`, `top/right/bottom/left`, `float`, `clear`, `z-index`.
   2. Размеры и отступы: `width/height`, `margin`, `padding`.

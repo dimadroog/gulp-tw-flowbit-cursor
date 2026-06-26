@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@source "../**/*.njk";
+@source "../**/*.js";
+@source "../**/*.json";
+/* @source and variants.css @import — add when wiring @preline/* (see .cursor/commands/add-preline-module.md) */
+
+@config "../../tailwind.config.js";
+
+@import "./fonts.css";
+@import "./components.css";
+@import "./motion.css";
+@import "./header.css";

@@ -39,7 +39,7 @@
 
     {%- block preload %}{% endblock -%}
 
-    <link rel="stylesheet" href="css/style.min.css" />
+    <link rel="stylesheet" href="css/style.min.css">
   </head>
   <body>
     {% include "njk-parts/_header.njk" %}
@@ -51,7 +51,6 @@
 
     {% include "njk-parts/_footer.njk" %}
 
-    <script src="lib/flowbite/flowbite.min.js"></script>
-    <script src="js/script.js"></script>
+    {%- block scripts %}{% endblock -%}
   </body>
 </html>

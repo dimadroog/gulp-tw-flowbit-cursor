@@ -5,7 +5,7 @@ globs:
   - app/**/*.njk
   - app/**/*.html
   - app/img/**
-  - app/scss/**
+  - app/css/**
 ---
 
 # Image Delivery And Optimization Policy

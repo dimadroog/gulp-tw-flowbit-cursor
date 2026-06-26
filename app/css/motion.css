@@ -1,0 +1,19 @@
+/* Global prefers-reduced-motion safety net.
+   Covers all transitions, animations and scroll-behaviour project-wide.
+   Individual components should use @media (prefers-reduced-motion: no-preference)
+   for opt-in animations so this reset never needs to override anything important.
+   Exception: :focus-visible outlines are NOT suppressed — they are information,
+   not decoration, and must remain visible even at 0 duration. */
+
+@layer base {
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+}

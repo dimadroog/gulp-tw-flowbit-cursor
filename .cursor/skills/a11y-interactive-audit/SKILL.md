@@ -15,7 +15,7 @@ Open when a **subagent** should perform a focused interactive a11y review (keybo
 - Tab through all controls in DOM order; note traps and missing focus targets.
 - Verify `aria-expanded` / `aria-controls` pairs on toggles.
 - Check `:focus-visible` on custom-styled controls.
-- For Flowbite widgets, confirm data-attribute init matches docs before adding custom JS.
+- For Preline widgets, confirm `data-hs-*` markup and that the module is wired (`add-preline-module`) before adding custom JS.
 
 ## Pitfalls
 

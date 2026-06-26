@@ -20,7 +20,7 @@ Open when a **subagent** implements or refactors a **section** from a design bri
 ## Pitfalls
 
 - Arbitrary Tailwind hues in **critical zones** on mockup-driven tasks — use tokens/spec.
-- Shipping extra CSS/JS when Flowbite data-API suffices.
+- Shipping extra CSS/JS when Preline `data-hs-*` API suffices.
 - Deep wrapper nesting for layout that `@apply` or grid could flatten.
 
 ## Canonical references
