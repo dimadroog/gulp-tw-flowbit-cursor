@@ -1,5 +1,5 @@
 ---
-description: Tailwind utility-first policy, @apply extraction criteria, and required semantic components (.btn, .form-*, .container).
+description: Tailwind utility-first policy, @apply extraction criteria, thin-modifier avoidance, and required semantic components (.btn, .form-*, .container).
 alwaysApply: true
 globs:
   - app/**/*
@@ -34,12 +34,21 @@ globs:
 - **Context-dependent combos:** classes change dynamically in templates (conditional Nunjucks utilities).
 - **Cascade debugging:** seeing exact utilities in markup helps trace specificity issues.
 - **Tailwind variant caveats:** responsive/state utilities and Preline custom variants (`hs-dropdown-open:`, etc.) belong in markup or plain CSS — not Sass `@screen` / `@variants`.
+- **Small deltas:** a variant that differs from its base by **≤2 utilities** stays in markup — see **CSS modifiers** below; do not add a CSS class for it.
+
+### CSS modifiers — markup utilities for small deltas
+
+- When a **variant** of a semantic block differs from its base by **≤2 Tailwind utility classes** (one color tweak, one spacing step, `hidden`, a single alignment utility), **do not** add a new CSS modifier — append the utilities **in markup** next to the base class (e.g. `class="site-header-nav-link text-brand"`, not `.site-header-nav-link-active { @apply text-brand; }`).
+- **Forbidden thin wrappers:** do **not** create a custom class whose `@apply` is **only one utility** (or one trivial alias). If extraction would yield only `@apply text-brand` or `@apply mt-4`, keep the utility in templates.
+- **Use CSS modifier classes** (`.btn-primary`, `.is-active`, hyphen modifiers on block roots) when the delta is a **multi-utility stack**, needs **stateful selectors** (`:hover`, `[aria-invalid]`, `aria-expanded`), or the **same delta repeats in ≥2–3** places — per **Use `@apply`** above.
+- **Mandatory semantic components** (`.btn`, `.form-control`, `.container`, …) keep their contract classes; this section governs **new** ad-hoc variants, not replacing required bases.
+- **Exception:** pseudo-class / attribute selectors that markup alone cannot express (e.g. `.form-control[aria-invalid="true"]`) stay in CSS.
 
 ### Practical recipe
 
 - Track repeats: at **2–3** occurrences, create a class; when unsure, extract.
 - Name semantically (`.btn`, `.card`, `.kbd`, `.form-input`), not by color.
-- Extract **only the base** stack; edge states stay as markup utilities or BEM-style modifiers.
+- Extract **only the base** stack; small per-instance deltas (**≤2 utilities**) stay as markup utilities — not new CSS modifiers (see **CSS modifiers** above).
 - Prefer **Tailwind theme tokens** (`theme.extend`, project CSS variables) over hard-coded values inside `@apply`.
 - Group new classes in **`@layer components`** in `components.css` with short section comments.
 - For responsive/state: use Tailwind variants in markup/CSS, or combine a semantic base with utilities in markup.
@@ -64,6 +73,8 @@ In markup: `class="btn btn-primary"` instead of repeating the full utility strin
 - Templates do not duplicate long utility stacks where `components.css` already defines the semantic class.
 - `npm run build` (or `gulp build`) completes without PostCSS/Tailwind `@apply` errors.
 - Modifier/component classes used in markup must appear as **literal** strings in `app/**/*.njk` so Tailwind content scan retains matching `@apply` rules — see [`html-nunjucks-conventions.RULE.md`](html-nunjucks-conventions.RULE.md) § Tailwind class names in markup.
+- No new CSS class with a **single-utility** `@apply` only (`rg -P '@apply\\s+\\w+(-[\\w\\[\\]%]+)?;\\s*\\}' app/css/components.css` — review hits; thin wrappers belong in markup).
+- Variants that differ by **≤2 utilities** from an existing base use markup utilities, not a new modifier in `components.css`.
 
 ## Required Semantic Components (`@apply`)
 
