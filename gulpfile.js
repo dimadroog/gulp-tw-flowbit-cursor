@@ -43,7 +43,8 @@ let { Transform } = require("stream");
 
 let browsersync = require("browser-sync").create();
 let del = require("del");
-let clean_css = require("gulp-clean-css");
+let cssnano = require("cssnano");
+let postcssNesting = require("postcss-nesting");
 let rename = require("gulp-rename");
 let prettyHtml = require("gulp-pretty-html");
 let nunjucksRender = require("gulp-nunjucks-render");
@@ -111,7 +112,7 @@ function css() {
   return src(patch.src.css)
     .pipe(postcss())
     .pipe(dest(patch.build.css))
-    .pipe(clean_css())
+    .pipe(postcss([postcssNesting, cssnano()]))
     .pipe(
       rename({
         extname: ".min.css",
