@@ -96,7 +96,8 @@ Aligned with **typography in `components.css`**: project tokens as Tailwind util
 
 ### Content belt
 
-- Main page content that should share the standard content width is wrapped in **`.container`** (`app/css/components.css`: **`max-w-content`**, **`px-6`**, **`mx-auto`**). The built-in Tailwind **`container`** utility is **disabled** (`corePlugins.container: false`) so only this semantic class emits.
+- Main page content that should share the standard content width is wrapped in **`.container`** (`app/css/components.css`: **`max-w-content`**, **`px-4`**, **`mx-auto`**). The built-in Tailwind **`container`** utility is **disabled** (`corePlugins.container: false`) so only this semantic class emits.
+- Define **`maxWidth.content`** in `tailwind.config.js` in **`px`** (not `rem`) — see [`layout-dimensional-units.RULE.md`](layout-dimensional-units.RULE.md).
 - Root layout wraps **`{% block content %}`** in **`.container`** (`app/njk-layouts/_main.njk`); inner pages should not nest a second full-width container unless the design requires it.
 
 ### Authoring flow

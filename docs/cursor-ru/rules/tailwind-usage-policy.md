@@ -88,7 +88,8 @@
 
 ### Контентный пояс
 
-- Основной контент с общей шириной колонки — **`.container`** (`app/css/components.css`: **`max-w-content`**, **`px-6`**, **`mx-auto`**). Встроенную утилиту Tailwind **`container`** отключили (`corePlugins.container: false`).
+- Основной контент с общей шириной колонки — **`.container`** (`app/css/components.css`: **`max-w-content`**, **`px-4`**, **`mx-auto`**). Встроенную утилиту Tailwind **`container`** отключили (`corePlugins.container: false`).
+- **`maxWidth.content`** в `tailwind.config.js` задавайте в **`px`** (не `rem`) — см. [`layout-dimensional-units.RULE.md`](./layout-dimensional-units.md).
 - Корневой layout оборачивает **`{% block content %}`** в **`.container`** (`app/njk-layouts/_main.njk`); внутренним страницам не дублировать второй такой пояс без дизайн-причины.
 
 ### Как дополнять

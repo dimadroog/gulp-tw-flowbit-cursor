@@ -55,6 +55,7 @@ When an element participates in a **flex** row/column:
 
 - **Prefer** arbitrary flex shorthand **`flex-[<grow>_<shrink>_<basis>]`** — e.g. `flex-[0_0_254px]`, `flex-[1_1_0%]` — over separate `grow`, `shrink`, `shrink-0`, `basis-*` utilities on the same element.
 - Underscores in the arbitrary value represent spaces in CSS (`flex: 0 0 254px`).
+- **Basis unit:** fixed mockup boxes in the shorthand use **`px`** — see [`layout-dimensional-units.RULE.md`](layout-dimensional-units.RULE.md).
 - Use separate `grow` / `shrink-*` / `basis-*` only when a single axis or breakpoint variant needs a different primitive — keep the default pattern on one shorthand class where possible.
 
 ## Verification
@@ -64,3 +65,4 @@ When an element participates in a **flex** row/column:
 - [ ] Flex participants use `flex-[*_*_*]` or flex distribution before `width` constraints.
 - [ ] Mockup-derived pixel boxes were translated to adaptive layout, not pasted as fixed dimensions on every element.
 - [ ] New layout uses flex where a flex construction suffices; `grid` / `grid-*` appears only where flex cannot meet the requirement (reason noted).
+- [ ] Custom arbitrary spacing, container tokens, and flex-basis use **`px`** per [`layout-dimensional-units.RULE.md`](layout-dimensional-units.RULE.md).
