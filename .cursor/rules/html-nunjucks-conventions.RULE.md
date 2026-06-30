@@ -115,6 +115,31 @@ Hybrid policy: page-level mock may live in JSON; partials and mixins stay in `{%
 - **Prettier:** the Nunjucks/HTML parser **must not** reformat multiline fixture `{% set %}` blocks (it collapses objects into unreadable wrapped lines). List those templates in [`.prettierignore`](../../.prettierignore). Do **not** run `prettier --write` on ignored files; hand-format per the rules above.
 - **Verification:** `gulpData(getTemplateData)` in [`gulpfile.js`](../../gulpfile.js); no domain-specific `require()` of fixture JSON and no `manageEnv`/`addGlobal`; fixture `{% set %}` blocks follow the multiline layout above; `app/shared/*.json` and co-located `app/*.json` pass `format:check`; after `npm run build`, data-driven blocks in `dist/*.html` render non-empty content.
 
+## String content typography (fixtures)
+
+Policy for **trusted** copy in fixture strings (`app/shared/*.json`, co-located `app/*.json`, and string literals in `{% set %}`).
+
+### Non-breaking spaces (`&nbsp;`)
+
+- In Russian (and similar) copy, bind **short words** to the following word with `&nbsp;` in the **source string** to avoid orphaned prepositions and conjunctions at line breaks (for example `в&nbsp;цифрах`, `для&nbsp;экономики`, `и&nbsp;участников`, `трлн&nbsp;₽`).
+- Typical candidates: one- and two-letter prepositions and conjunctions (`в`, `во`, `на`, `с`, `со`, `к`, `ко`, `о`, `об`, `у`, `за`, `до`, `от`, `по`, `при`, `для`, `из`, `без`, `и`, `а`, `но`, `или`) and glued units after numbers or abbreviations.
+- Write the entity as `&nbsp;` in JSON/`{% set %}` strings (not a raw Unicode NBSP character) so copy stays readable in fixtures and diffs.
+- **Do not** rely on CSS alone for hanging-preposition control in data-driven blocks when the mockup or copy spec expects typographic binding.
+
+### Intentional markup in strings
+
+- Use `<br>` inside fixture strings when the design requires a **forced line break** (section titles, stat labels, multi-line labels from one string field).
+- When a fixture string may contain `&nbsp;`, `<br>`, or other **intentional** HTML entities/markup authored in project fixtures, render it in Nunjucks with the **`safe` filter** (for example `{{ item.description | safe }}`, `{{ statsSection.title | safe }}`).
+- Apply `| safe` only to **trusted** project fixture copy — never to untrusted or runtime user input.
+- If mobile and desktop need different line breaking from the same string, transform in the template first (for example `replace('<br>', ' ')`) and still pipe the result through `| safe` when `&nbsp;` remains.
+
+**Verification:**
+
+- New/changed fixture strings with `&nbsp;` or `<br>` are output in templates with `| safe` on the matching interpolation.
+- `rg '&nbsp;|<br>' app/shared app/**/*.json app/**/*.njk` — every consumer of those fields uses `| safe` (or an equivalent trusted pipeline that preserves entities).
+- Built `dist/**/*.html` shows non-breaking spaces and `<br>` as rendered markup, not literal `&nbsp;` text in the page.
+- `npm run build` succeeds after copy or template changes.
+
 ## Partial Extraction Threshold (do not over-split)
 
 - **Do not create** a new `app/njk-parts/_*.njk` partial when the markup is included from **exactly one** parent and there is **no confirmed second consumer** in the current task scope.
