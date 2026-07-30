@@ -1,5 +1,5 @@
 ---
-description: HTML/Nunjucks conventions — reuse via macros; images per delivery rule; link stubs href="#"; JS anchors href="javascript:;"; partial extraction threshold.
+description: HTML/Nunjucks conventions — page registry in index.njk only for inter-page href; no cross-page links in page templates; images per delivery rule; link stubs href="#"; JS anchors href="javascript:;"; partial extraction threshold.
 alwaysApply: true
 globs:
   - app/**/*.njk
@@ -26,7 +26,7 @@ globs:
 - Keep meta placeholders for new pages when final SEO content is not provided:
   - `<meta name="description" content="description">`
   - `<meta name="keywords" content="keywords">`
-- Set `<title>` to match the page name used in the page registry (`app/index.html`) unless a different title is explicitly requested.
+- Set `<title>` to match the page name used in the page registry (`app/index.njk`) unless a different title is explicitly requested.
 
 ## Contact links (email and phone)
 
@@ -36,16 +36,23 @@ globs:
 - Decorative or non-contact mentions (copy, examples in docs) are out of scope unless they are real contact details.
 - **Verification:** `rg` on `app/**/*.njk` for visible `@` or phone patterns in contact blocks shows matching `mailto:` / `tel:` on the same nodes; `npm run build` succeeds.
 
-## Link href (page stubs and JS)
+## Link href (page registry, stubs, and JS)
 
-- **Real navigation:** `href` points to an existing built page (`*.html`), valid `mailto:` / `tel:`, or an in-page fragment (`#id`) that exists on the **same** document.
-- **Page stub (target not built yet):** use `href="#"`. Do **not** invent cross-page hash URLs (`other-page.html#section`) or slug hashes on the home page when no matching `id` exists in `dist/`.
+- **Page registry (`app/index.njk`):** the **only** template that may use `href="*.html"` to navigate between built pages in the layout project. Every inter-page target must be listed in that file; do **not** link to `*.html` pages that are absent from the registry.
+- **No cross-page links in page templates:** in any other `app/*.njk` page template, **do not** set `href` to another built `*.html` page. Prototype navigation that would move the user to another screen (login, recovery, registration, «Войти в личный кабинет», etc.) uses `href="#"` until a production router replaces it.
+- **Shell partials** (`njk-parts/_*.njk`, layouts): no inter-page `href` except `index.html` for global chrome (logo/home) when the design requires it; do not add links to other registry pages from shell.
+- **Same-document navigation:** `href="#id"` is allowed only when the `id` exists on the **same** built page.
+- **Contact / external:** valid `mailto:` and `tel:` URIs remain allowed wherever contact copy requires them.
+- **Page stub (target not built or not in registry):** use `href="#"`. Do **not** invent cross-page hash URLs (`other-page.html#section`) or slug hashes when no matching `id` exists in `dist/`.
 - **JS-only anchor (no navigation):** use `href="javascript:;"`. Do **not** use `href="#"` for behavior-only controls. Add `role="button"` and keyboard support when the control is action-only (see [`accessibility-and-w3c.RULE.md`](accessibility-and-w3c.RULE.md)).
 - **Forbidden as stubs:** `href="javascript:void(0)"` unless matching a third-party snippet; fake `home-page.html#…` when the fragment or target page is not implemented.
 
 **Verification:**
 
-- Review new/changed `<a href=` in `app/**/*.njk`: stubs → `#`; JS handlers → `javascript:;`; real targets → existing files or documented anchors on the same page.
+- `app/index.njk` is the single source of inter-page `href="*.html"`; list registry targets with `rg 'href="[^"]+\.html"' app/index.njk`.
+- `rg 'href="[^"]+\.html"' app/*.njk` — matches only `app/index.njk` (page templates must have zero inter-page `*.html` links; fix to `#`).
+- `rg 'href="[^"]+\.html"' app/njk-parts` — only `index.html` in global chrome partials; no other registry pages.
+- Review new/changed `<a href=` in page templates: cross-page stubs → `#`; JS handlers → `javascript:;`; same-page anchors → existing `id` on that document.
 - `rg 'href="[^"]*\.html#' app/` — only matches where the fragment `id` exists on that built page (or fix to `#`).
 - `npm run build` succeeds after markup changes.
 
