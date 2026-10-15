@@ -57,7 +57,7 @@ a:not(.btn, .btn-icon) {
 
 ## Verification (before marking CSS done)
 
-- [ ] `rg ':where\\(|:is\\(|:not\\(|:has\\(' app/css` — **no matches**, or each match has a **comment** citing the allowed exception and property checked in DevTools.
+- [ ] `rg ':where\\(|:is\\(|:not\\(|:has\\(' app/css` — **no matches**, or each match is an **allowed exception** (documented comment, or Tailwind `@custom-variant` exempt above).
 - [ ] New global typography rules use **plain** `h1`–`h6`, `p`, `ul`/`ol`, `a`, `blockquote`, `table`; UI chrome links use **`.link-plain`**, UI lists use **`list-none`** in markup — not `:where(…)`, `:not(…)`, or `:has(…)`.
 - [ ] `a.btn` / `a.btn-*` text color comes from **`.btn-*`** (including hover), not from excluding buttons in the `a` rule.
 - [ ] `npm run build` completes; spot-check article body (bare `ul`/`ol`/`a`) and header/footer links if typography changed.
