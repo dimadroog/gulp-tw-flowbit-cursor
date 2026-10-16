@@ -4,7 +4,7 @@ Run a focused post-check for pixel-perfect fidelity after mockup-driven layout i
 
 ## When to run
 
-- After implementing a page/section from Figma or other approved design mockups.
+- After implementing a page/section from an approved design: a Figma file, a static mockup, or a rendered reference (running page, Figma Make, coded prototype).
 - After changing structure, spacing, typography, color, radii, shadows, borders, or label/badge rendering.
 - Before final delivery when visual fidelity is a release criterion.
 
@@ -25,6 +25,7 @@ If either input is missing, return `fail` and request clarification.
    - inner paddings and outer margins for critical blocks match **design-specified** values (or token-derived equivalents), not approximate neighbors on the spacing scale.
 3. Typography fidelity:
    - font sizes, weights, line-heights, letter-spacing, and text casing match approved design states.
+   - When the source is a rendered reference, cite **computed** metrics from the live page and from the implementation at the same width. A utility in the reference source is not the rendered value — see [`pixel-perfect-delivery.RULE.md`](../rules/pixel-perfect-delivery.RULE.md) § Rendered reference.
 4. Color, radius, shadow, border:
    - surfaces use **mockup/token** colors; corner radii, elevation/shadows, and stroke weights match the spec — no “similar” Tailwind substitutes in **critical zones** (see `WORKFLOW.md` §1.2).
 5. State fidelity:

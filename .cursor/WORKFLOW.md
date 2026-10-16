@@ -23,11 +23,12 @@ Single source for stack choices; do not duplicate this list in [`README.md`](REA
 
 ### 1.2 Design fidelity (mockup-driven, blocking)
 
-Applies when the task is driven by an **approved static mockup** (not “inspired by”). **Figma is a mockup source:** Figma-driven tasks are mockup-driven and must satisfy both asset-integrity and pixel-perfect gates where applicable.
+Applies when the task is driven by an **approved design** (not “inspired by”): a static mockup **or** a rendered reference. **Figma is one mockup source, not the only one.** A running page, a Figma Make preview, or another coded prototype is the same kind of source. Figma-file tasks must satisfy both asset-integrity and pixel-perfect gates where applicable.
 
 | Design source | Mockup-driven? | `validate-figma-assets` | `validate-pixel-perfect` |
 |---------------|----------------|-------------------------|--------------------------|
 | Approved Figma file / export | yes | **required** | **required** |
+| Approved rendered reference (running page, Figma Make, coded prototype, or other live UI) | yes | `not_applicable` unless the task also extracts Figma vectors | **required** — compare **computed** styles, not source class names ([`pixel-perfect-delivery.RULE.md`](rules/pixel-perfect-delivery.RULE.md)) |
 | Approved PNG/PDF/static mockup (no Figma) | yes | `not_applicable` | **required** |
 | Link or screenshot without explicit approval | no — stop and clarify | `not_applicable` | `not_applicable` |
 | No design reference (content/tooling only) | no | `not_applicable` | `not_applicable` |

@@ -10,13 +10,14 @@
 | **Оркестрация** | [`commands/run-layout-task.md`](commands/run-layout-task.md) | Главный драйвер; рецепты и light path — в orchestration flow. |
 | **Маршрутизация** | [`rules/workflow-orchestrator.md`](rules/workflow-orchestrator.md), [`rules/directive-compliance.md`](rules/directive-compliance.md) | Orchestration core (`alwaysApply`). |
 
-### 1.2 Точность дизайна и Figma ⊂ mockup-driven
+### 1.2 Точность дизайна: макет или живой референс
 
-**Figma — источник mockup.** Задачи из Figma — mockup-driven; нужны оба гейта, где применимо.
+**Figma — один из источников, не единственный.** Утверждённый дизайн — статичный макет или отрисованный интерфейс (запущенная страница, Figma Make, кодовый прототип). Задачи из файла Figma — mockup-driven; нужны оба гейта, где применимо.
 
 | Источник дизайна | Mockup-driven? | `validate-figma-assets` | `validate-pixel-perfect` |
 |------------------|----------------|-------------------------|--------------------------|
 | Утверждённый Figma / экспорт | да | **обязателен** | **обязателен** |
+| Утверждённый живой референс (страница, Figma Make, прототип) | да | `not_applicable`, если из Figma не забирают векторы | **обязателен** — сверять **computed**-стили, не имена классов ([`pixel-perfect-delivery.md`](rules/pixel-perfect-delivery.md)) |
 | PNG/PDF/статический макет (без Figma) | да | `not_applicable` | **обязателен** |
 | Ссылка/скрин без явного approval | нет — уточнить | `not_applicable` | `not_applicable` |
 | Нет макета (только контент/тулинг) | нет | `not_applicable` | `not_applicable` |
