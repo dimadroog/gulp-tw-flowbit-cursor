@@ -53,6 +53,15 @@ globs:
 - Group new classes in **`@layer components`** in `components.css` with short section comments.
 - For responsive/state: use Tailwind variants in markup/CSS, or combine a semantic base with utilities in markup.
 
+## Responsive direction (mobile-first)
+
+- Write responsive styles **mobile-first**. The unprefixed utility or declaration is the narrow layout. Wider viewports add `sm:`, `md:`, `lg:`, `xl:`, and `2xl:` (min-width) overrides.
+- Do **not** use desktop-first variants (`max-sm:`, `max-md:`, `max-lg:`, `max-xl:`, `max-2xl:`) or a hand-written `@media (max-width: …)` / `@media (width < …)` that restyles the smaller viewport from a wide base, when the same result can be written as an unprefixed base plus min-width variants.
+- Desktop-first is allowed only when mobile-first cannot express the behavior — for example a third-party or Preline rule that matches only inside a max-width query and must be overridden in that same query to win the cascade. Put a one-line comment on the declaration naming that constraint.
+- A shorter class list or habit is not a sufficient reason.
+
+**Verification:** `rg 'max-(sm|md|lg|xl|2xl):' app` and `rg '@media[^{]*(max-width|width\s*<)' app/css` — every hit has an adjacent comment that states why a min-width variant cannot express it.
+
 ### Example
 
 ```css
